@@ -1,4 +1,4 @@
-import * as osc from '../../public/lib/osc';
+import * as osc from '../../docs/lib/osc';
 
 describe('Generations when the cell is alive for each cell', () => {
   it('Should be none when there are no cells', () => {

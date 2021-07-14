@@ -1,5 +1,5 @@
-import * as ca from '../../public/lib/ca';
-import OrdSet from '../../public/lib/orderedvalueset';
+import * as ca from '../../docs/lib/ca';
+import OrdSet from '../../docs/lib/orderedvalueset';
 
 describe('Neighbor Counts', () => {
   const mooreCompare = ([xa, ya], [xb, yb]) => (xa - xb) || (ya - yb);
