@@ -10,7 +10,7 @@ is a program by Jason Summers that analyzes oscillators.
 This is a simple web version of oscillizer
 that aims to minimize moving parts.
 There is no build step,
-just serve whatever living in `/public` for now.
+just serve whatever living in `/docs` for now.
 
 ### More on minimalism
 
