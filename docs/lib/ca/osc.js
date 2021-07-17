@@ -1,5 +1,5 @@
-import { conwaylife } from './ca';
-import OrdSet from './orderedvalueset';
+import { conwaylife } from './carules.js';
+import OrdSet from './orderedvalueset.js';
 
 const coordCompareFunction = ([xa, ya], [xb, yb]) => (xa - xb) || (ya - yb);
 const cellDataCompareFunction = (

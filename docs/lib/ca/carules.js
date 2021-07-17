@@ -1,4 +1,4 @@
-import OrdSet from './orderedvalueset';
+import OrdSet from './orderedvalueset.js';
 
 export const neighborhood = {
   moore: [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]],

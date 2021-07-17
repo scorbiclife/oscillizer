@@ -1,4 +1,4 @@
-import OrderedValueSet from '../../docs/lib/orderedvalueset';
+import OrderedValueSet from '../../../docs/lib/ca/orderedvalueset';
 
 describe('OrderedValueSets', () => {
   const makePrimitiveSet = () => new OrderedValueSet([1, 4, 3, 2, 5, 8, 9, 7, 6]);

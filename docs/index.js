@@ -1,8 +1,5 @@
 const appState = {
-  rle: {
-    value: '',
-    eventTarget: new EventTarget(),
-  },
+  rle: new EventTarget(),
 };
 
 /* Action -> State update code */
@@ -18,7 +15,7 @@ const echoTextContent = (event) => {
   }
   const data = event.target.value || '';
   appState.rle.value = data;
-  appState.rle.eventTarget.dispatchEvent(new Event('change'));
+  appState.rle.dispatchEvent(new Event('change'));
 };
 
 rleHandler.inputbox.addEventListener('input', echoTextContent);
@@ -30,4 +27,4 @@ const updateDebugOutputElement = () => {
   debugOutputElement.textContent = appState.rle.value;
 };
 
-appState.rle.eventTarget.addEventListener('change', updateDebugOutputElement);
+appState.rle.addEventListener('change', updateDebugOutputElement);
