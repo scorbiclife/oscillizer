@@ -1,14 +1,33 @@
+const appState = {
+  rle: {
+    value: '',
+    eventTarget: new EventTarget(),
+  },
+};
+
+/* Action -> State update code */
+
 const rleHandler = {
   inputbox: document.getElementById('input-rle'),
 };
 
 const echoTextContent = (event) => {
   const targetElement = event.target;
-  const destElementId = targetElement.dataset.destinationId;
-  if (!destElementId) {
+  if (!targetElement) {
     return;
   }
-  document.getElementById(destElementId).textContent = targetElement.value;
+  const data = event.target.value || '';
+  appState.rle.value = data;
+  appState.rle.eventTarget.dispatchEvent(new Event('change'));
 };
 
 rleHandler.inputbox.addEventListener('input', echoTextContent);
+
+/* State -> UI update code */
+
+const updateDebugOutputElement = () => {
+  const debugOutputElement = document.getElementById('output-rle-debug');
+  debugOutputElement.textContent = appState.rle.value;
+};
+
+appState.rle.eventTarget.addEventListener('change', updateDebugOutputElement);
