@@ -105,3 +105,7 @@ export const parseBody = (rleBodyString) => {
   parseResult.finishParsing(); // No-op for now but semantically needed
   return parseResult.cells;
 };
+
+// One-stop take-care-all main function
+// Get an RLE, parse it, and return a list of cells parsed.
+export const parse = (rleString) => parseBody(extractBody(rleString));
