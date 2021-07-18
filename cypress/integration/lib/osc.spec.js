@@ -74,7 +74,7 @@ describe('Oscillator subperiod finder', () => {
       { cell: [-1, 1], subperiod: 2 },
       { cell: [1, 1], subperiod: 2 },
     ];
-    expect(osc.getSubPeriods(blinker)).to.have.deep.members(expectedSubperiods);
+    expect(osc.getSubperiods(blinker)).to.have.deep.members(expectedSubperiods);
   });
 
   it('Should evaluate the mold correctly', () => {
@@ -103,6 +103,6 @@ describe('Oscillator subperiod finder', () => {
       { cell: [5, 1], subperiod: 1 },
       { cell: [5, 2], subperiod: 1 },
     ];
-    expect(osc.getSubPeriods(mold)).to.have.deep.members(expectedSubperiods);
+    expect(osc.getSubperiods(mold)).to.have.deep.members(expectedSubperiods);
   });
 });

@@ -66,7 +66,9 @@ const getSubperiodFromAliveGens = (aliveGens, period) => {
   return Math.min(...validSubperiods);
 };
 
-export const getSubPeriods = (pattern, maxPeriod = 1000) => {
+// Get a pattern as a list of cells (i.e. [[x, y] ... ])
+// Return a list of cells and subperiods as { cell: [x, y], subperiod }
+export const getSubperiods = (pattern, maxPeriod = 1000) => {
   const period = getPeriod(pattern, maxPeriod);
   const patternAliveGens = getCellAliveGenerations(pattern, period);
   const patternSubperiods = patternAliveGens.items.map(({ cell, aliveGens }) => {
