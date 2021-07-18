@@ -23,5 +23,14 @@ module.exports = {
         functions: 'never',
       },
     ],
+    // We are not using a separate transpilation step
+    // and not all browsers resolve extensions automatically.
+    'import/extensions': [
+      'error',
+      {
+        js: 'always',
+        json: 'always',
+      },
+    ],
   },
 };

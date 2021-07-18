@@ -1,4 +1,4 @@
-import * as rle from '../../../docs/lib/ca/rle';
+import * as rle from '../../../docs/lib/ca/rle.js';
 
 describe('RLE body extractor', () => {
   it('Should process a simple RLE correctly', () => {
