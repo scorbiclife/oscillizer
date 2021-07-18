@@ -8,9 +8,8 @@ const rleHandler = {
   inputbox: document.getElementById('input-rle'),
 };
 
-const echoTextContent = (event) => {
-  const targetElement = event.target;
-  if (!targetElement) {
+const updateRLE = (event) => {
+  if (!event.target) {
     return;
   }
   const data = event.target.value || '';
@@ -18,11 +17,11 @@ const echoTextContent = (event) => {
   appState.rle.dispatchEvent(new Event('change'));
 };
 
-rleHandler.inputbox.addEventListener('input', echoTextContent);
+rleHandler.inputbox.addEventListener('input', updateRLE);
 
 /* State -> UI update code */
 
-const updateDebugOutputElement = () => {
+const updateDebugOutputElement = (/* event */) => {
   const debugOutputElement = document.getElementById('output-rle-debug');
   debugOutputElement.textContent = appState.rle.value;
 };
