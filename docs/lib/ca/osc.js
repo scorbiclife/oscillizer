@@ -7,6 +7,8 @@ const cellDataCompareFunction = (
 );
 
 // Return the period of an oscillator given the array of cells.
+// The function tries at most `maxPeriod` gens.
+// If the pattern doesn't oscillate at the given timeframe, return -1.
 export const getPeriod = (cellArray, maxPeriod = 1000) => {
   const cellSet = new OrdSet(cellArray, coordCompareFunction);
   const gens = new Array(maxPeriod).fill();
@@ -68,8 +70,10 @@ const getSubperiodFromAliveGens = (aliveGens, period) => {
 
 // Get a pattern as a list of cells (i.e. [[x, y] ... ])
 // Return a list of cells and subperiods as { cell: [x, y], subperiod }
+// If the pattern doesn't oscillate, return null.
 export const getSubperiods = (pattern, maxPeriod = 1000) => {
   const period = getPeriod(pattern, maxPeriod);
+  if (period === -1) { return null; }
   const patternAliveGens = getCellAliveGenerations(pattern, period);
   const patternSubperiods = patternAliveGens.items.map(({ cell, aliveGens }) => {
     const subperiod = getSubperiodFromAliveGens(aliveGens, period);
