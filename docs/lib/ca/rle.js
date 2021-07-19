@@ -3,8 +3,8 @@
 export const extractBody = (rleString) => {
   const lines = (
     rleString.split('\n')
-      .filter((line) => line.length > 0)
       .map((line) => line.replace(/\s/g, ''))
+      .filter((line) => line !== '') // We ignore empty lines
   );
 
   const isNotComment = (line) => !line.startsWith('#');
