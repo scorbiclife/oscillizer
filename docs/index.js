@@ -48,7 +48,7 @@ rleHandler.inputbox.addEventListener('input', updateOscInfo);
 /* State -> UI update code */
 
 const updateDebugOutputElement = (/* event */) => {
-  const debugOutputElement = document.getElementById('output-rle-debug');
+  const debugOutputElement = document.getElementById('output-debug');
   debugOutputElement.textContent = JSON.stringify(appState.oscInfo.value, undefined, 2);
 };
 
