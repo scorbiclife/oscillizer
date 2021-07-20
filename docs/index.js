@@ -25,6 +25,8 @@ const updateRLE = (event) => {
   appState.rle.dispatchEvent(new Event('change'));
 };
 
+rleHandler.inputbox.addEventListener('input', updateRLE);
+
 const updateOscInfo = (event) => {
   if (!event.target) {
     return;
@@ -42,7 +44,6 @@ const updateOscInfo = (event) => {
   appState.oscInfo.value = { success: true, subperiods, boundingBox };
 };
 
-rleHandler.inputbox.addEventListener('input', updateRLE);
 rleHandler.inputbox.addEventListener('input', updateOscInfo);
 
 /* State -> UI update code */
