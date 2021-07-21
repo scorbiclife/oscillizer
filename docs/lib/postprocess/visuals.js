@@ -17,21 +17,22 @@ const makeGradientColor = (numColors) => (i) => {
   return `hsl(${hue}, 100%, 70%)`;
 };
 
-export const makeColorMap = (subperiods) => {
+export const makeColorMap = (period, subperiods) => {
   const sortedSubperiods = subperiods.slice().sort((a, b) => a - b);
-  const period = sortedSubperiods[sortedSubperiods.length - 1];
-  const properSubperiods = sortedSubperiods.slice(1, subperiods.length - 1);
+  const rotorSubperiods = sortedSubperiods.slice(1);
 
   const indexToColor = (
-    (properSubperiods.length > 16)
+    (rotorSubperiods.length > 16)
       ? makeRandomColor
-      : makeGradientColor(properSubperiods.length)
+      : makeGradientColor(rotorSubperiods.length)
   );
-  const properSubperiodsAndColors = properSubperiods.map((sp, i) => [sp, indexToColor(i)]);
+  const rotorSubperiodsAndColors = rotorSubperiods.map(
+    (sp, i) => [sp, indexToColor(i)]
+  );
 
   return new Map([
     [1, colorscheme.stator],
-    ...properSubperiodsAndColors,
+    ...rotorSubperiodsAndColors,
     [period, colorscheme.strictRotor],
   ]);
 };

@@ -6,7 +6,7 @@ import * as visuals from './lib/postprocess/visuals.js';
 
 const appState = {
   rle: new EventTarget(), /* this.value: string */
-  oscInfo: new EventTarget(), /* this.value: { success, subperiods, boundingBox } */
+  oscInfo: new EventTarget(), /* this.value: { success, period, subperiods, boundingBox } */
 };
 
 const appCache = {
@@ -49,7 +49,9 @@ const updateOscInfo = (event) => {
   const subperiods = osc.getSubperiods(pattern, period);
   const boundingBox = osc.getBoundingBox(subperiods.map(({ cell }) => cell));
 
-  appState.oscInfo.value = { success: true, subperiods, boundingBox };
+  appState.oscInfo.value = {
+    success: true, period, subperiods, boundingBox,
+  };
   appState.oscInfo.dispatchEvent(new Event('change'));
 };
 
@@ -66,6 +68,7 @@ const updateOscillizerCanvas = (/* event */) => {
 
   const {
     success,
+    period,
     subperiods: cellsAndSubperiods,
     boundingBox,
   } = appState.oscInfo.value;
@@ -116,7 +119,7 @@ const updateOscillizerCanvas = (/* event */) => {
   };
   const subperiodsSet = new Set(cellsAndSubperiods.map((e) => e.subperiod));
   const subperiodsArray = [...subperiodsSet.values()].sort((a, b) => a - b);
-  const colorMap = visuals.makeColorMap(subperiodsArray);
+  const colorMap = visuals.makeColorMap(period, subperiodsArray);
   cellsAndSubperiods.forEach(({ cell: [x, y], subperiod }) => {
     drawCell(x - boundingBox.xmin, y - boundingBox.ymin, colorMap.get(subperiod));
   });
