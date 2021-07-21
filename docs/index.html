@@ -19,17 +19,24 @@
     </p>
     <div class="inline-flex flex-wrap center">
       <div class="oscillizer-component ma2 flex-grow-1">
-        <label for="input-rle" class="oscillizer-component__label">
+        <label for="input-rle-container" class="oscillizer-component__label">
           RLE Input
         </label>
         <textarea
           name="RLE Input"
-          id="input-rle"
+          id="input-rle-container"
           cols="70"
           rows="10"
           class="oscillizer-component__content code"
+          placeholder="#C Enter your RLE here...&#x0A;3o!"
         >
         </textarea>
+        <button
+          id="input-rle-submitter"
+          class="db sans-serif center"
+        >
+          Analyze
+        </button>
       </div>
       <div class="oscillizer-component ma2 flex-grow-1">
         <label for="output-osc-canvas" class="oscillizer-component__label">

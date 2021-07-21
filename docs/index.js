@@ -20,7 +20,8 @@ if (window.Cypress) {
 /* Action -> State update code */
 
 const rleHandler = {
-  inputbox: document.getElementById('input-rle'),
+  inputContainer: document.getElementById('input-rle-container'),
+  inputSubmitter: document.getElementById('input-rle-submitter'),
 };
 
 const updateRLE = (event) => {
@@ -32,14 +33,14 @@ const updateRLE = (event) => {
   appState.rle.dispatchEvent(new Event('change'));
 };
 
-rleHandler.inputbox.addEventListener('change', updateRLE);
+rleHandler.inputContainer.addEventListener('change', updateRLE);
 
 const updateOscInfo = (event) => {
   if (!event.target) {
     return;
   }
 
-  const pattern = rle.parse(event.target.value);
+  const pattern = rle.parse(rleHandler.inputContainer.value);
   const period = osc.getPeriod(pattern);
   if (period === -1) {
     appState.oscInfo.value = { success: false };
@@ -52,7 +53,7 @@ const updateOscInfo = (event) => {
   appState.oscInfo.dispatchEvent(new Event('change'));
 };
 
-rleHandler.inputbox.addEventListener('change', updateOscInfo);
+rleHandler.inputSubmitter.addEventListener('click', updateOscInfo);
 
 /* State -> UI update code */
 

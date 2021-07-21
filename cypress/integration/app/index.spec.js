@@ -8,11 +8,15 @@ describe('Oscillizer Page', () => {
   it('should properly update app state on valid RLE input', () => {
     cy
       .get('textarea')
-      .should('have.id', 'input-rle')
+      .should('have.id', 'input-rle-container')
       .type(`
         x = 6, y = 6, rule = B3/S23
         3b2o$2bo2bo$o2bobo$4bo$ob2o$bo!
       `);
+    cy
+      .get('button')
+      .should('have.id', 'input-rle-submitter')
+      .click();
     const expectedBoundingBox = {
       xmin: 0, ymin: 0, xmax: 5, ymax: 5,
     };
