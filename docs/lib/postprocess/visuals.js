@@ -12,20 +12,21 @@ const makeRandomColor = () => {
   return `rgb(${r},${g},${b})`;
 };
 
+const makeGradientColor = (numColors) => (i) => {
+  const hue = Math.floor(240 * (i / numColors));
+  return `hsl(${hue}, 100%, 70%)`;
+};
+
 export const makeColorMap = (subperiods) => {
   const sortedSubperiods = subperiods.slice().sort((a, b) => a - b);
   const period = sortedSubperiods[sortedSubperiods.length - 1];
   const properSubperiods = sortedSubperiods.slice(1, subperiods.length - 1);
 
   const indexToColor = (
-    (properSubperiods.length > 15)
+    (properSubperiods.length > 16)
       ? makeRandomColor
-      : (i) => {
-        const hue = Math.floor(210 * (i / (properSubperiods.length - 1)));
-        return `hsl(${hue}, 100%, 70%)`;
-      }
+      : makeGradientColor(properSubperiods.length)
   );
-
   const properSubperiodsAndColors = properSubperiods.map((sp, i) => [sp, indexToColor(i)]);
 
   return new Map([

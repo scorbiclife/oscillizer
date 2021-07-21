@@ -76,12 +76,16 @@ const updateOscillizerCanvas = (/* event */) => {
     return;
   }
 
+  // cellSize follows `box-sizing: border-box`
+  // In other words, borders on all four sides are counted as cellSize.
+  // Also each cell has their own border.
   const cellSize = appCache.cellSizes.cell;
   const borderSize = appCache.cellSizes.border;
 
   // First fill rect with empty cell backgrounds.
   const patternWidth = boundingBox.xmax - boundingBox.xmin + 1;
   const patternHeight = boundingBox.ymax - boundingBox.ymin + 1;
+  // Add one cell for padding on each side.
   canvas.width = cellSize * (patternWidth + 2);
   canvas.height = cellSize * (patternHeight + 2);
   // Draw background
@@ -101,6 +105,7 @@ const updateOscillizerCanvas = (/* event */) => {
   // Then color the cells.
   const drawCell = (x, y, color) => {
     context.fillStyle = color;
+    // Displace cell by (+1, +1) to compensate for the 1-cell borders above.
     const rect = [
       (x + 1) * cellSize + borderSize,
       (y + 1) * cellSize + borderSize,
