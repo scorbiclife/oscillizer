@@ -57,13 +57,6 @@ rleHandler.inputSubmitter.addEventListener('click', updateOscInfo);
 
 /* State -> UI update code */
 
-const updateDebugOutputElement = (/* event */) => {
-  const debugOutputElement = document.getElementById('output-debug');
-  debugOutputElement.textContent = JSON.stringify(appState.oscInfo.value, undefined, 2);
-};
-
-appState.rle.addEventListener('change', updateDebugOutputElement);
-
 const updateOscillizerCanvas = (/* event */) => {
   const canvas = document.getElementById('output-osc-canvas');
   const context = canvas.getContext('2d');
