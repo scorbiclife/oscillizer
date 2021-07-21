@@ -1,5 +1,5 @@
-import * as osc from './lib/ca/osc.js';
-import * as rle from './lib/ca/rle.js';
+import * as osc from './lib/engine/osc.js';
+import * as rle from './lib/preprocess/rle.js';
 
 const appState = {
   rle: new EventTarget(), /* this.value: string */

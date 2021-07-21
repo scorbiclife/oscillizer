@@ -41,7 +41,7 @@ describe('Oscillizer Page', () => {
       cy.window().its('appState').its('oscInfo').its('value')
     );
     getOscInfoValue().its('success').should('equal', true);
-    getOscInfoValue().its('subperiods').should('deep.equal', expectedSubperiods);
+    getOscInfoValue().its('subperiods').should('deep.members', expectedSubperiods);
     getOscInfoValue().its('boundingBox').should('deep.equal', expectedBoundingBox);
   });
 });
