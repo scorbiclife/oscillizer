@@ -5,12 +5,21 @@ import * as visuals from './lib/postprocess/visuals.js';
 // The cells follow "box-sizing: border-box"
 
 const appState = {
-  rle: new EventTarget(), /* this.value: string */
-  oscInfo: new EventTarget(), /* this.value: { success, period, subperiods, boundingBox } */
+  /* rle.value: string */
+  rle: new EventTarget(),
+
+  /* oscInfo.value: {
+    success,
+    pattern,
+    period,
+    subperiods,
+    boundingBox,
+  } */
+  oscInfo: new EventTarget(),
 };
 
 const appCache = {
-  cellSizes: { cell: 10, border: 1 },
+  cellSizes: { cell: 10, border: 1, liveCell: 5 },
 };
 
 if (window.Cypress) {
@@ -50,7 +59,11 @@ const updateOscInfo = (event) => {
   const boundingBox = osc.getBoundingBox(subperiods.map(({ cell }) => cell));
 
   appState.oscInfo.value = {
-    success: true, period, subperiods, boundingBox,
+    success: true,
+    pattern,
+    period,
+    subperiods,
+    boundingBox,
   };
   appState.oscInfo.dispatchEvent(new Event('change'));
 };
@@ -68,6 +81,7 @@ const updateOscillizerCanvas = (/* event */) => {
 
   const {
     success,
+    pattern,
     period,
     subperiods: cellsAndSubperiods,
     boundingBox,
@@ -117,12 +131,32 @@ const updateOscillizerCanvas = (/* event */) => {
     ];
     context.fillRect(...rect);
   };
+
+  //
   const subperiodsSet = new Set(cellsAndSubperiods.map((e) => e.subperiod));
   const subperiodsArray = [...subperiodsSet.values()].sort((a, b) => a - b);
   const colorMap = visuals.makeColorMap(period, subperiodsArray);
   cellsAndSubperiods.forEach(({ cell: [x, y], subperiod }) => {
     drawCell(x - boundingBox.xmin, y - boundingBox.ymin, colorMap.get(subperiod));
   });
+
+  // Helper function that draws a smaller black live cell
+  const liveCellSize = appCache.cellSizes.liveCell;
+  const drawLiveCell = (x, y) => {
+    context.fillStyle = visuals.colorscheme.stator;
+    const rect = [
+      // Draw at (x + 1, y + 1) for the same reason.
+      // Padding at each side is half the difference of cell sizes.
+      (x + 1) * cellSize + 0.5 * (cellSize - liveCellSize),
+      (y + 1) * cellSize + 0.5 * (cellSize - liveCellSize),
+      liveCellSize,
+      liveCellSize,
+    ];
+    context.fillRect(...rect);
+  };
+  pattern.forEach(
+    ([x, y]) => drawLiveCell(x - boundingBox.xmin, y - boundingBox.ymin)
+  );
 };
 
 appState.oscInfo.addEventListener('change', updateOscillizerCanvas);
