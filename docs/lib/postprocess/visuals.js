@@ -13,7 +13,7 @@ const makeRandomColor = () => {
 };
 
 const makeGradientColor = (numColors) => (i) => {
-  const hue = Math.floor(240 * (i / numColors));
+  const hue = Math.floor(360 * (i / numColors));
   return `hsl(${hue}, 100%, 70%)`;
 };
 
