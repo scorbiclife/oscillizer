@@ -2,8 +2,6 @@ import * as osc from './lib/engine/osc.js';
 import * as rle from './lib/preprocess/rle.js';
 import * as visuals from './lib/postprocess/visuals.js';
 
-// The cells follow "box-sizing: border-box"
-
 const appState = {
   /* rle.value: string */
   rle: new EventTarget(),
@@ -16,10 +14,21 @@ const appState = {
     boundingBox,
   } */
   oscInfo: new EventTarget(),
+
+  /*
+    Cell style for cells at gen 0
+    this.value: cellStyles.property
+  */
+  initialCellStyle: new EventTarget(),
 };
 
 const appCache = {
-  cellSizes: { cell: 10, border: 1, liveCell: 5 },
+  cellSizes: {
+    cell: 10,
+    border: 1,
+    liveCell: 4,
+    liveBorder: 2,
+  },
 };
 
 if (window.Cypress) {
@@ -28,10 +37,13 @@ if (window.Cypress) {
 
 /* Action -> State update code */
 
-const rleHandler = {
-  inputContainer: document.getElementById('input-rle-container'),
-  inputSubmitter: document.getElementById('input-rle-submitter'),
+const eventHandlers = {
+  inputRleContainer: document.getElementById('input-rle-container'),
+  inputRleSubmitter: document.getElementById('input-rle-submitter'),
+  cellStyleSelectors: document.getElementById('cell-style-selector'),
 };
+
+/* RLE */
 
 const updateRLE = (event) => {
   if (!event.target) {
@@ -42,14 +54,16 @@ const updateRLE = (event) => {
   appState.rle.dispatchEvent(new Event('change'));
 };
 
-rleHandler.inputContainer.addEventListener('change', updateRLE);
+eventHandlers.inputRleContainer.addEventListener('change', updateRLE);
+
+/* OscInfo */
 
 const updateOscInfo = (event) => {
   if (!event.target) {
     return;
   }
 
-  const pattern = rle.parse(rleHandler.inputContainer.value);
+  const pattern = rle.parse(eventHandlers.inputRleContainer.value);
   const period = osc.getPeriod(pattern);
   if (period === -1) {
     appState.oscInfo.value = { success: false };
@@ -68,7 +82,19 @@ const updateOscInfo = (event) => {
   appState.oscInfo.dispatchEvent(new Event('change'));
 };
 
-rleHandler.inputSubmitter.addEventListener('click', updateOscInfo);
+eventHandlers.inputRleSubmitter.addEventListener('click', updateOscInfo);
+
+/* CellStyle */
+
+const updateCellStyle = (event) => {
+  if (!event.target) {
+    return;
+  }
+
+  appState.initialCellStyle.value = event.target.value;
+};
+
+eventHandlers.cellStyleSelectors.addEventListener('change', updateCellStyle);
 
 /* State -> UI update code */
 

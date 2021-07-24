@@ -48,4 +48,16 @@ describe('Oscillizer Page', () => {
     getOscInfoValue().its('subperiods').should('deep.members', expectedSubperiods);
     getOscInfoValue().its('boundingBox').should('deep.equal', expectedBoundingBox);
   });
+
+  it('should update app state when on change in RLE selection', () => {
+    cy
+      .get('#cell-style-selector')
+      .find('input[type=radio]')
+      .first()
+      .click();
+    const getCellStyleValue = () => (
+      cy.window().its('appState').its('initialCellStyle').its('value')
+    );
+    getCellStyleValue().should('not.equal', undefined);
+  });
 });
