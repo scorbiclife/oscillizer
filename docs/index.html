@@ -10,15 +10,15 @@
   <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css"/>
 </head>
 <body class="debug">
-  <div class="flex flex-column w-75-ns center">
+  <div class="flex flex-column w-75-l center">
     <h1 class="f1 tc sans-serif ma2">Oscillizer-Web</h1>
-    <p class="sans-serif center">
+    <p class="db sans-serif ma2 tc">
       This is a modern web remake of Oscillizer.
       For the original version, see
       <a href="https://entropymine.com/jason/life/oscillizer/">here</a>.
     </p>
-    <div class="inline-flex flex-wrap center">
-      <div class="oscillizer-component ma2 flex-grow-1">
+    <div class="inline-flex flex-wrap mw-100 ma2">
+      <div class="oscillizer-component ma2 flex-grow-1 mw-100">
         <label for="input-rle-container" class="oscillizer-component__label">
           RLE Input
         </label>
@@ -30,6 +30,16 @@
           class="oscillizer-component__content code"
           placeholder="#C Enter your RLE here...&#x0A;x = 3, y = 1, rule = B3/S23&#x0A;3o!"
         ></textarea>
+        <div class="tc sans-serif ma2 lh-copy">
+          Cell Style (cells at gen 0)
+          <br>
+          <input type="radio" name="initial-cell-style" value="Interior" checked>
+          <label for="Interior">Interior</label>
+          <input type="radio" name="initial-cell-style" value="Border">
+          <label for="Border">Border</label>
+          <input type="radio" name="initial-cell-style" value="None">
+          <label for="None">None</label>
+        </div>
         <button
           id="input-rle-submitter"
           class="db sans-serif center"
@@ -37,17 +47,17 @@
           Analyze
         </button>
       </div>
-      <div class="oscillizer-component ma2 flex-grow-1">
+      <div class="oscillizer-component ma2 flex-grow-1 mw-100">
         <label for="output-osc-canvas" class="oscillizer-component__label">
           Oscillizer Diagram
         </label>
-        <canvas class="oscillizer-component__content mw-100" id="output-osc-canvas"></canvas>
+        <canvas class="oscillizer-component__content" id="output-osc-canvas"></canvas>
       </div>
-      <div class="oscillizer-component ma2 flex-grow-1">
+      <div class="oscillizer-component ma2 flex-grow-1 mw-100">
         <label for="output-osc-data" class="oscillizer-component__label">
           Oscillator Data Table
         </label>
-        <pre id="output-osc-data"></pre>
+        <pre id="output-osc-data oscillizer-component__content"></pre>
       </div>
     </div>
   </div>
