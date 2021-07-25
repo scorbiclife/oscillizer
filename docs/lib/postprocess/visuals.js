@@ -1,7 +1,8 @@
 const colorscheme = {
   background: '#eeeeee',
-  stator: '#000000',
+  stator: '#666666',
   strictRotor: '#999999',
+  liveCell: '#000000',
 };
 
 // Cell size follows `box-sizing: border-box`
@@ -80,7 +81,7 @@ export const drawCell = (context, x, y, color) => {
 };
 
 export const drawLiveCellInterior = (context, x, y) => {
-  context.fillStyle = colorscheme.stator;
+  context.fillStyle = colorscheme.liveCell;
   const { cell: cellSize, liveCell: liveCellSize } = cellSizes;
   const rect = [
     // Draw at (x + 1, y + 1) for the same reason.
@@ -94,7 +95,7 @@ export const drawLiveCellInterior = (context, x, y) => {
 };
 
 export const drawLiveCellBorder = (context, x, y) => {
-  context.fillStyle = colorscheme.stator;
+  context.fillStyle = colorscheme.liveCell;
   const {
     cell: cellSize,
     border: borderWidth,
