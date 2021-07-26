@@ -1,34 +1,33 @@
-import { cellToString, cellFromString } from './cell.js';
+import CellMap from './cellmap.js';
 
 export const neighborhood = {
   moore: [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 0], [0, 1], [1, -1], [1, 0], [1, 1]],
 };
 
 const getNeighborCounts = (cellsArray, neighbors) => {
-  const translateCellsArray = ([dx, dy]) => (
-    cellsArray.map(([x, y]) => cellToString([x + dx, y + dy]))
-  );
-  const translatedPatterns = neighbors.map(translateCellsArray);
-  const translatedCells = [].concat(...translatedPatterns);
-  const neighborCounts = new Map();
-  translatedCells.forEach((cell) => {
-    const count = neighborCounts.get(cell) || 0;
-    neighborCounts.set(cell, count + 1);
+  const neighborCountsMap = new CellMap();
+  cellsArray.forEach(([x, y]) => {
+    neighbors.forEach(([dx, dy]) => {
+      const targetCell = [x + dx, y + dy];
+      const count = neighborCountsMap.get(targetCell) || 0;
+      neighborCountsMap.set(targetCell, count + 1);
+    });
   });
-  return neighborCounts;
+  return neighborCountsMap;
 };
 
 export const totalisticRule = (births, survivals) => (cellsArray) => {
-  const strCellsNeighborCounts = getNeighborCounts(cellsArray, neighborhood.moore);
-  const strCellsSet = new Set(cellsArray.map(cellToString));
+  const neighborCounts = getNeighborCounts(cellsArray, neighborhood.moore);
+  const cellsSet = CellMap.fromKeys(cellsArray);
   const ruleCondition = ([cell, count]) => (
-    strCellsSet.has(cell) ? survivals.includes(count - 1) : births.includes(count)
+    cellsSet.has(cell)
+      ? survivals.includes(count - 1) // -1: `count` includes `cell`, while B/S notation doesn't
+      : births.includes(count)
   );
-  const strCellsAndCounts = [...strCellsNeighborCounts.entries()];
   return (
-    strCellsAndCounts
+    [...neighborCounts.entries()]
       .filter(ruleCondition)
-      .map(([strCell]) => cellFromString(strCell))
+      .map(([cell/* count */]) => cell)
   );
 };
 
