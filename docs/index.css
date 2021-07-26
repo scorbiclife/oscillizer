@@ -9,7 +9,7 @@
    * overflow-x is needed or else the div stretches to the right
    * even if there are no items overflowing
    */
-  overflow-x: auto;
+  overflow-x: hidden;
 }
 
 .oscillizer-component__label {
