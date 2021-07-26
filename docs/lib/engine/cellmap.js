@@ -1,6 +1,9 @@
+const cellToString = (x, y) => `${x} ${y}`;
+const stringToCell = (s) => s.split(' ').map((e) => parseInt(e, 10));
+
 export default class CellMap {
   constructor(entries) {
-    this.maps = new Map();
+    this.map = new Map();
     (entries || []).forEach(([x, y], value) => this.set([x, y], value));
   }
 
@@ -15,40 +18,26 @@ export default class CellMap {
   }
 
   has([x, y]) {
-    return this.maps.has(x) && this.maps.get(x).has(y);
+    return this.map.has(cellToString(x, y));
   }
 
   get([x, y], defaultValue) {
-    if (!this.has([x, y])) {
-      return defaultValue;
-    }
-    return this.maps.get(x).get(y);
+    return this.map.get(cellToString(x, y), defaultValue);
   }
 
   set([x, y], value) {
-    if (!this.maps.has(x)) {
-      this.maps.set(x, new Map());
-    }
-    this.maps.get(x).set(y, value);
+    this.map.set(cellToString(x, y), value);
   }
 
   get size() {
-    return [...this.maps.values()].map((m) => m.size).reduce((a, b) => a + b, 0);
+    return this.map.size;
   }
 
   keys() {
-    const addEntryToArray = (array, [x, mapY]) => {
-      const newCells = [...mapY.keys()].map((y) => [x, y]);
-      return array.concat(newCells);
-    };
-    return [...this.maps.entries()].reduce(addEntryToArray, []);
+    return [...this.map.keys()].map(stringToCell);
   }
 
   entries() {
-    const addEntryToArray = (array, [x, mapY]) => {
-      const newEntries = [...mapY.entries()].map(([y, value]) => [[x, y], value]);
-      return array.concat(newEntries);
-    };
-    return [...this.maps.entries()].reduce(addEntryToArray, []);
+    return [...this.map.entries()].map(([s, v]) => [stringToCell(s), v]);
   }
 }
