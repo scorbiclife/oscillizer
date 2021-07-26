@@ -1,4 +1,5 @@
 import * as osc from './lib/engine/osc.js';
+import getBoundingBox from './lib/engine/boundingbox.js';
 import * as rle from './lib/preprocess/rle.js';
 import * as visuals from './lib/postprocess/visuals.js';
 
@@ -66,7 +67,7 @@ const updateOscInfo = (event) => {
     appState.oscInfo.value = { success: false };
     return;
   }
-  const boundingBox = osc.getBoundingBox(subperiods.map(({ cell }) => cell));
+  const boundingBox = getBoundingBox(subperiods.map(({ cell }) => cell));
 
   appState.oscInfo.value = {
     success: true,
