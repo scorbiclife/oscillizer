@@ -15,7 +15,7 @@ describe('Oscillator period finder', () => {
   });
   it('Should return -1 for non-oscillators', () => {
     const rpentomino = [[1, 0], [2, 0], [0, 1], [1, 1], [1, 2]];
-    expect(osc.getPeriod(rpentomino, 100)).to.equal(-1);
+    expect(osc.getPeriod(rpentomino, 100)).to.equal(0);
   });
 });
 
@@ -29,7 +29,7 @@ describe('Oscillator subperiod finder', () => {
       { cell: [-1, 1], subperiod: 2 },
       { cell: [1, 1], subperiod: 2 },
     ];
-    expect(osc.getSubperiods(blinker)).to.have.deep.members(expectedSubperiods);
+    expect(osc.getPeriodAndSubperiods(blinker)[1]).to.have.deep.members(expectedSubperiods);
   });
 
   it('Should evaluate the mold correctly', () => {
@@ -58,11 +58,11 @@ describe('Oscillator subperiod finder', () => {
       { cell: [5, 1], subperiod: 1 },
       { cell: [5, 2], subperiod: 1 },
     ];
-    expect(osc.getSubperiods(mold)).to.have.deep.members(expectedSubperiods);
+    expect(osc.getPeriodAndSubperiods(mold)[1]).to.have.deep.members(expectedSubperiods);
   });
   it('Should return null for non-oscillators', () => {
     const rpentomino = [[1, 0], [2, 0], [0, 1], [1, 1], [1, 2]];
-    expect(osc.getSubperiods(rpentomino, 100)).to.equal(null);
+    expect(osc.getPeriodAndSubperiods(rpentomino, 100)[1]).to.equal(null);
   });
 });
 

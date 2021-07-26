@@ -61,12 +61,11 @@ const updateOscInfo = (event) => {
   }
 
   const pattern = rle.parse(eventHandlers.inputRleContainer.value);
-  const period = osc.getPeriod(pattern);
-  if (period === -1) {
+  const [period, subperiods] = osc.getPeriodAndSubperiods(pattern);
+  if (period === 0) {
     appState.oscInfo.value = { success: false };
     return;
   }
-  const subperiods = osc.getSubperiods(pattern, period);
   const boundingBox = osc.getBoundingBox(subperiods.map(({ cell }) => cell));
 
   appState.oscInfo.value = {
