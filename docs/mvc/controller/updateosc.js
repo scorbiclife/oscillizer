@@ -32,38 +32,36 @@ const makeUpdateOscInfoAndStats = (appState, source) => (event) => {
   }
 
   const pattern = rle.parse(source.value);
-  const activePatterns = osc.getPatternsDuringOscillation(pattern);
-  const period = activePatterns.length;
+  const phases = osc.getAllPhases(pattern);
+  const period = phases.length;
   if (period === 0) {
     appState.oscInfo.setValue({ success: false });
     appState.oscStatistics.setValue({ success: false });
     return;
   }
-
-  //
-  const subperiods = osc.getSubperiodFromPatterns(activePatterns, period);
-  const boundingBox = getBoundingBox(subperiods.map(({ cell }) => cell));
+  const subperiodByCell = osc.getSubperiodByCell(phases);
+  const boundingBox = getBoundingBox(subperiodByCell.map(({ cell }) => cell));
 
   appState.oscInfo.setValue({
     success: true,
     pattern,
     period,
-    subperiods,
+    subperiods: subperiodByCell,
     boundingBox,
   });
 
   // Population statistics
-  const populations = getPopulations(activePatterns);
+  const populations = getPopulations(phases);
   const minPop = Math.min(...populations);
   const maxPop = Math.max(...populations);
   const avgPop = (
     populations.reduce((a, b) => a + b, 0) / populations.length
   ).toFixed(2);
 
-  const numRotorCells = getRotorCount(subperiods);
-  const numCells = subperiods.length;
+  const numRotorCells = getRotorCount(subperiodByCell);
+  const numCells = subperiodByCell.length;
   const numStatorCells = numCells - numRotorCells;
-  const numStrictRotorCells = getStrictRotorCount(subperiods, period);
+  const numStrictRotorCells = getStrictRotorCount(subperiodByCell, period);
   const volatility = `${((numRotorCells / numCells) * 100).toFixed(2)}%`;
   const strictVolatility = `${((numStrictRotorCells / numCells) * 100).toFixed(2)}%`;
 

@@ -32,7 +32,7 @@ const appendNextPattern = ({
 
 // For an oscillator at gens 0..period-1
 // Return an empty array if the pattern does not go back to gen 0 in `maxGens`
-export const getPatternsDuringOscillation = (cellsArray, maxGens = 1000, rule = conwaylife) => {
+export const getAllPhases = (cellsArray, maxGens = 1000, rule = conwaylife) => {
   const repeatForMaxGens = new Array(maxGens).fill();
   const initialData = {
     result: undefined,
@@ -47,13 +47,13 @@ export const getPatternsDuringOscillation = (cellsArray, maxGens = 1000, rule = 
 // Return the period of an oscillator for given `cellsArray`.
 // Return 0 if the pattern does not go back to gen 0 in `maxGens`
 export const getPeriod = (cellsArray, maxGens = 1000, rule = conwaylife) => {
-  const maybePeriod = getPatternsDuringOscillation(cellsArray, maxGens, rule).length;
+  const maybePeriod = getAllPhases(cellsArray, maxGens, rule).length;
   return maybePeriod || 0;
 };
 
 // Get the list of patterns.
 // Return a list of `{ cell, aliveGens }` where `aliveGens` is the gens `cell` was alive.
-const getCellsAndAliveGensFromPatterns = (patterns) => {
+const getAliveGensByCell = (patterns) => {
   const patternSets = patterns.map(CellMap.fromKeys);
   const allCells = CellMap.fromKeys([].concat(...patterns)).keys();
   const gens = patterns.map((pat, gen) => gen);
@@ -80,11 +80,13 @@ const getSubperiodFromAliveGens = (aliveGens, period) => {
   return Math.min(...validSubperiods);
 };
 
-export const getSubperiodFromPatterns = (patterns, period) => (
-  getCellsAndAliveGensFromPatterns(patterns).map(
+export const getSubperiodByCell = (patterns) => {
+  const period = patterns.length;
+  const result = getAliveGensByCell(patterns).map(
     ({ cell, aliveGens }) => ({
       cell,
       subperiod: getSubperiodFromAliveGens(aliveGens, period),
     })
-  )
-);
+  );
+  return result;
+};

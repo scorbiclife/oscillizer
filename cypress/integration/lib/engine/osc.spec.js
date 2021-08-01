@@ -21,9 +21,8 @@ describe('Oscillator period finder', () => {
 
 describe('Oscillator subperiod finder', () => {
   const getSubperiodOfCells = (cells) => {
-    const iteratedPatterns = osc.getPatternsDuringOscillation(cells);
-    const period = iteratedPatterns.length;
-    const result = osc.getSubperiodFromPatterns(iteratedPatterns, period);
+    const iteratedPatterns = osc.getAllPhases(cells);
+    const result = osc.getSubperiodByCell(iteratedPatterns);
     return result;
   };
   it('Should evaluate the blinker correctly', () => {
