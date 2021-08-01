@@ -1,7 +1,7 @@
 import AppState from './mvc/model/appstate.js';
 import updateOscillizerCanvas from './mvc/view/updateoscillizercanvas.js';
-import updateOscInfo from './mvc/controller/updateoscinfo.js';
-import pipeEventTo from './mvc/controller/pipe.js';
+import makeUpdateOscInfo from './mvc/controller/updateoscinfo.js';
+import passEventTo from './mvc/controller/pipe.js';
 
 const appState = {
   /* oscInfo.value: {
@@ -27,15 +27,15 @@ if (window.Cypress) {
 
 /* Action -> State update code */
 
-const eventHandlers = {
-  inputRleSubmitter: document.getElementById('input-rle-submitter'),
-  cellStyleSelectors: document.getElementById('cell-style-selector'),
-};
-
+const inputRleSubmitter = document.getElementById('input-rle-submitter');
+const cellStyleSelector = document.getElementById('cell-style-selector');
 const inputRleContainer = document.getElementById('input-rle-container');
 
-eventHandlers.inputRleSubmitter.addEventListener('click', updateOscInfo(appState, inputRleContainer));
-eventHandlers.cellStyleSelectors.addEventListener('change', pipeEventTo(appState.initialCellStyle));
+const updateOscInfo = makeUpdateOscInfo(appState, inputRleContainer);
+const updateInitialCellStyle = passEventTo(appState.initialCellStyle);
+
+inputRleSubmitter.addEventListener('click', updateOscInfo);
+cellStyleSelector.addEventListener('change', updateInitialCellStyle);
 
 /* State -> UI update code */
 
