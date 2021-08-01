@@ -16,16 +16,6 @@ const getBoundingBox = (cells) => {
   return cells.reduce(addCellToBoundingBox, initialBox);
 };
 
-const getPopulations = (patterns) => patterns.map((p) => p.length);
-
-const getRotorCount = (subperiods) => (
-  subperiods.filter(({ subperiod }) => subperiod !== 1).length
-);
-
-const getStrictRotorCount = (subperiods, period) => (
-  subperiods.filter(({ subperiod }) => subperiod === period).length
-);
-
 const makeUpdateOscInfoAndStats = (appState, source) => (event) => {
   const getOscData = (pattern) => {
     const phases = osc.getAllPhases(pattern);
@@ -63,6 +53,27 @@ const makeUpdateOscInfoAndStats = (appState, source) => (event) => {
   };
 
   const getOscStats = (oscData) => {
+    // Basic functions
+    const getAverage = (l) => (l.reduce((a, b) => a + b, 0) / l.length);
+    const formatFloat = (f) => f.toFixed(2);
+    const formatPercentage = (f) => `${(100 * f).toFixed(2)}%`;
+
+    // Status functions
+    const getPopulations = (patterns) => patterns.map((p) => p.length);
+    const getRotorCount = (subperiods) => (
+      subperiods.filter(({ subperiod }) => subperiod !== 1).length
+    );
+    const getStrictRotorCount = (subperiods, period) => (
+      subperiods.filter(({ subperiod }) => subperiod === period).length
+    );
+    const getVolatility = (subperiods, period) => (
+      getRotorCount(subperiods, period) / subperiods.length
+    );
+    const getStrictVolatility = (subperiods, period) => (
+      getStrictRotorCount(subperiods, period) / subperiods.length
+    );
+
+    // Main logic
     const {
       success, phases, subperiods,
     } = oscData;
@@ -73,38 +84,19 @@ const makeUpdateOscInfoAndStats = (appState, source) => (event) => {
 
     const period = phases.length;
 
-    const populations = getPopulations(phases);
-    const minPop = Math.min(...populations);
-    const maxPop = Math.max(...populations);
-    const avgPop = (
-      populations.reduce((a, b) => a + b, 0) / populations.length
-    ).toFixed(2);
-
-    const numRotorCells = getRotorCount(subperiods);
-    const numCells = subperiods.length;
-    const numStatorCells = numCells - numRotorCells;
-    const numStrictRotorCells = getStrictRotorCount(subperiods, period);
-    const volatility = `${((numRotorCells / numCells) * 100).toFixed(2)}%`;
-    const strictVolatility = `${((numStrictRotorCells / numCells) * 100).toFixed(2)}%`;
-
-    const boundingBox = getBoundingBox(subperiods.map(({ cell }) => cell));
-    const width = boundingBox.xmax - boundingBox.xmin + 1;
-    const height = boundingBox.ymax - boundingBox.ymin + 1;
-
     const result = {
       success: true,
       period,
-      minPop,
-      maxPop,
-      avgPop,
-      numRotorCells,
-      numStatorCells,
-      numStrictRotorCells,
-      numCells,
-      volatility,
-      strictVolatility,
-      width,
-      height,
+      minPop: Math.min(...getPopulations(phases)),
+      maxPop: Math.max(...getPopulations(phases)),
+      avgPop: formatFloat(getAverage(getPopulations(phases))),
+      numCells: subperiods.length,
+      numRotorCells: getRotorCount(subperiods),
+      numStatorCells: subperiods.length - getRotorCount(subperiods),
+      numStrictRotorCells: getStrictRotorCount(subperiods),
+      volatility: formatPercentage(getVolatility(subperiods, period)),
+      strictVolatility: formatPercentage(getStrictVolatility(subperiods, period)),
+      boundingBox: getBoundingBox(subperiods.map(({ cell }) => cell)),
     };
     return result;
   };
