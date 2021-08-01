@@ -13,7 +13,7 @@ describe('Oscillator period finder', () => {
     ];
     expect(osc.getPeriod(mold)).to.equal(4);
   });
-  it('Should return -1 for non-oscillators', () => {
+  it('Should return 0 for non-oscillators', () => {
     const rpentomino = [[1, 0], [2, 0], [0, 1], [1, 1], [1, 2]];
     expect(osc.getPeriod(rpentomino, 100)).to.equal(0);
   });
@@ -66,7 +66,7 @@ describe('Oscillator subperiod finder', () => {
     ];
     expect(getSubperiodOfCells(mold)).to.have.deep.members(expectedSubperiods);
   });
-  it('Should return null for non-oscillators', () => {
+  it('Should return [] for non-oscillators', () => {
     const rpentomino = [[1, 0], [2, 0], [0, 1], [1, 1], [1, 2]];
     expect(getSubperiodOfCells(rpentomino, 100)).to.deep.equal([]);
   });
