@@ -20,6 +20,12 @@ describe('Oscillator period finder', () => {
 });
 
 describe('Oscillator subperiod finder', () => {
+  const getSubperiodOfCells = (cells) => {
+    const iteratedPatterns = osc.getPatternsDuringOscillation(cells);
+    const period = iteratedPatterns.length;
+    const result = osc.getSubperiodFromPatterns(iteratedPatterns, period);
+    return result;
+  };
   it('Should evaluate the blinker correctly', () => {
     const blinker = [[0, 0], [0, 1], [0, 2]];
     const expectedSubperiods = [
@@ -29,7 +35,7 @@ describe('Oscillator subperiod finder', () => {
       { cell: [-1, 1], subperiod: 2 },
       { cell: [1, 1], subperiod: 2 },
     ];
-    expect(osc.getPeriodAndSubperiods(blinker)[1]).to.have.deep.members(expectedSubperiods);
+    expect(getSubperiodOfCells(blinker)).to.have.deep.members(expectedSubperiods);
   });
 
   it('Should evaluate the mold correctly', () => {
@@ -58,10 +64,10 @@ describe('Oscillator subperiod finder', () => {
       { cell: [5, 1], subperiod: 1 },
       { cell: [5, 2], subperiod: 1 },
     ];
-    expect(osc.getPeriodAndSubperiods(mold)[1]).to.have.deep.members(expectedSubperiods);
+    expect(getSubperiodOfCells(mold)).to.have.deep.members(expectedSubperiods);
   });
   it('Should return null for non-oscillators', () => {
     const rpentomino = [[1, 0], [2, 0], [0, 1], [1, 1], [1, 2]];
-    expect(osc.getPeriodAndSubperiods(rpentomino, 100)[1]).to.equal(null);
+    expect(getSubperiodOfCells(rpentomino, 100)).to.deep.equal([]);
   });
 });
