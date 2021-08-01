@@ -1,4 +1,4 @@
-import * as visuals from '../../lib/postprocess/visuals.js';
+import * as visuals from './visuals.js';
 
 const drawLiveCellOptions = {
   none: () => {},
@@ -6,7 +6,7 @@ const drawLiveCellOptions = {
   interior: visuals.drawLiveCellInterior,
 };
 
-const updateOscillizerCanvas = (appState) => (event) => {
+const makeUpdateOscillizerCanvas = (appState) => (event) => {
   const canvas = document.getElementById('output-osc-canvas');
   const context = canvas.getContext('2d');
   if (!context) {
@@ -44,4 +44,4 @@ const updateOscillizerCanvas = (appState) => (event) => {
   );
 };
 
-export default updateOscillizerCanvas;
+export default makeUpdateOscillizerCanvas;
