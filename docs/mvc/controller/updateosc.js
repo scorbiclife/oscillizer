@@ -18,7 +18,7 @@ const getBoundingBox = (cells) => {
 
 const makeUpdateOscInfoAndStats = (appState, source) => (event) => {
   const getOscData = (pattern) => {
-    const phases = osc.getAllPhases(pattern);
+    const phases = osc.getPhases(pattern);
     const period = phases.length;
     if (period === 0) {
       return { success: false };
