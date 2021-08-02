@@ -34,7 +34,7 @@ describe('Oscillator phases finder', () => {
       ],
     ];
     const sortCells = (ps) => ps.map((p) => p.sort());
-    expect(sortCells(osc.getPhases((mold)))).to.have.deep.members(sortCells(moldPhases));
+    expect(sortCells(osc.getPhases(mold))).to.have.deep.members(sortCells(moldPhases));
   });
   it('Should return [] for non-oscillators', () => {
     const rpentomino = [[1, 0], [2, 0], [0, 1], [1, 1], [1, 2]];
