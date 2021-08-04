@@ -1,0 +1,7 @@
+{
+  "plugins": ["plugins/markdown"],
+  "opts": {
+    "destination": "./jsdoc/",
+    "recurse": true
+  }
+}
