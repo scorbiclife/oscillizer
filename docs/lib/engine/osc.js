@@ -1,5 +1,5 @@
-import { conwaylife } from './ca.js';
-import CellMap from './cellmap.js';
+import { conwaylife } from './Board/SimpleBoard/SimpleRules/totalisticRule.js';
+import CellMap from './BaseTypes/CellMap.js';
 
 // For an oscillator at gens 0..period-1
 // Return an empty array if the pattern does not go back to gen 0 in `maxGens`

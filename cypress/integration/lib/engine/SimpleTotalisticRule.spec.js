@@ -1,4 +1,4 @@
-import * as ca from '../../../../docs/lib/engine/ca.js';
+import * as ca from '../../../../docs/lib/engine/Board/SimpleBoard/SimpleRules/totalisticRule.js';
 
 describe('Conway\'s Game of Life rule', () => {
   it('Should iterate the glider correctly (1 gen)', () => {

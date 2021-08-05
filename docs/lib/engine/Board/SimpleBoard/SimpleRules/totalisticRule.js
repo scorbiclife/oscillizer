@@ -1,4 +1,4 @@
-import CellMap from './cellmap.js';
+import CellMap from '../../../BaseTypes/CellMap.js';
 
 export const neighborhood = {
   moore: [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 0], [0, 1], [1, -1], [1, 0], [1, 1]],
