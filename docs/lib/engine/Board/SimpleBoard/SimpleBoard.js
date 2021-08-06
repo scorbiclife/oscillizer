@@ -12,11 +12,11 @@ class SimpleBoard {
    * Initialize the board with the given pattern and rule.
    *
    * @constructor
-   * @param {SimplePattern} pattern - The initial pattern.
    * @param {SimpleRule} rule - The rule to operate on the pattern with.
+   * @param {SimplePattern} [pattern = []] - The initial pattern.
    * @param {number} [gen=0] - The initial generation.
    */
-  constructor(pattern, rule, gen = 0) {
+  constructor(rule, pattern = [], gen = 0) {
     this.pattern = pattern;
     this.rule = rule;
     this.gen = gen;
