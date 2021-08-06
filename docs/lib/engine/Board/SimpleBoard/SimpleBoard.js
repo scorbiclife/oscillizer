@@ -1,6 +1,17 @@
 import BoundingBox from '../../BaseTypes/BoundingBox.js';
 
 /**
+ * In a {@link SimpleBoard}, a rule is implemented as
+ * a function
+ * that receives a pattern
+ * and returns the pattern iterated to the next generation.
+ * @typedef SimpleBoard#Rule
+ * @type {function}
+ * @param {TwoStatePattern} pattern - The pattern to operate on.
+ * @returns {TwoStatePattern} - The pattern at the next generation.
+ */
+
+/**
  * This simple class consists of a `pattern` and a `rule`.
  * It applies the `rule` on the `pattern` to get the next generation.
  * Other auxillary information is extracted from the `pattern`.
@@ -12,8 +23,8 @@ class SimpleBoard {
    * Initialize the board with the given pattern and rule.
    *
    * @constructor
-   * @param {SimpleRule} rule - The rule to operate on the pattern with.
-   * @param {SimplePattern} [pattern = []] - The initial pattern.
+   * @param {SimpleBoard#Rule} rule - The rule to operate on the pattern with.
+   * @param {TwoStatePattern} [pattern = []] - The initial pattern.
    * @param {number} [gen=0] - The initial generation.
    */
   constructor(rule, pattern = [], gen = 0) {

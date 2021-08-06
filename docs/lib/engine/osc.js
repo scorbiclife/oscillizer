@@ -1,9 +1,9 @@
-import { conwaylife } from './Board/SimpleBoard/SimpleRules/totalisticRule.js';
+import { simpleBoardConwayLife } from './Board/SimpleBoard/SimpleRules/TotalisticRule.js';
 import CellMap from './BaseTypes/CellMap.js';
 
 // For an oscillator at gens 0..period-1
 // Return an empty array if the pattern does not go back to gen 0 in `maxGens`
-export const getPhases = (cellsArray, maxGens = 1000, rule = conwaylife) => {
+export const getPhases = (cellsArray, maxGens = 1000, rule = simpleBoardConwayLife) => {
   const haveSameMembers = (array, set) => (
     array.length === set.size && array.every((cell) => set.has(cell))
   );
@@ -41,7 +41,7 @@ export const getPhases = (cellsArray, maxGens = 1000, rule = conwaylife) => {
 
 // Return the period of an oscillator for given `cellsArray`.
 // Return 0 if the pattern does not go back to gen 0 in `maxGens`
-export const getPeriod = (cellsArray, maxGens = 1000, rule = conwaylife) => {
+export const getPeriod = (cellsArray, maxGens = 1000, rule = simpleBoardConwayLife) => {
   const maybePeriod = getPhases(cellsArray, maxGens, rule).length;
   return maybePeriod || 0;
 };
