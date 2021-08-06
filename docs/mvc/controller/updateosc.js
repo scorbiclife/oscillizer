@@ -1,5 +1,6 @@
 import * as rle from '../../lib/preprocess/rle.js';
 import * as osc from '../../lib/engine/osc.js';
+import * as AppConfig from '../../AppConfig.js';
 
 const getBoundingBox = (cells) => {
   const addCellToBoundingBox = (box, [x, y]) => ({
@@ -18,7 +19,8 @@ const getBoundingBox = (cells) => {
 
 const makeUpdateOscInfoAndStats = (appState, source) => (event) => {
   const getOscData = (pattern) => {
-    const phases = osc.getPhases(pattern);
+    const initialBoard = AppConfig.makeTwoStateBoard(pattern);
+    const phases = osc.getPhases(initialBoard).map((board) => board.getCells());
     const period = phases.length;
     if (period === 0) {
       return { success: false };

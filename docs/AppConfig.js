@@ -3,6 +3,7 @@ import { simpleBoardConwayLife } from './lib/engine/Board/SimpleBoard/SimpleRule
 
 /**
  * Create and return a new two-state board with the given pattern and rule.
+ * @todo `rule` should be changed later to support different rulestings.
  *
  * @function makeTwoStateBoard
  * @param {TwoStatePattern} [pattern=[]] - The initial pattern.
@@ -11,5 +12,5 @@ import { simpleBoardConwayLife } from './lib/engine/Board/SimpleBoard/SimpleRule
  */
 // eslint-disable-next-line import/prefer-default-export
 export const makeTwoStateBoard = (pattern = [], rule = simpleBoardConwayLife) => (
-  new SimpleBoard(rule, pattern)
+  new SimpleBoard(pattern, rule)
 );

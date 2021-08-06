@@ -1,42 +1,57 @@
 import { simpleBoardConwayLife } from './Board/SimpleBoard/SimpleRules/TotalisticRule.js';
 import CellMap from './BaseTypes/CellMap.js';
 
-// For an oscillator at gens 0..period-1
-// Return an empty array if the pattern does not go back to gen 0 in `maxGens`
-export const getPhases = (cellsArray, maxGens = 1000, rule = simpleBoardConwayLife) => {
+/**
+ * Given an oscillator, return the board of each phase of the oscillation. (t=0..p-1)
+ * Given a non-oscillator, return `[]`.
+ * @param {IBoard} board - The initial board
+ * @param {number} maxGens - Maximum number of gens to detect oscillation.
+ * @returns {Array<IBoard>} - All phases of the oscillator, or an empty array
+ */
+export const getPhases = (board, maxGens = 1000) => {
+  /**
+   * @param {Array} array
+   * @param {Set} set
+   * @returns {boolean}
+   */
   const haveSameMembers = (array, set) => (
     array.length === set.size && array.every((cell) => set.has(cell))
   );
 
-  const appendNextPattern = ({
-    result,
-    lastPatterns,
-    initialCellsSet,
-  }) => {
-    if (result !== undefined) {
-      return { result };
+  /**
+   * Helper function used in Array.reduce.
+   *
+   * @param {*} state - Current iteration state.
+   * @property {Array<IBoard>} state.result - The final result.
+   * @property {Array<IBoard>} state.lastBoards - The boards during calculation.
+   * @property {CellMap} state.initialCellsSet
+   * @returns {*} - Updated state, with the same type as state
+   */
+  const appendNextPattern = (state) => {
+    const { result, lastBoards, initialCellsSet } = state;
+    if (result.length !== 0) {
+      return state;
     }
-    const lastPattern = lastPatterns[lastPatterns.length - 1];
-    const currPattern = rule(lastPattern);
-    if (haveSameMembers(currPattern, initialCellsSet)) {
-      return { result: lastPatterns };
+    const lastBoard = lastBoards[lastBoards.length - 1];
+    const currBoard = lastBoard.after();
+    if (haveSameMembers(currBoard.getCells(), initialCellsSet)) {
+      return { result: lastBoards, lastBoards: [], initialCellsSet };
     }
-    lastPatterns.push(currPattern);
     return {
-      result: undefined,
-      lastPatterns,
+      result: [],
+      lastBoards: lastBoards.concat(currBoard),
       initialCellsSet,
     };
   };
 
   const repeatForMaxGens = new Array(maxGens).fill();
   const initialData = {
-    result: undefined,
-    lastPatterns: [cellsArray],
-    initialCellsSet: CellMap.fromKeys(cellsArray),
+    result: [],
+    lastBoards: [board],
+    initialCellsSet: CellMap.fromKeys(board.getCells()),
   };
-  const pattern = repeatForMaxGens.reduce(appendNextPattern, initialData).result;
-  return pattern || []; // Return empty array on failure
+  const phases = repeatForMaxGens.reduce(appendNextPattern, initialData).result;
+  return phases; // Return empty array on failure
 };
 
 // Return the period of an oscillator for given `cellsArray`.

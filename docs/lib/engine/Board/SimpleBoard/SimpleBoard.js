@@ -24,10 +24,10 @@ class SimpleBoard {
    *
    * @constructor
    * @param {SimpleBoard#Rule} rule - The rule to operate on the pattern with.
-   * @param {TwoStatePattern} [pattern = []] - The initial pattern.
+   * @param {TwoStatePattern} pattern - The initial pattern.
    * @param {number} [gen=0] - The initial generation.
    */
-  constructor(rule, pattern = [], gen = 0) {
+  constructor(pattern, rule, gen = 0) {
     this.pattern = pattern;
     this.rule = rule;
     this.gen = gen;
