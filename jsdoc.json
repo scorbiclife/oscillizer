@@ -3,5 +3,11 @@
   "opts": {
     "destination": "./jsdoc/",
     "recurse": true
+  },
+  "templates": {
+    "default": {
+      "outputSourceFiles": false,
+      "useLongnameInNav": true
+    }
   }
 }
