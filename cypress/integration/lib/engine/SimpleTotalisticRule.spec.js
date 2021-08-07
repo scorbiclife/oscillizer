@@ -8,11 +8,18 @@ describe('Conway\'s Game of Life rule', () => {
   });
 
   it('Should iterate the glider correctly (4 gens)', () => {
-    let glider = [[1, 0], [2, 1], [0, 2], [1, 2], [2, 2]];
+    const glider = [[1, 0], [2, 1], [0, 2], [1, 2], [2, 2]];
     const gliderMoved = glider.map(([x, y]) => [x + 1, y + 1]);
-    for (let i = 0; i < 4; i += 1) {
-      glider = simpleBoardConwayLife(glider);
-    }
-    expect(glider).to.have.deep.members(gliderMoved);
+    const gliderIterated = new Array(4).fill().reduce(simpleBoardConwayLife, glider);
+    expect(gliderIterated).to.have.deep.members(gliderMoved);
+  });
+
+  it('Should iterate the mold correctly (4 gens)', () => {
+    const moldInitial = [
+      [3, 0], [4, 0], [2, 1], [5, 1], [0, 2], [3, 2], [5, 2],
+      [4, 3], [0, 4], [2, 4], [3, 4], [1, 5],
+    ];
+    const moldIterated = new Array(4).fill().reduce(simpleBoardConwayLife, moldInitial);
+    expect(moldIterated).to.have.deep.members(moldInitial);
   });
 });
