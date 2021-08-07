@@ -1,42 +1,5 @@
 import * as rle from '../../../../docs/lib/preprocess/rle.js';
 
-describe('RLE body extractor', () => {
-  it('Should process a simple RLE correctly', () => {
-    const rleString = (
-      `x = 3, y = 3, rule = B3/S23
-        bo$
-        2bo$
-        3o!
-      `
-    );
-    expect(rle.extractBody(rleString)).to.equal('bo$2bo$3o!');
-  });
-
-  it('Should process RLE with comments correctly', () => {
-    const rleString = (
-      `# Some comment line
-      # Another comment line
-      x = 3, y = 3, rule = B3/S23
-          bo$
-          2bo$
-          3o!
-      `
-    );
-    expect(rle.extractBody(rleString)).to.equal('bo$2bo$3o!');
-  });
-
-  it('Should process RLE without headers correctly', () => {
-    const rleString = (
-      `
-        bo$
-        2bo$
-        3o!
-      `
-    );
-    expect(rle.extractBody(rleString)).to.equal('bo$2bo$3o!');
-  });
-});
-
 describe('RLE Parser state', () => {
   it('Should process newlines correctly', () => {
     const state = new rle.ParserState({ runCount: 10, currentCell: [0, 0] });

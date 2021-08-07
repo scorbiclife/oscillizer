@@ -1,23 +1,3 @@
-/* Body extracting related code */
-
-export const extractBody = (rleString) => {
-  const lines = (
-    rleString.split('\n')
-      .map((line) => line.replace(/\s/g, ''))
-      .filter((line) => line !== '') // We ignore empty lines
-  );
-
-  const isNotComment = (line) => !line.startsWith('#');
-  const firstNonCommentIndex = lines.findIndex(isNotComment);
-
-  const headerRegex = /^x=\d+,y=\d+,rule=/;
-  const isHeader = (line) => headerRegex.test(line);
-  const bodyStartIndex = (
-    firstNonCommentIndex + (isHeader(lines[firstNonCommentIndex]) ? 1 : 0)
-  );
-  return lines.slice(bodyStartIndex).join('');
-};
-
 /* Parsing related code */
 
 export class ParserState {
@@ -106,6 +86,29 @@ export const parseBody = (rleBodyString) => {
   return parseResult.cells;
 };
 
+/* Body extracting related code */
+
+export const extractParts = (rleString) => {
+  const lines = (
+    rleString.split('\n')
+      .map((line) => line.replace(/\s/g, ''))
+      .filter((line) => line !== '') // We ignore empty lines
+  );
+
+  const isNotComment = (line) => !line.startsWith('#');
+  const firstNonCommentIndex = lines.findIndex(isNotComment);
+
+  const headerRegex = /^x=\d+,y=\d+,rule=(.*)/;
+  const matchedHeader = headerRegex.exec(lines[firstNonCommentIndex]);
+  const bodyStartIndex = firstNonCommentIndex + (matchedHeader !== null) ? 1 : 0;
+  const body = lines.slice(bodyStartIndex).join('');
+  const rule = (matchedHeader) ? matchedHeader[1] : null;
+  return [body, rule];
+};
+
 // One-stop take-care-all main function
 // Get an RLE, parse it, and return a list of cells parsed.
-export const parse = (rleString) => parseBody(extractBody(rleString));
+export const parse = (rleString) => {
+  const [rleBody] = extractParts(rleString);
+  return [parseBody(rleBody), undefined];
+};

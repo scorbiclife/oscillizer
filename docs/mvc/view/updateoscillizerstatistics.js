@@ -1,6 +1,6 @@
-const makeUpdateOscillatorStatistics = (appState, targetElement) => (/* event */) => {
+const makeUpdateOscillatorStatistics = (source, targetElement) => (/* event */) => {
   /* eslint-disable no-param-reassign */
-  targetElement.textContent = JSON.stringify(appState.oscStatistics.value, undefined, 2);
+  targetElement.textContent = JSON.stringify(source, undefined, 2);
 };
 
 export default makeUpdateOscillatorStatistics;

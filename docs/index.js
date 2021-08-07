@@ -1,26 +1,11 @@
 import AppState from './mvc/model/appstate.js';
 import makeUpdateOscillizerCanvas from './mvc/view/updateoscillizercanvas.js';
 import makeUpdateOscillizerStatistics from './mvc/view/updateoscillizerstatistics.js';
-import makeUpdateOscInfoAndStats from './mvc/controller/updateosc.js';
+import makeUpdateOscStats from './mvc/controller/updateosc.js';
 import passEventTo from './mvc/controller/pipe.js';
 
 const appState = {
-  /* oscInfo.value: {
-      success,
-      pattern,
-      period,
-      subperiods,
-      boundingBox,
-    }
-  */
   oscInfo: new AppState(),
-
-  /*
-    oscStatistics.value: {
-      pattern,
-    }
-  */
-  oscStatistics: new AppState(),
 
   /*
     Cell style for cells at gen 0
@@ -39,7 +24,7 @@ const inputRleSubmitter = document.getElementById('input-rle-submitter');
 const cellStyleSelector = document.getElementById('cell-style-selector');
 const inputRleContainer = document.getElementById('input-rle-container');
 
-const updateOscInfo = makeUpdateOscInfoAndStats(appState, inputRleContainer);
+const updateOscInfo = makeUpdateOscStats(appState.oscInfo, inputRleContainer);
 const updateInitialCellStyle = passEventTo(appState.initialCellStyle);
 
 inputRleSubmitter.addEventListener('click', updateOscInfo);
@@ -51,5 +36,5 @@ const updateCanvas = makeUpdateOscillizerCanvas(appState);
 appState.oscInfo.eventTarget.addEventListener('change', updateCanvas);
 
 const oscStatsElement = document.getElementById('output-osc-data');
-const updateStats = makeUpdateOscillizerStatistics(appState, oscStatsElement);
-appState.oscStatistics.eventTarget.addEventListener('change', updateStats);
+const updateStats = makeUpdateOscillizerStatistics(appState.oscInfo, oscStatsElement);
+appState.oscInfo.eventTarget.addEventListener('change', updateStats);

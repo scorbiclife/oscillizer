@@ -62,7 +62,7 @@ export const getPeriod = (cellsArray, maxGens = 1000, rule = simpleBoardConwayLi
 };
 
 // From
-export const getSubperiodByCell = (oscPhases) => {
+export const getSubperiodByCell = (oscPhaseBoards) => {
   // Get the list of oscillator phases.
   // Return a list of `{ cell, aliveGens }` where `aliveGens` is the gens `cell` was alive.
   const getAliveGensByCell = (phases) => {
@@ -92,14 +92,15 @@ export const getSubperiodByCell = (oscPhases) => {
     return Math.min(...validSubperiods);
   };
 
-  const period = oscPhases.length;
-  const result = getAliveGensByCell(oscPhases).map(
-    ({ cell, aliveGens }) => (
-      {
-        cell,
-        subperiod: getSubperiodOfOneCell(aliveGens, period),
-      }
-    )
-  );
+  const period = oscPhaseBoards.length;
+  const result = getAliveGensByCell(oscPhaseBoards.map((b) => b.getCells()))
+    .map(
+      ({ cell, aliveGens }) => (
+        {
+          cell,
+          subperiod: getSubperiodOfOneCell(aliveGens, period),
+        }
+      )
+    );
   return result;
 };

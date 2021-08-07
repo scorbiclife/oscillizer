@@ -1,4 +1,8 @@
+import SimpleBoard from '../../../../docs/lib/engine/Board/SimpleBoard/SimpleBoard.js';
+import { simpleBoardConwayLife } from '../../../../docs/lib/engine/Board/SimpleBoard/SimpleRules/TotalisticRule.js';
 import * as osc from '../../../../docs/lib/engine/osc.js';
+
+const makeBoard = (cells) => new SimpleBoard(cells, simpleBoardConwayLife);
 
 describe('Oscillator phases finder', () => {
   it('Should return correct phases for the blinker', () => {
@@ -7,7 +11,8 @@ describe('Oscillator phases finder', () => {
       [[0, 0], [1, 0], [2, 0]],
       [[1, -1], [1, 0], [1, 1]],
     ];
-    expect(osc.getPhases(blinker)).to.have.deep.members(blinkerPhases);
+    expect(osc.getPhases(makeBoard(blinker)).map((b) => b.getCells()))
+      .to.have.deep.members(blinkerPhases);
   });
 
   it('Should return 4 for the period of the mold', () => {
@@ -34,18 +39,19 @@ describe('Oscillator phases finder', () => {
       ],
     ];
     const sortCells = (ps) => ps.map((p) => p.sort());
-    expect(sortCells(osc.getPhases(mold))).to.have.deep.members(sortCells(moldPhases));
+    expect(sortCells(osc.getPhases(makeBoard(mold)).map((b) => b.getCells())))
+      .to.have.deep.members(sortCells(moldPhases));
   });
   it('Should return [] for non-oscillators', () => {
     const rpentomino = [[1, 0], [2, 0], [0, 1], [1, 1], [1, 2]];
-    expect(osc.getPhases(rpentomino, 100)).to.have.deep.members([]);
+    expect(osc.getPhases(makeBoard(rpentomino), 100)).to.have.deep.members([]);
   });
 });
 
 describe('Oscillator period finder', () => {
   it('Should return 2 for the period of the blinker', () => {
     const blinker = [[0, 0], [1, 0], [2, 0]];
-    expect(osc.getPeriod(blinker)).to.equal(2);
+    expect(osc.getPeriod(makeBoard(blinker))).to.equal(2);
   });
 
   it('Should return 4 for the period of the mold', () => {
@@ -53,17 +59,18 @@ describe('Oscillator period finder', () => {
       [3, 0], [4, 0], [2, 1], [5, 1], [0, 2], [3, 2], [5, 2],
       [4, 3], [0, 4], [2, 4], [3, 4], [1, 5],
     ];
-    expect(osc.getPeriod(mold)).to.equal(4);
+    expect(osc.getPeriod(makeBoard(mold))).to.equal(4);
   });
   it('Should return 0 for non-oscillators', () => {
     const rpentomino = [[1, 0], [2, 0], [0, 1], [1, 1], [1, 2]];
-    expect(osc.getPeriod(rpentomino, 100)).to.equal(0);
+    expect(osc.getPeriod(makeBoard(rpentomino), 100)).to.equal(0);
   });
 });
 
 describe('Oscillator subperiod finder', () => {
   const getSubperiodOfCells = (cells) => {
-    const iteratedPatterns = osc.getPhases(cells);
+    const board = makeBoard(cells);
+    const iteratedPatterns = osc.getPhases(board);
     const result = osc.getSubperiodByCell(iteratedPatterns);
     return result;
   };
