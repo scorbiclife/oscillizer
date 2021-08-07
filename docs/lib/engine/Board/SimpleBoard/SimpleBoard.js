@@ -23,8 +23,8 @@ class SimpleBoard {
    * Initialize the board with the given pattern and rule.
    *
    * @constructor
-   * @param {SimpleBoard#Rule} rule - The rule to operate on the pattern with.
    * @param {TwoStatePattern} pattern - The initial pattern.
+   * @param {SimpleBoard#Rule} rule - The rule to operate on the pattern with.
    * @param {number} [gen=0] - The initial generation.
    */
   constructor(pattern, rule, gen = 0) {
