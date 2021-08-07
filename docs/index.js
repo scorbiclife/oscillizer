@@ -14,7 +14,9 @@ const appState = {
   initialCellStyle: new AppState(),
 };
 
+// @ts-ignore
 if (window.Cypress) {
+  // @ts-ignore
   window.appState = appState;
 }
 

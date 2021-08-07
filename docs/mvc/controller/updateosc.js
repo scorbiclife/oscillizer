@@ -17,8 +17,8 @@ const makeUpdateOscStats = (target, source) => (event) => {
     const getStrictRotorCount = (subperiods, period) => (
       subperiods.filter(({ subperiod }) => subperiod === period).length
     );
-    const getVolatility = (subperiods, period) => (
-      getRotorCount(subperiods, period) / subperiods.length
+    const getVolatility = (subperiods) => (
+      getRotorCount(subperiods) / subperiods.length
     );
     const getStrictVolatility = (subperiods, period) => (
       getStrictRotorCount(subperiods, period) / subperiods.length
@@ -46,7 +46,7 @@ const makeUpdateOscStats = (target, source) => (event) => {
       numRotorCells: getRotorCount(subperiods),
       numStatorCells: subperiods.length - getRotorCount(subperiods),
       numStrictRotorCells: getStrictRotorCount(subperiods),
-      volatility: formatPercentage(getVolatility(subperiods, period)),
+      volatility: formatPercentage(getVolatility(subperiods)),
       strictVolatility: formatPercentage(getStrictVolatility(subperiods, period)),
       boundingBox: BoundingBox.sum(phaseBoards.map((p) => p.getBox())),
     };
