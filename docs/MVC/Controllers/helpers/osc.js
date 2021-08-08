@@ -1,3 +1,4 @@
+import BoundingBox from '../../../engine/BaseTypes/BoundingBox.js';
 import CellMap from '../../../engine/BaseTypes/CellMap.js';
 
 /**
@@ -98,5 +99,55 @@ export const getSubperiodByCell = (oscPhaseBoards) => {
         }
       )
     );
+  return result;
+};
+
+/** */
+export const getOscStats = (board) => {
+  // Basic functions
+  const getAverage = (l) => (l.reduce((a, b) => a + b, 0) / l.length);
+  const formatFloat = (f) => f.toFixed(2);
+  const formatPercentage = (f) => `${(100 * f).toFixed(2)}%`;
+
+  // Status functions
+  const getRotorCount = (subperiods) => (
+    subperiods.filter(({ subperiod }) => subperiod !== 1).length
+  );
+  const getStrictRotorCount = (subperiods, period) => (
+    subperiods.filter(({ subperiod }) => subperiod === period).length
+  );
+  const getVolatility = (subperiods) => (
+    getRotorCount(subperiods) / subperiods.length
+  );
+  const getStrictVolatility = (subperiods, period) => (
+    getStrictRotorCount(subperiods, period) / subperiods.length
+  );
+
+  // Main code
+  const phaseBoards = getPhases(board);
+  const period = phaseBoards.length;
+  if (period === 0) {
+    return { success: false };
+  }
+  const populations = phaseBoards.map((b) => b.getPop());
+  const subperiods = getSubperiodByCell(phaseBoards);
+
+  const result = {
+    success: true,
+    pattern: board.getCells(),
+    period,
+    phases: phaseBoards.map((p) => p.getCells()),
+    subperiods,
+    minPop: Math.min(...populations),
+    maxPop: Math.max(...populations),
+    avgPop: formatFloat(getAverage(populations)),
+    numCells: subperiods.length,
+    numRotorCells: getRotorCount(subperiods),
+    numStatorCells: subperiods.length - getRotorCount(subperiods),
+    numStrictRotorCells: getStrictRotorCount(subperiods),
+    volatility: formatPercentage(getVolatility(subperiods)),
+    strictVolatility: formatPercentage(getStrictVolatility(subperiods, period)),
+    boundingBox: BoundingBox.sum(phaseBoards.map((p) => p.getBox())),
+  };
   return result;
 };

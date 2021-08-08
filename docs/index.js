@@ -1,7 +1,7 @@
 import AppState from './MVC/Models/AppState.js';
+import OscStatsController from './MVC/Controllers/updateosc.js';
 import makeUpdateOscillizerCanvas from './MVC/Views/updateoscillizercanvas.js';
 import makeUpdateOscillizerStatistics from './MVC/Views/updateoscillizerstatistics.js';
-import makeUpdateOscStats from './MVC/Controllers/updateosc.js';
 import passEventTo from './MVC/Controllers/pipe.js';
 
 const appState = {
@@ -26,10 +26,10 @@ const inputRleSubmitter = document.getElementById('input-rle-submitter');
 const cellStyleSelector = document.getElementById('cell-style-selector');
 const inputRleContainer = document.getElementById('input-rle-container');
 
-const updateOscInfo = makeUpdateOscStats(appState.oscInfo, inputRleContainer);
+const oscController = new OscStatsController(appState.oscInfo, inputRleContainer);
 const updateInitialCellStyle = passEventTo(appState.initialCellStyle);
 
-inputRleSubmitter.addEventListener('click', updateOscInfo);
+inputRleSubmitter.addEventListener('click', oscController.update);
 cellStyleSelector.addEventListener('change', updateInitialCellStyle);
 
 /* State -> UI update code */
