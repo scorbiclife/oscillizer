@@ -1,4 +1,3 @@
-import { simpleBoardConwayLife } from '../../../engine/Board/SimpleBoard/SimpleRules/TotalisticRule.js';
 import CellMap from '../../../engine/BaseTypes/CellMap.js';
 
 /**
