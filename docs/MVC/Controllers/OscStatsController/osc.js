@@ -4,9 +4,9 @@ import CellMap from '../../../engine/BaseTypes/CellMap.js';
 /**
  * Given an oscillator, return the board of each phase of the oscillation. (t=0..p-1)
  * Given a non-oscillator, return `[]`.
- * @param {IBoard} board - The initial board
+ * @param {IBoard} board - The initial board.
  * @param {number} maxGens - Maximum number of gens to detect oscillation.
- * @returns {Array<IBoard>} - All phases of the oscillator, or an empty array
+ * @returns {Array<IBoard>} - All phases of the oscillator, or an empty array.
  */
 export const getPhases = (board, maxGens = 1000) => {
   /**
@@ -18,24 +18,20 @@ export const getPhases = (board, maxGens = 1000) => {
     array.length === set.size && array.every((cell) => set.has(cell))
   );
 
-  /**
-   * Helper function used in Array.reduce.
-   *
-   * @param {*} state - Current iteration state.
-   * @property {Array<IBoard>} state.result - The final result.
-   * @property {Array<IBoard>} state.lastBoards - The boards during calculation.
-   * @property {CellMap} state.initialCellsSet
-   * @returns {*} - Updated state, with the same type as state
-   */
-  const appendNextBoard = (state) => {
-    const { result, lastBoards, initialCellsSet } = state;
+  const appendNextBoard = ({ result, lastBoards, initialCellsSet }) => {
     if (result.length !== 0) {
-      return state;
+      return { result, lastBoards, initialCellsSet };
     }
+    /** @type {IBoard} */
     const lastBoard = lastBoards[lastBoards.length - 1];
+    /** @type {IBoard} */
     const currBoard = lastBoard.after();
     if (haveSameMembers(currBoard.getCells(), initialCellsSet)) {
-      return { result: lastBoards, lastBoards: [], initialCellsSet };
+      return {
+        result: lastBoards,
+        lastBoards: [],
+        initialCellsSet,
+      };
     }
     return {
       result: [],
@@ -102,7 +98,9 @@ export const getSubperiodByCell = (oscPhaseBoards) => {
   return result;
 };
 
-/** */
+/**
+ *
+ */
 export const getOscStats = (board) => {
   // Basic functions
   const getAverage = (l) => (l.reduce((a, b) => a + b, 0) / l.length);

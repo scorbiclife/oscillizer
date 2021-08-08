@@ -1,7 +1,7 @@
-import * as rle from './helpers/rle.js';
-import { getOscStats } from './helpers/osc.js';
-import * as AppConfig from '../../AppConfig.js';
-import IController from './IController.js';
+import * as rle from './rle.js';
+import { getOscStats } from './osc.js';
+import * as AppConfig from '../../../AppConfig.js';
+import IController from '../IController.js';
 
 /**
  * A controller that updates the target with osc stats, with the given RLE.

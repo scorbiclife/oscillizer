@@ -1,5 +1,5 @@
 import AppState from './MVC/Models/AppState.js';
-import OscStatsController from './MVC/Controllers/updateosc.js';
+import OscStatsController from './MVC/Controllers/OscStatsController/OscStatsController.js';
 import makeUpdateOscillizerCanvas from './MVC/Views/updateoscillizercanvas.js';
 import makeUpdateOscillizerStatistics from './MVC/Views/updateoscillizerstatistics.js';
 import passEventTo from './MVC/Controllers/pipe.js';
