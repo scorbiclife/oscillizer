@@ -27,7 +27,7 @@ export const getPhases = (board, maxGens = 1000) => {
    * @property {CellMap} state.initialCellsSet
    * @returns {*} - Updated state, with the same type as state
    */
-  const appendNextPattern = (state) => {
+  const appendNextBoard = (state) => {
     const { result, lastBoards, initialCellsSet } = state;
     if (result.length !== 0) {
       return state;
@@ -50,7 +50,7 @@ export const getPhases = (board, maxGens = 1000) => {
     lastBoards: [board],
     initialCellsSet: CellMap.fromKeys(board.getCells()),
   };
-  const phases = repeatForMaxGens.reduce(appendNextPattern, initialData).result;
+  const phases = repeatForMaxGens.reduce(appendNextBoard, initialData).result;
   return phases; // Return empty array on failure
 };
 
