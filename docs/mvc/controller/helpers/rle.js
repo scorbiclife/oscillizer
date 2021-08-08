@@ -8,12 +8,11 @@ export class ParserState {
   /**
    * Initialize the parser with the given state.
    *
-   * @param {{
-   *  isFinished: boolean|undefined,
-   *  cells: Array<Cell>|undefined,
-   *  runCount: number|undefined,
-   *  currentCell: Cell|undefined,
-   * }} initialState - The initial state to override with
+   * @param {Object} initialState - The initial state to override with
+   * @property {boolean|undefined} initialState.isFinished
+   * @property {Array<Cell>|undefined} initialState.cells
+   * @property {Array<number>|undefined} initialState.runCount
+   * @property {Cell|undefined} initialState.currentCell
    *
    */
   constructor(initialState = {}) {
@@ -128,7 +127,9 @@ const extractParts = (rleString) => {
 /**
  * Given an RLE string, parse and return the rule and pattern.
  * @param {string} rleString - The RLE string.
- * @returns {[TwoStatePattern, Rule]} - The pattern and the rule.
+ * @returns {Array} - The pattern and the rule.
+ * @property {TwoStatePattern} 0 - The pattern.
+ * @property {Rule|undefined} 1 - The rule.
  */
 export const parse = (rleString) => {
   const [rleBody] = extractParts(rleString);
