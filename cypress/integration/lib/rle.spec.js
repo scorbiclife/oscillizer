@@ -1,4 +1,4 @@
-import * as rle from '../../../docs/MVC/Controllers/OscStatsController/rle.js';
+import * as rle from '../../../docs/MVC/Controllers/OscStatsController/RLEHelpers.js';
 
 describe('RLE Parser state', () => {
   it('should process newlines correctly', () => {

@@ -1,5 +1,5 @@
-import * as rle from './rle.js';
-import { getOscStats } from './osc.js';
+import * as rle from './RLEHelpers.js';
+import { getOscStats } from './OscHelpers.js';
 import * as AppConfig from '../../../AppConfig.js';
 import IController from '../IController.js';
 
@@ -8,7 +8,7 @@ import IController from '../IController.js';
  * @class
  * @implements {IController}
  */
-export default class OscStatsController extends IController {
+class OscStatsController extends IController {
   updateTemplate(event) {
     if (!event.target) {
       return;
@@ -18,3 +18,5 @@ export default class OscStatsController extends IController {
     this.targetState.setValue(getOscStats(initialBoard));
   }
 }
+
+export default OscStatsController;

@@ -1,4 +1,4 @@
-/* Parsing related code */
+/** @module RLEHelpers */
 
 /**
  * The intermediate state during RLE parsing.

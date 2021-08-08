@@ -2,6 +2,11 @@ import BoundingBox from '../../../engine/BaseTypes/BoundingBox.js';
 import CellMap from '../../../engine/BaseTypes/CellMap.js';
 
 /**
+ * Helper functions for oscillator-related functionality
+ * @module OscHelpers
+ */
+
+/**
  * Given an oscillator, return the board of each phase of the oscillation. (t=0..p-1)
  * Given a non-oscillator, return `[]`.
  * @param {IBoard} board - The initial board.
@@ -99,7 +104,10 @@ export const getSubperiodByCell = (oscPhaseBoards) => {
 };
 
 /**
- *
+ * Given a board of the oscillator, return the stats of the oscillator.
+ * @param {IBoard} - Initial oscillator
+ * @returns {Object} stats - The oscillator statistics
+ * @returns {boolean} stats.success - Whether the operation succeeded
  */
 export const getOscStats = (board) => {
   // Basic functions
