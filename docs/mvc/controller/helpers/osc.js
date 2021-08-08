@@ -54,7 +54,11 @@ export const getPhases = (board, maxGens = 1000) => {
   return phases; // Return empty array on failure
 };
 
-// From
+/**
+ * Given the phases of an oscillator, calculate and return the subperiod of each cell.
+ * @param {Array<IBoard>} oscPhaseBoards - The phases of an oscillator
+ * @returns {Array<{cell: Cell, subperiod: number}>} - Subperiods for every cell.
+ */
 export const getSubperiodByCell = (oscPhaseBoards) => {
   // Get the list of oscillator phases.
   // Return a list of `{ cell, aliveGens }` where `aliveGens` is the gens `cell` was alive.

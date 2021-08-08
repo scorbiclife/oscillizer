@@ -1,11 +1,30 @@
 /* Parsing related code */
 
+/**
+ * The intermediate state during RLE parsing.
+ * @class
+ */
 export class ParserState {
-  constructor(source = {}) {
-    this.isFinished = source.isFinished || false;
-    this.cells = source.cells || [];
-    this.runCount = source.runCount || 0;
-    this.currentCell = source.currentCell || [0, 0];
+  /**
+   * Initialize the parser with the given state.
+   *
+   * @param {{
+   *  isFinished: boolean|undefined,
+   *  cells: Array<Cell>|undefined,
+   *  runCount: number|undefined,
+   *  currentCell: Cell|undefined,
+   * }} initialState - The initial state to override with
+   *
+   */
+  constructor(initialState = {}) {
+    /** @type {boolean} */
+    this.isFinished = initialState.isFinished || false;
+    /** @type {Array<Cell>} */
+    this.cells = initialState.cells || [];
+    /** @type {number} */
+    this.runCount = initialState.runCount || 0;
+    /** @type {Cell} */
+    this.currentCell = initialState.currentCell || [0, 0];
   }
 
   finishParsing() {
@@ -88,7 +107,7 @@ export const parseBody = (rleBodyString) => {
 
 /* Body extracting related code */
 
-export const extractParts = (rleString) => {
+const extractParts = (rleString) => {
   const lines = (
     rleString.split('\n')
       .map((line) => line.replace(/\s/g, ''))
@@ -106,8 +125,11 @@ export const extractParts = (rleString) => {
   return [body, rule];
 };
 
-// One-stop take-care-all main function
-// Get an RLE, parse it, and return a list of cells parsed.
+/**
+ * Given an RLE string, parse and return the rule and pattern.
+ * @param {string} rleString - The RLE string.
+ * @returns {[TwoStatePattern, Rule]} - The pattern and the rule.
+ */
 export const parse = (rleString) => {
   const [rleBody] = extractParts(rleString);
   return [parseBody(rleBody), undefined];
