@@ -2,7 +2,7 @@
  * Common interface for implementing controllers.
  * @interface
  */
-export default class IController {
+class IController {
   /**
    * Pass
    * @constructor
@@ -30,3 +30,5 @@ export default class IController {
     );
   }
 }
+
+export default IController;

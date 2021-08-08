@@ -1,5 +1,7 @@
 import BoundingBox from '../../BaseTypes/BoundingBox.js';
 
+/** @module */
+
 /**
  * In a {@link SimpleBoard}, a rule is implemented as
  * a function

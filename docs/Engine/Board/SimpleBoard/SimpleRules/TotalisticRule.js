@@ -1,5 +1,7 @@
 import CellMap from '../../../BaseTypes/CellMap.js';
 
+/** @module */
+
 const neighborhood = {
   moore: [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 0], [0, 1], [1, -1], [1, 0], [1, 1]],
 };

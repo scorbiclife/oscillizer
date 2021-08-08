@@ -3,7 +3,7 @@ import CellMap from '../../../Engine/BaseTypes/CellMap.js';
 
 /**
  * Helper functions for oscillator-related functionality
- * @module OscHelpers
+ * @module
  */
 
 /**

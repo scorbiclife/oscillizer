@@ -1,4 +1,4 @@
-/** @module RLEHelpers */
+/** @module */
 
 /**
  * The intermediate state during RLE parsing.
