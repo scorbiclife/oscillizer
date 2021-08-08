@@ -54,13 +54,6 @@ export const getPhases = (board, maxGens = 1000) => {
   return phases; // Return empty array on failure
 };
 
-// Return the period of an oscillator for given `cellsArray`.
-// Return 0 if the pattern does not go back to gen 0 in `maxGens`
-export const getPeriod = (cellsArray, maxGens = 1000, rule = simpleBoardConwayLife) => {
-  const maybePeriod = getPhases(cellsArray, maxGens, rule).length;
-  return maybePeriod || 0;
-};
-
 // From
 export const getSubperiodByCell = (oscPhaseBoards) => {
   // Get the list of oscillator phases.
