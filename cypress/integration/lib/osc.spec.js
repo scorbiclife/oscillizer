@@ -1,6 +1,6 @@
 import SimpleBoard from '../../../docs/engine/Board/SimpleBoard/SimpleBoard.js';
 import { simpleBoardConwayLife } from '../../../docs/engine/Board/SimpleBoard/SimpleRules/TotalisticRule.js';
-import * as osc from '../../../docs/mvc/controller/helpers/osc.js';
+import * as osc from '../../../docs/MVC/Controllers/helpers/osc.js';
 
 const makeBoard = (cells) => new SimpleBoard(cells, simpleBoardConwayLife);
 

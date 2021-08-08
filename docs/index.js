@@ -1,8 +1,8 @@
-import AppState from './mvc/model/appstate.js';
-import makeUpdateOscillizerCanvas from './mvc/view/updateoscillizercanvas.js';
-import makeUpdateOscillizerStatistics from './mvc/view/updateoscillizerstatistics.js';
-import makeUpdateOscStats from './mvc/controller/updateosc.js';
-import passEventTo from './mvc/controller/pipe.js';
+import AppState from './MVC/Models/AppState.js';
+import makeUpdateOscillizerCanvas from './MVC/Views/updateoscillizercanvas.js';
+import makeUpdateOscillizerStatistics from './MVC/Views/updateoscillizerstatistics.js';
+import makeUpdateOscStats from './MVC/Controllers/updateosc.js';
+import passEventTo from './MVC/Controllers/pipe.js';
 
 const appState = {
   oscInfo: new AppState(),
