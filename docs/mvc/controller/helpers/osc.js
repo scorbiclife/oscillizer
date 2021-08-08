@@ -1,5 +1,5 @@
-import { simpleBoardConwayLife } from './Board/SimpleBoard/SimpleRules/TotalisticRule.js';
-import CellMap from './BaseTypes/CellMap.js';
+import { simpleBoardConwayLife } from '../../../engine/Board/SimpleBoard/SimpleRules/TotalisticRule.js';
+import CellMap from '../../../engine/BaseTypes/CellMap.js';
 
 /**
  * Given an oscillator, return the board of each phase of the oscillation. (t=0..p-1)

@@ -1,4 +1,4 @@
-import { simpleBoardConwayLife } from '../../../../docs/lib/engine/Board/SimpleBoard/SimpleRules/TotalisticRule.js';
+import { simpleBoardConwayLife } from '../../../docs/engine/Board/SimpleBoard/SimpleRules/TotalisticRule.js';
 
 describe('Conway\'s Game of Life rule', () => {
   it('Should iterate the glider correctly (1 gen)', () => {

@@ -1,5 +1,5 @@
-import SimpleBoard from './lib/engine/Board/SimpleBoard/SimpleBoard.js';
-import { simpleBoardConwayLife } from './lib/engine/Board/SimpleBoard/SimpleRules/TotalisticRule.js';
+import SimpleBoard from './engine/Board/SimpleBoard/SimpleBoard.js';
+import { simpleBoardConwayLife } from './engine/Board/SimpleBoard/SimpleRules/TotalisticRule.js';
 
 /**
  * Create and return a new two-state board with the given pattern and rule.

@@ -1,4 +1,4 @@
-import * as rle from '../../../../docs/lib/preprocess/rle.js';
+import * as rle from '../../../docs/mvc/controller/helpers/rle.js';
 
 describe('RLE Parser state', () => {
   it('Should process newlines correctly', () => {

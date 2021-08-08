@@ -1,6 +1,6 @@
-import * as rle from '../../lib/preprocess/rle.js';
-import * as osc from '../../lib/engine/osc.js';
-import BoundingBox from '../../lib/engine/BaseTypes/BoundingBox.js';
+import * as rle from './helpers/rle.js';
+import * as osc from './helpers/osc.js';
+import BoundingBox from '../../engine/BaseTypes/BoundingBox.js';
 import * as AppConfig from '../../AppConfig.js';
 
 const makeUpdateOscStats = (target, source) => (event) => {
