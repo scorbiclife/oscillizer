@@ -1,21 +1,20 @@
-import AbstractController from '../AbstractController.js/index.js';
-
-class EventTargetPassingController extends AbstractController {
-  /**
-   * A controller that just passes the value of `event.target`.
-   * `sourceElement` is not needed as we are using `event.target` anyway.
-   * @constructor
-   * @param {AppState} targetState
-   */
+/**
+ * A controller that just passes the value of `event.target`.
+ * `sourceElement` is not needed as we are using `event.target` anyway.
+ * @class
+ * @implements {IController}
+ */
+class EventTargetPassingController {
   constructor(targetState) {
-    super(targetState, undefined);
-  }
-
-  templateForUpdate(event) {
-    if (!event.target) {
-      return;
-    }
-    this.targetState.setValue(event.target.value);
+    /** @type {AppState} */
+    this.targetState = targetState;
+    /** The update callback. */
+    this.update = (event) => {
+      if (!event.target) {
+        return;
+      }
+      this.targetState.setValue(event.target.value);
+    };
   }
 }
 
