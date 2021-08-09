@@ -1,7 +1,7 @@
 import AppState from './MVC/Models/AppState.js';
 import EventTargetPassingController from './MVC/Controllers/PassingController/EventTargetPassingController.js';
 import OscStatsController from './MVC/Controllers/OscStatsController/OscStatsController.js';
-import makeUpdateOscillizerCanvas from './MVC/Views/updateoscillizercanvas.js';
+import OscillizerCanvasView from './MVC/Views/updateoscillizercanvas.js';
 import makeUpdateOscillizerStatistics from './MVC/Views/updateoscillizerstatistics.js';
 
 const appState = {
@@ -34,8 +34,11 @@ cellStyleSelector.addEventListener('change', cellStyleController.update);
 
 /* State -> UI update code */
 
-const updateCanvas = makeUpdateOscillizerCanvas(appState);
-appState.oscInfo.eventTarget.addEventListener('change', updateCanvas);
+const oscCanvas = document.getElementById('output-osc-canvas');
+const oscCanvasView = new OscillizerCanvasView(
+  appState.oscInfo, appState.initialCellStyle, oscCanvas
+);
+appState.oscInfo.eventTarget.addEventListener('change', oscCanvasView.update);
 
 const oscStatsElement = document.getElementById('output-osc-data');
 const updateStats = makeUpdateOscillizerStatistics(appState.oscInfo, oscStatsElement);
