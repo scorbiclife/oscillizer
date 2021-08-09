@@ -1,7 +1,7 @@
 import AppState from './MVC/Models/AppState.js';
 import EventTargetPassingController from './MVC/Controllers/PassingController/EventTargetPassingController.js';
 import OscStatsController from './MVC/Controllers/OscStatsController/OscStatsController.js';
-import OscillizerCanvasView from './MVC/Views/updateoscillizercanvas.js';
+import OscillizerCanvasView from './MVC/Views/OscillizerCanvasView/OscillizerCanvasView.js';
 import makeUpdateOscillizerStatistics from './MVC/Views/updateoscillizerstatistics.js';
 
 const appState = {

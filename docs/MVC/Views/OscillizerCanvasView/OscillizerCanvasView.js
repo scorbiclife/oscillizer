@@ -1,10 +1,10 @@
-import * as visuals from './visuals.js';
+import * as CanvasHelpers from './CanvasHelpers.js';
 
 const drawLiveCellOptions = new Map(
   [
     ['none', () => {}],
-    ['border', visuals.drawLiveCellBorder],
-    ['interior', visuals.drawLiveCellInterior],
+    ['border', CanvasHelpers.drawLiveCellBorder],
+    ['interior', CanvasHelpers.drawLiveCellInterior],
   ]
 );
 
@@ -28,7 +28,7 @@ class OscillizerCanvasView {
         success,
         pattern,
         period,
-        subperiods: cellsAndSubperiods,
+        subperiods,
         boundingBox,
       } = this.oscData.value;
 
@@ -39,14 +39,14 @@ class OscillizerCanvasView {
         return;
       }
 
-      visuals.drawGrid(targetCanvas, context, boundingBox);
+      CanvasHelpers.drawGrid(targetCanvas, context, boundingBox);
 
       //
-      const subperiodsSet = new Set(cellsAndSubperiods.map((e) => e.subperiod));
+      const subperiodsSet = new Set(subperiods.map((e) => e.subperiod));
       const subperiodsArray = [...subperiodsSet.values()].sort((a, b) => a - b);
-      const colorMap = visuals.makeColorMap(period, subperiodsArray);
-      cellsAndSubperiods.forEach(({ cell: [x, y], subperiod }) => {
-        visuals.drawCell(
+      const colorMap = CanvasHelpers.makeColorMap(period, subperiodsArray);
+      subperiods.forEach(({ cell: [x, y], subperiod }) => {
+        CanvasHelpers.drawCell(
           context,
           x - boundingBox.xmin,
           y - boundingBox.ymin,
