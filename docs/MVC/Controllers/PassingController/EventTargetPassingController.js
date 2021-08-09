@@ -1,6 +1,6 @@
-import IController from '../IController.js';
+import AbstractController from '../AbstractController.js/index.js';
 
-class EventTargetPassingController extends IController {
+class EventTargetPassingController extends AbstractController {
   /**
    * A controller that just passes the value of `event.target`.
    * `sourceElement` is not needed as we are using `event.target` anyway.
