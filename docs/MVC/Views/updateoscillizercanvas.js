@@ -1,10 +1,12 @@
 import * as visuals from './visuals.js';
 
-const drawLiveCellOptions = {
-  none: () => {},
-  border: visuals.drawLiveCellBorder,
-  interior: visuals.drawLiveCellInterior,
-};
+const drawLiveCellOptions = new Map(
+  [
+    ['none', () => {}],
+    ['border', visuals.drawLiveCellBorder],
+    ['interior', visuals.drawLiveCellInterior],
+  ]
+);
 
 const makeUpdateOscillizerCanvas = (appState) => (event) => {
   const canvas = document.getElementById('output-osc-canvas');
@@ -37,7 +39,7 @@ const makeUpdateOscillizerCanvas = (appState) => (event) => {
     visuals.drawCell(context, x - boundingBox.xmin, y - boundingBox.ymin, colorMap.get(subperiod));
   });
 
-  const drawLiveCell = drawLiveCellOptions[appState.initialCellStyle.value || 'none'];
+  const drawLiveCell = drawLiveCellOptions.get(appState.initialCellStyle.value || 'none');
 
   pattern.forEach(
     ([x, y]) => drawLiveCell(context, x - boundingBox.xmin, y - boundingBox.ymin)
