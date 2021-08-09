@@ -9,7 +9,7 @@ import IController from '../IController.js';
  * @implements {IController}
  */
 class OscStatsController extends IController {
-  updateTemplate(event) {
+  templateForUpdate(event) {
     if (!event.target) {
       return;
     }

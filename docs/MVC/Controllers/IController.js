@@ -15,14 +15,14 @@ class IController {
     /** @type {AppState} */
     this.targetState = targetState;
     /** @type {function(event)} */
-    this.update = (event) => this.updateTemplate(event);
+    this.update = (event) => this.templateForUpdate(event);
   }
 
   /**
    * @abstract
    * @param {Event} event - The passed in event. Usually has some `detail` field to work with.
    */
-  updateTemplate(event) {
+  templateForUpdate(event) {
     throw new Error(
       'This is meant to be run in a concrete implementation of this interface.\n'
       + `\tthis: ${this}\n`
