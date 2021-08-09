@@ -8,6 +8,12 @@ const drawLiveCellOptions = new Map(
   ]
 );
 
+const getArrayFromSubperiods = (subperiods) => {
+  const subperiodSet = new Set(subperiods.map((e) => e.subperiod));
+  const subperiodArray = [...subperiodSet.values()].sort((a, b) => a - b);
+  return subperiodArray;
+};
+
 /**
  * The view that takes care of the oscillizer canvas.
  * @class
@@ -18,12 +24,17 @@ class OscillizerCanvasView {
     this.oscData = oscData;
     this.cellStyle = cellStyle;
     this.targetCanvas = targetCanvas;
+    /**
+     * The `update` callback that updates the view.
+     * @type {function(Event)}
+     */
     this.update = (/* event */) => {
       const context = this.targetCanvas.getContext('2d');
       if (!context) {
         return;
       }
 
+      // Dependent data
       const {
         success,
         pattern,
@@ -31,35 +42,32 @@ class OscillizerCanvasView {
         subperiods,
         boundingBox,
       } = this.oscData.value;
+      const colorMap = CanvasHelpers.makeColorMap(period, getArrayFromSubperiods(subperiods));
 
-      // Clear canvas first
-      context.clearRect(0, 0, targetCanvas.width, targetCanvas.height);
-
-      if (!success) {
-        return;
-      }
-
-      CanvasHelpers.drawGrid(targetCanvas, context, boundingBox);
-
-      //
-      const subperiodsSet = new Set(subperiods.map((e) => e.subperiod));
-      const subperiodsArray = [...subperiodsSet.values()].sort((a, b) => a - b);
-      const colorMap = CanvasHelpers.makeColorMap(period, subperiodsArray);
-      subperiods.forEach(({ cell: [x, y], subperiod }) => {
+      // Helper functions
+      const drawSubperiod = ({ cell: [x, y], subperiod }) => {
         CanvasHelpers.drawCell(
           context,
           x - boundingBox.xmin,
           y - boundingBox.ymin,
           colorMap.get(subperiod)
         );
-      });
+      };
 
-      const drawLiveCell = drawLiveCellOptions.get(this.cellStyle.value || 'none');
+      const drawLiveCell = ([x, y]) => {
+        const drawLiveCellOption = drawLiveCellOptions.get(this.cellStyle.value || 'none');
+        drawLiveCellOption(context, x - boundingBox.xmin, y - boundingBox.ymin);
+      };
 
-      pattern.forEach(
-        ([x, y]) => drawLiveCell(context, x - boundingBox.xmin, y - boundingBox.ymin)
-      );
-    };
+      // Main Logic
+      context.clearRect(0, 0, targetCanvas.width, targetCanvas.height);
+      if (!success) {
+        return;
+      }
+      CanvasHelpers.drawGrid(targetCanvas, context, boundingBox);
+      subperiods.forEach(drawSubperiod);
+      pattern.forEach(drawLiveCell);
+    }; // end of `this.update`
   }
 }
 
