@@ -1,3 +1,4 @@
 {
-  "include": ["**/*.js"]
+  "include": ["**/*.js"],
+  "checkJS": true
 }
