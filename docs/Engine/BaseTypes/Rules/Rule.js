@@ -29,7 +29,7 @@ Rule.TotalisticRule = class extends Rule { };
  * An Isotropic non-totalistic rule with the given birth and survival conditions.
  *
  * @class
- * @param {Array<INTNeighbors>} births - The birth conditions
- * @param {Array<INTNeighbors>} survivals - The survival conditions
+ * @param {Array<Neighbors.INT>} births - The birth conditions
+ * @param {Array<Neighbors.INT>} survivals - The survival conditions
  */
 Rule.INTRule = class extends Rule { };
