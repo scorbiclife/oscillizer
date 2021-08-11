@@ -1,11 +1,13 @@
 import BoundingBox from '../../../BaseTypes/BoundingBox.js';
-import { simpleBoardTotalisticRule, simpleBoardConwayLife } from './SimpleRules/TotalisticRule.js';
+import simpleBoardTotalisticRule from './SimpleRules/TotalisticRule.js';
 import Rule from '../../../BaseTypes/Rule/Rule.js';
 
 const transFunctionFromRule = new Map([
   [Rule.TotalisticRule, simpleBoardTotalisticRule],
   [Rule.INTRule, simpleBoardTotalisticRule],
 ]);
+
+const conwaylife = simpleBoardTotalisticRule(new Rule.TotalisticRule([3], [2, 3]));
 
 /** @module */
 
@@ -43,7 +45,7 @@ class SimpleBoard {
     const makeTrans = transFunctionFromRule.get(rule.constructor);
 
     /** @type {SimpleRule} */
-    this.rule = makeTrans ? makeTrans(rule) : simpleBoardConwayLife;
+    this.rule = makeTrans ? makeTrans(rule) : conwaylife;
 
     /** @type {number} */
     this.gen = gen;
