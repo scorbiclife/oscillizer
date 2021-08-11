@@ -1,5 +1,5 @@
 import SimpleBoard from './Engine/Board/SimpleBoard/SimpleBoard.js';
-import Rule from './Engine/BaseTypes/Rule/Rule.js';
+import Rule from './BaseTypes/Rule/Rule.js';
 
 const life = new Rule.TotalisticRule([3], [2, 3]);
 

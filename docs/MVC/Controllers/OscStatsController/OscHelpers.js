@@ -1,5 +1,5 @@
-import BoundingBox from '../../../Engine/BaseTypes/BoundingBox.js';
-import CellMap from '../../../Engine/BaseTypes/CellMap.js';
+import BoundingBox from '../../../BaseTypes/BoundingBox.js';
+import CellMap from '../../../BaseTypes/CellMap.js';
 
 /**
  * Helper functions for oscillator-related functionality

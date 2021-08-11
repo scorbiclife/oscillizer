@@ -1,5 +1,5 @@
-import CellMap from '../../../BaseTypes/CellMap.js';
-import Rule from '../../../BaseTypes/Rule/Rule.js';
+import CellMap from '../../../../BaseTypes/CellMap.js';
+import Rule from '../../../../BaseTypes/Rule/Rule.js';
 
 /** @module */
 

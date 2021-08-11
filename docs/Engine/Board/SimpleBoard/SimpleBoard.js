@@ -1,6 +1,6 @@
-import BoundingBox from '../../BaseTypes/BoundingBox.js';
+import BoundingBox from '../../../BaseTypes/BoundingBox.js';
 import { simpleBoardTotalisticRule, simpleBoardConwayLife } from './SimpleRules/TotalisticRule.js';
-import Rule from '../../BaseTypes/Rule/Rule.js';
+import Rule from '../../../BaseTypes/Rule/Rule.js';
 
 const transFunctionFromRule = new Map([
   [Rule.TotalisticRule, simpleBoardTotalisticRule],

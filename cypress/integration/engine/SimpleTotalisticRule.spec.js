@@ -1,5 +1,5 @@
 import { simpleBoardTotalisticRule } from '../../../docs/Engine/Board/SimpleBoard/SimpleRules/TotalisticRule.js';
-import Rule from '../../../docs/Engine/BaseTypes/Rule/Rule.js';
+import Rule from '../../../docs/BaseTypes/Rule/Rule.js';
 
 const conwaylife = simpleBoardTotalisticRule(
   new Rule.TotalisticRule([3], [2, 3])
