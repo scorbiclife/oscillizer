@@ -19,7 +19,7 @@ class OscStatsController {
         return;
       }
       const [pattern, rule] = rle.parse(this.sourceElement.value);
-      const initialBoard = AppConfig.makeTwoStateBoard(pattern, rule);
+      const initialBoard = AppConfig.makeBoard(pattern, rule);
       this.targetState.setValue(getOscStats(initialBoard));
     };
   }

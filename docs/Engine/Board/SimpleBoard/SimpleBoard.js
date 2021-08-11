@@ -1,4 +1,11 @@
-import BoundingBox from '../../BaseTypes/BoundingBox.js';
+import BoundingBox from '../../../BaseTypes/BoundingBox.js';
+import { simpleBoardTotalisticRule, simpleBoardConwayLife } from './SimpleRules/TotalisticRule.js';
+import Rule from '../../../BaseTypes/Rule/Rule.js';
+
+const transFunctionFromRule = new Map([
+  [Rule.TotalisticRule, simpleBoardTotalisticRule],
+  [Rule.INTRule, simpleBoardTotalisticRule],
+]);
 
 /** @module */
 
@@ -7,7 +14,7 @@ import BoundingBox from '../../BaseTypes/BoundingBox.js';
  * a function
  * that receives a pattern
  * and returns the pattern iterated to the next generation.
- * @typedef SimpleBoard#Rule
+ * @typedef SimpleRule
  * @type {function}
  * @param {TwoStatePattern} pattern - The pattern to operate on.
  * @returns {TwoStatePattern} - The pattern at the next generation.
@@ -26,12 +33,19 @@ class SimpleBoard {
    *
    * @constructor
    * @param {TwoStatePattern} pattern - The initial pattern.
-   * @param {SimpleBoard#Rule} rule - The rule to operate on the pattern with.
+   * @param {Rule} rule - The rule to operate on the pattern with.
    * @param {number} [gen=0] - The initial generation.
    */
   constructor(pattern, rule, gen = 0) {
+    /** @type {TwoStatePattern} */
     this.pattern = pattern;
-    this.rule = rule;
+
+    const makeTrans = transFunctionFromRule.get(rule.constructor);
+
+    /** @type {SimpleRule} */
+    this.rule = makeTrans ? makeTrans(rule) : simpleBoardConwayLife;
+
+    /** @type {number} */
     this.gen = gen;
   }
 
