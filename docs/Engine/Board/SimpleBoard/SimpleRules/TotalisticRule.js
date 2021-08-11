@@ -1,4 +1,5 @@
 import CellMap from '../../../BaseTypes/CellMap.js';
+import Rule from '../../../BaseTypes/Rule/Rule.js';
 
 /** @module */
 
@@ -21,11 +22,11 @@ const getNeighborCounts = (cellsArray, neighbors) => {
 /**
  * Given the birth and survival conditions, return the totalistic rule.
  *
- * @param {Array<number>} births - The birth conditions
- * @param {Array<number>} survivals - The survival conditions
- * @returns {SimpleBoard#Rule}
+ * @param {totalisticRule}
+ * @returns {SimpleRule}
  */
-export const simpleBoardTotalisticRule = (births, survivals) => (cellsArray) => {
+export const simpleBoardTotalisticRule = (totalisticRule) => (cellsArray) => {
+  const { births, survivals } = totalisticRule;
   const neighborCounts = getNeighborCounts(cellsArray, neighborhood.moore);
   const cellsSet = CellMap.fromKeys(cellsArray);
   const ruleCondition = ([cell, count]) => (
@@ -41,6 +42,8 @@ export const simpleBoardTotalisticRule = (births, survivals) => (cellsArray) => 
 };
 
 /**
- * @type {SimpleBoard#Rule}
+ * @type {SimpleRule}
  */
-export const simpleBoardConwayLife = simpleBoardTotalisticRule([3], [2, 3]);
+export const simpleBoardConwayLife = simpleBoardTotalisticRule(
+  new Rule.TotalisticRule([3], [2, 3])
+);
