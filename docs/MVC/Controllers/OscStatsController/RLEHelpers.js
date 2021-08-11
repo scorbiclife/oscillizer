@@ -1,4 +1,4 @@
-import ParserState from '../../../Engine/RLE/ParserState.js';
+import PatternParser from '../../../Engine/RLE/PatternParser.js';
 
 /** @module */
 
@@ -42,7 +42,7 @@ const updateParserState = (parserState, c) => {
 // Convert RLE without headers into a pattern of form [[x, y]]
 export const parseBody = (rleBodyString) => {
   const parseResult = (
-    [...rleBodyString].reduce(updateParserState, new ParserState())
+    [...rleBodyString].reduce(updateParserState, new PatternParser())
   );
   parseResult.finishParsing(); // No-op for now but semantically needed
   return parseResult.cells;

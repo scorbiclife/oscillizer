@@ -2,7 +2,7 @@
  * The intermediate state during RLE parsing.
  * @class
  */
-class ParserState {
+class PatternParser {
   /**
    * Initialize the parser with the given state.
    *
@@ -56,4 +56,4 @@ class ParserState {
   }
 }
 
-export default ParserState;
+export default PatternParser;
