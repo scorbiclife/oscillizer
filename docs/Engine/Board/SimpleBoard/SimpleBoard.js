@@ -4,7 +4,7 @@ import Rule from '../../../BaseTypes/Rule/Rule.js';
 
 const transFunctionFromRule = new Map([
   [Rule.TotalisticRule, simpleBoardTotalisticRule],
-  [Rule.INTRule, simpleBoardTotalisticRule],
+  [Rule.INTRule, undefined],
 ]);
 
 const conwaylife = simpleBoardTotalisticRule(new Rule.TotalisticRule([3], [2, 3]));
