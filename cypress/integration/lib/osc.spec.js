@@ -1,8 +1,9 @@
-import SimpleBoard from '../../../docs/Engine/Board/SimpleBoard/SimpleBoard.js';
-import { simpleBoardConwayLife } from '../../../docs/Engine/Board/SimpleBoard/SimpleRules/TotalisticRule.js';
 import * as osc from '../../../docs/MVC/Controllers/OscStatsController/OscHelpers.js';
+import Rule from '../../../docs/BaseTypes/Rule/Rule.js';
+import SimpleBoard from '../../../docs/Engine/Board/SimpleBoard/SimpleBoard.js';
 
-const makeBoard = (cells) => new SimpleBoard(cells, simpleBoardConwayLife);
+const conwaylife = new Rule.TotalisticRule([3], [2, 3]);
+const makeBoard = (cells) => new SimpleBoard(cells, conwaylife);
 
 describe('Oscillator phases finder', () => {
   it('should return correct phases for the blinker', () => {
