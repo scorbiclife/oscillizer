@@ -1,10 +1,10 @@
-import Rule from '../../BaseTypes/Rule/Rule.js';
-import Neighbors from '../../BaseTypes/Neighbors/Neighbors.js';
+import INTRule from '../../BaseTypes/Rule/INTRule.js';
+import TotalisticRule from '../../BaseTypes/Rule/TotalisticRule.js';
 
 /**
  * Try to parse totalistic rule from rulestring.
  * @param {string} ruleString
- * @returns {Rule.TotalisticRule|undefined} - A totalistic rule on success, `undefined` on fail.
+ * @returns {TotalisticRule|undefined} - A totalistic rule on success, `undefined` on fail.
  */
 export const parseTotalisticRule = (ruleString) => {
   const updateState = (state, c) => {
@@ -47,17 +47,16 @@ export const parseTotalisticRule = (ruleString) => {
   }
   const births = [...new Set(finalState.births).keys()];
   const survivals = [...new Set(finalState.survivals).keys()];
-  return new Rule.TotalisticRule(births, survivals);
+  return new TotalisticRule(births, survivals);
 };
 
 /**
  * Try to parse an INT rule from rulestring.
  * @param {string} ruleString
- * @returns {Rule.INTRule|undefined} - An INT rule on success, `undefined` on fail.
+ * @returns {INTRule|undefined} - An INT rule on success, `undefined` on fail.
  */
 export const parseINTRule = (ruleString) => {
   // Dependent function and objects
-  const { INT } = Neighbors;
 
   const copyWithBirth = (state) => ({
     isBirth: true,
@@ -83,107 +82,107 @@ export const parseINTRule = (ruleString) => {
   // Assumes word matches `/[0-8][-cekainyqjrtwz]/`
   const allNeighborsByCount = [
     [
-      INT.X0,
+      '0',
     ],
     [
-      INT.X1c, INT.X1e,
+      '1c', '1e',
     ],
     [
-      INT.X2c, INT.X2e,
-      INT.X2a, INT.X2k, INT.X2i, INT.X2n,
+      '2c', '2e',
+      '2a', '2k', '2i', '2n',
     ],
     [
-      INT.X3c, INT.X3e,
-      INT.X3a, INT.X3k, INT.X3i, INT.X3n,
-      INT.X3j, INT.X3q, INT.X3r, INT.X3y,
+      '3c', '3e',
+      '3a', '3k', '3i', '3n',
+      '3j', '3q', '3r', '3y',
     ],
     [
-      INT.X4c, INT.X4e,
-      INT.X4a, INT.X4k, INT.X4i, INT.X4n,
-      INT.X4j, INT.X4q, INT.X4r, INT.X4y,
-      INT.X4t, INT.X4w, INT.X4z,
+      '4c', '4e',
+      '4a', '4k', '4i', '4n',
+      '4j', '4q', '4r', '4y',
+      '4t', '4w', '4z',
     ],
     [
-      INT.X5c, INT.X5e,
-      INT.X5a, INT.X5k, INT.X5i, INT.X5n,
-      INT.X5j, INT.X5q, INT.X5r, INT.X5y,
+      '5c', '5e',
+      '5a', '5k', '5i', '5n',
+      '5j', '5q', '5r', '5y',
     ],
     [
-      INT.X6c, INT.X6e,
-      INT.X6a, INT.X6k, INT.X6i, INT.X6n,
+      '6c', '6e',
+      '6a', '6k', '6i', '6n',
     ],
     [
-      INT.X7c, INT.X7e,
+      '7c', '7e',
     ],
     [
-      INT.X8,
+      '8',
     ],
   ];
 
   const neighborsByCountAndChar = [
     new Map(),
     new Map([
-      ['c', INT.X1c],
-      ['e', INT.X1e],
+      ['c', '1c'],
+      ['e', '1e'],
     ]),
     new Map([
-      ['c', INT.X2c],
-      ['e', INT.X2e],
-      ['a', INT.X2a],
-      ['k', INT.X2k],
-      ['i', INT.X2i],
-      ['n', INT.X2n],
+      ['c', '2c'],
+      ['e', '2e'],
+      ['a', '2a'],
+      ['k', '2k'],
+      ['i', '2i'],
+      ['n', '2n'],
     ]),
     new Map([
-      ['c', INT.X3c],
-      ['e', INT.X3e],
-      ['a', INT.X3a],
-      ['k', INT.X3k],
-      ['i', INT.X3i],
-      ['n', INT.X3n],
-      ['j', INT.X3j],
-      ['q', INT.X3q],
-      ['r', INT.X3r],
-      ['y', INT.X3y],
+      ['c', '3c'],
+      ['e', '3e'],
+      ['a', '3a'],
+      ['k', '3k'],
+      ['i', '3i'],
+      ['n', '3n'],
+      ['j', '3j'],
+      ['q', '3q'],
+      ['r', '3r'],
+      ['y', '3y'],
     ]),
     new Map([
-      ['c', INT.X4c],
-      ['e', INT.X4e],
-      ['a', INT.X4a],
-      ['k', INT.X4k],
-      ['i', INT.X4i],
-      ['n', INT.X4n],
-      ['j', INT.X4j],
-      ['q', INT.X4q],
-      ['r', INT.X4r],
-      ['y', INT.X4y],
-      ['w', INT.X4w],
-      ['t', INT.X4t],
-      ['z', INT.X4z],
+      ['c', '4c'],
+      ['e', '4e'],
+      ['a', '4a'],
+      ['k', '4k'],
+      ['i', '4i'],
+      ['n', '4n'],
+      ['j', '4j'],
+      ['q', '4q'],
+      ['r', '4r'],
+      ['y', '4y'],
+      ['w', '4w'],
+      ['t', '4t'],
+      ['z', '4z'],
     ]),
     new Map([
-      ['c', INT.X5c],
-      ['e', INT.X5e],
-      ['a', INT.X5a],
-      ['k', INT.X5k],
-      ['i', INT.X5i],
-      ['n', INT.X5n],
-      ['j', INT.X5j],
-      ['q', INT.X5q],
-      ['r', INT.X5r],
-      ['y', INT.X5y],
+      ['c', '5c'],
+      ['e', '5e'],
+      ['a', '5a'],
+      ['k', '5k'],
+      ['i', '5i'],
+      ['n', '5n'],
+      ['j', '5j'],
+      ['q', '5q'],
+      ['r', '5r'],
+      ['y', '5y'],
     ]),
     new Map([
-      ['c', INT.X6c],
-      ['e', INT.X6e],
-      ['a', INT.X6a],
-      ['k', INT.X6k],
-      ['i', INT.X6i],
-      ['n', INT.X6n],
+      ['c', '6c'],
+      ['e', '6e'],
+      ['a', '6a'],
+      ['k', '6k'],
+      ['i', '6i'],
+      ['n', '6n'],
     ]),
     new Map([
-      ['c', INT.X7c],
-      ['e', INT.X7e],
+      ['c', '7c'],
+      ['e', '7e'],
     ]),
     new Map(),
   ];
@@ -235,5 +234,5 @@ export const parseINTRule = (ruleString) => {
     },
     initialState
   );
-  return new Rule.INTRule([...finalState.births], [...finalState.survivals]);
+  return new INTRule([...finalState.births], [...finalState.survivals]);
 };

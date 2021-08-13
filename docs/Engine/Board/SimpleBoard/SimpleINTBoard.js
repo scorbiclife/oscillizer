@@ -1,6 +1,6 @@
 import AbcSimpleBoard from './AbcSimpleBoard.js';
 import CellMap from '../../../BaseTypes/CellMap.js';
-import Neighbors from '../../../BaseTypes/Neighbors/Neighbors.js';
+import { intNeighborsByIndex } from '../../../BaseTypes/Neighbors/INTNeighbors.js';
 
 const weightsByRelPos = new Map([
   [[-1, -1], 1],
@@ -27,7 +27,7 @@ const getNeighborTransitionIndexes = (cellsArray) => {
 };
 
 /**
- * @param {Rule.INTRule} rule
+ * @param {INTRule} rule
  * @returns {function(Array<Cell>): Array<Cell>}
  */
 const makeTransitionFunction = (rule) => (cellsArray) => {
@@ -38,7 +38,7 @@ const makeTransitionFunction = (rule) => (cellsArray) => {
       // eslint-disable-next-line no-bitwise
       const cellIsAlive = (tIndex & 0x10) !== 0;
       const validTransitions = cellIsAlive ? rule.survivals : rule.births;
-      return validTransitions.includes(Neighbors.INT.fromIndex(tIndex));
+      return validTransitions.includes(intNeighborsByIndex[tIndex]);
     })
     .map(([cell] /* [cell, tIndex] */) => cell);
   return nextCells;

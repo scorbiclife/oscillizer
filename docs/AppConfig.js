@@ -1,7 +1,7 @@
 import SimpleTotalisticBoard from './Engine/Board/SimpleBoard/SimpleTotalisticBoard.js';
-import Rule from './BaseTypes/Rule/Rule.js';
+import TotalisticRule from './BaseTypes/Rule/TotalisticRule.js';
 
-const life = new Rule.TotalisticRule([3], [2, 3]);
+const life = new TotalisticRule([3], [2, 3]);
 
 /**
  * Create and return a new two-state board with the given pattern and rule.

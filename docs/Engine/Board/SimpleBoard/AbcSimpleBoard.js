@@ -1,6 +1,12 @@
 import BoundingBox from '../../../BaseTypes/BoundingBox.js';
 
 /**
+ * @typedef {import('../../../BaseTypes/Rule/TotalisticRule').default} TotalisticRule
+ * @typedef {import('../IBoard').IBoard} IBoard
+ * @typedef {import('./SimpleTotalisticBoard').default} SimpleTotalisticBoard
+ */
+
+/**
  * This simple interface consists of a `pattern` and a `transitionFunction`.
  * It applies the `transitionFunction` on the `pattern` to get the next generation.
  * Other auxillary information is extracted from the `pattern`.
@@ -15,14 +21,27 @@ import BoundingBox from '../../../BaseTypes/BoundingBox.js';
  *  with the rule given as the parameter.
  *  For example classes, see {@link SimpleTotalisticBoard}.
  *
- * @class
  * @implements {IBoard}
+ *
  */
 class AbcSimpleBoard {
+  /**
+   * @param {TwoStatePattern} pattern
+   * @param {TotalisticRule} rule
+   * @param {number} gen
+   */
   constructor(pattern, rule, gen) {
+    /** @type {TwoStatePattern} */
     this.pattern = pattern;
+    /** @type {TotalisticRule} */
     this.rule = rule;
+    /** @type {number} */
     this.gen = gen;
+    /**
+     * This should be overriden by concrete implementations!
+     * @type {any}
+     */
+    this.transitionFunction = undefined;
   }
 
   getCells() {
@@ -47,12 +66,14 @@ class AbcSimpleBoard {
    * Return a new board with the pattern iterated by the given amount.
    *
    * @param {number} [gens=1] - Number of generations to iterate
-   * @returns {SimpleTotalisticBoard} - The new board
+   * @returns {AbcSimpleBoard} - The new board
    */
   after(gens = 1) {
     const repeatForGens = new Array(gens).fill();
     const iteratedPattern = repeatForGens.reduce(this.transitionFunction, this.pattern);
-    return new this.constructor(iteratedPattern, this.rule, this.gen + gens);
+    /** @type {any} */
+    const ThisClass = this.constructor;
+    return new ThisClass(iteratedPattern, this.rule, this.gen + gens);
   }
 }
 

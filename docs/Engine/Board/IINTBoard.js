@@ -1,11 +1,12 @@
 /**
- * @interface IINTBoard
- * @extends IBoard
+ * @typedef {import('./IBoard').IBoard} IBoard
+ * @typedef {import('../../BaseTypes/Rule/INTRule').default} INTRule
  */
 
 /**
- * @function ITotalisticBoard#constructor
- * @param {TwoStatePattern} Pattern
- * @param {Rule.INTRule} rule
- * @param {number} gen - Initial generation of the board.
+ * @typedef {IBoard} IINTBoard
+ * @property {function} constructor
+ * @param {TwoStatePattern} pattern
+ * @param {INTRule} rule
+ * @param {number} gen
  */

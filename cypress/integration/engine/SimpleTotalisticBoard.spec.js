@@ -1,8 +1,8 @@
 import SimpleTotalisticBoard from '../../../docs/Engine/Board/SimpleBoard/SimpleTotalisticBoard.js';
-import Rule from '../../../docs/BaseTypes/Rule/Rule.js';
+import TotalisticRule from '../../../docs/BaseTypes/Rule/TotalisticRule.js';
 import BoundingBox from '../../../docs/BaseTypes/BoundingBox.js';
 
-const conwaylife = new Rule.TotalisticRule([3], [2, 3]);
+const conwaylife = new TotalisticRule([3], [2, 3]);
 const gliderBoard = new SimpleTotalisticBoard([[1, 0], [2, 1], [0, 2], [1, 2], [2, 2]], conwaylife);
 const blinkerBoard = new SimpleTotalisticBoard([[0, 0], [1, 0], [2, 0]], conwaylife);
 
