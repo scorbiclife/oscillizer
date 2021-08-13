@@ -1,4 +1,4 @@
-import SimpleBoard from './Engine/Board/SimpleBoard/SimpleBoard.js';
+import SimpleTotalisticBoard from './Engine/Board/SimpleBoard/SimpleTotalisticBoard.js';
 import Rule from './BaseTypes/Rule/Rule.js';
 
 const life = new Rule.TotalisticRule([3], [2, 3]);
@@ -12,7 +12,7 @@ const life = new Rule.TotalisticRule([3], [2, 3]);
  * @param {Object} [rule] - The rule to use, this should be compatible with the board used.
  * @returns {IBoard} - The board
  */
-export const makeBoard = (pattern, rule = life) => new SimpleBoard(pattern, rule);
+export const makeBoard = (pattern, rule = life) => new SimpleTotalisticBoard(pattern, rule);
 
 /**
  * Create and return a new empty board with the given rule.
@@ -22,4 +22,4 @@ export const makeBoard = (pattern, rule = life) => new SimpleBoard(pattern, rule
  * @param {Object} [rule] - The rule to use, this should be compatible with the board used.
  * @returns {IBoard} - The board
  */
-export const makeEmptyBoard = (rule = life) => new SimpleBoard([], rule);
+export const makeEmptyBoard = (rule = life) => new SimpleTotalisticBoard([], rule);
