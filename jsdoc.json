@@ -12,5 +12,8 @@
       "outputSourceFiles": false,
       "useLongnameInNav": true
     }
+  },
+  "typescript": {
+    "moduleRoot": "docs"
   }
 }

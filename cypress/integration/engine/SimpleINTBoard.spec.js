@@ -1,16 +1,15 @@
 import SimpleINTBoard from '../../../docs/Engine/Board/SimpleBoard/SimpleINTBoard.js';
-import Rule from '../../../docs/BaseTypes/Rule/Rule.js';
-import Neighbors from '../../../docs/BaseTypes/Neighbors/Neighbors.js';
-
-const { INT } = Neighbors;
+import INTRule from '../../../docs/BaseTypes/Rule/INTRule.js';
 
 // tlife is b3-i/s2-i34q
-const tlife = new Rule.INTRule(
-  [INT.X3c, INT.X3e, INT.X3a, INT.X3k, INT.X3i, INT.X3n, INT.X3j, INT.X3q, INT.X3r, INT.X3y],
+const tlife = new INTRule(
   [
-    INT.X2c, INT.X2e, INT.X2a, INT.X2k, INT.X2n,
-    INT.X3c, INT.X3e, INT.X3a, INT.X3k, INT.X3i, INT.X3n, INT.X3j, INT.X3q, INT.X3r, INT.X3y,
-    INT.X4q,
+    '3c', '3e', '3a', '3k', '3i', '3n', '3j', '3q', '3r', '3y',
+  ],
+  [
+    '2c', '2e', '2a', '2k', '2n',
+    '3c', '3e', '3a', '3k', '3i', '3n', '3j', '3q', '3r', '3y',
+    '4q',
   ]
 );
 

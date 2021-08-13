@@ -1,11 +1,12 @@
 /**
- * @interface ITotalisticBoard
- * @extends IBoard
+ *
+ * @typedef {import('../../BaseTypes/Rule/TotalisticRule').default} TotalisticRule
  */
 
 /**
- * @function ITotalisticBoard#constructor
- * @param {TwoStatePattern} Pattern
- * @param {Rule.TotalisticRule} rule
- * @param {number} gen - Initial generation of the board.
+ * @typedef {IBoard} ITotalisticBoard
+ * @property {function} constructor
+ * @param {TwoStatePattern} pattern
+ * @param {TotalisticRule} rule
+ * @param {number} gen
  */

@@ -5,16 +5,12 @@
  *  and other auxillary info like bounding boxes and generation.
  * These are tightly coupled and needs each other's implementation details
  * in order to operate, so they are grouped into one big interface.
- * For a sample implementation, see {@link SimpleBoard}.
+ * For a sample implementation,
+ * see {@link import('./SimpleBoard/SimpleTotalisticBoard').SimpleTotalisticBoard}.
  *
- * @interface IBoard
- */
-
-/**
- * Get the cells from the board.
- *
- * @function IBoard#getCells
- * @returns {Array<Cell>} - The cells that are on as an array
+ * @typedef IBoard
+ * @property {function(): Array<Cell>} getCells - Get the cells.
+ * @property {function(): Array<Array<Cell|number>>} getCellsAndStates - Get the cells and states.
  */
 
 /**
@@ -45,3 +41,5 @@
  * @function IBoard#getPop
  * @returns {number}
  */
+
+export {};
