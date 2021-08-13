@@ -1,4 +1,6 @@
 {
   "include": ["**/*.js"],
-  "checkJS": true
+  "compilerOptions": {
+    "checkJs": true
+  }
 }
