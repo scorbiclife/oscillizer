@@ -6,7 +6,8 @@
     "eslint-plugin-cypress": "^2.11.3",
     "eslint-plugin-import": "^2.23.4",
     "http-server": "^13.0.0",
-    "jsdoc": "^3.6.7"
+    "jsdoc": "^3.6.7",
+    "jsdoc-plugin-typescript": "^2.0.6"
   },
   "scripts": {}
 }

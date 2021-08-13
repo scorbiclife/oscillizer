@@ -1,5 +1,8 @@
 {
-  "plugins": ["plugins/markdown"],
+  "plugins": [
+    "plugins/markdown",
+    "node_modules/jsdoc-plugin-typescript"
+  ],
   "opts": {
     "destination": "./jsdoc/",
     "recurse": true
