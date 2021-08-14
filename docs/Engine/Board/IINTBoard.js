@@ -10,3 +10,5 @@
  * @param {INTRule} rule
  * @param {number} gen
  */
+
+export {};
