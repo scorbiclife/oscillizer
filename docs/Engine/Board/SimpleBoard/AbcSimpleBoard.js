@@ -1,9 +1,13 @@
 import BoundingBox from '../../../BaseTypes/BoundingBox.js';
 
 /**
- * @typedef {import('../../../BaseTypes/Rule/TotalisticRule').default} TotalisticRule
+ * @typedef {import('../../../BaseTypes/Rule/Rule').Rule} Rule
  * @typedef {import('../IBoard').IBoard} IBoard
  * @typedef {import('./SimpleTotalisticBoard').default} SimpleTotalisticBoard
+ */
+
+/**
+ * @typedef {function(Array<Cell>): Array<Cell>} TransitionFunction
  */
 
 /**
@@ -18,7 +22,7 @@ import BoundingBox from '../../../BaseTypes/BoundingBox.js';
  *  You just have to implement `I{Totalistic,INT}Board` interfaces.
  *
  *  If you are using this class, make sure to initialize `this.transitionFunction` properly,
- *  with the rule given as the parameter.
+ *  with the rule given as the parameter, with the proper type of {@link TransitionFunction}.
  *  For example classes, see {@link SimpleTotalisticBoard}.
  *
  * @implements {IBoard}
@@ -27,13 +31,13 @@ import BoundingBox from '../../../BaseTypes/BoundingBox.js';
 class AbcSimpleBoard {
   /**
    * @param {TwoStatePattern} pattern
-   * @param {TotalisticRule} rule
+   * @param {Rule} rule
    * @param {number} gen
    */
   constructor(pattern, rule, gen) {
     /** @type {TwoStatePattern} */
     this.pattern = pattern;
-    /** @type {TotalisticRule} */
+    /** @type {Rule} */
     this.rule = rule;
     /** @type {number} */
     this.gen = gen;
@@ -70,7 +74,10 @@ class AbcSimpleBoard {
    */
   after(gens = 1) {
     const repeatForGens = new Array(gens).fill();
-    const iteratedPattern = repeatForGens.reduce(this.transitionFunction, this.pattern);
+    /** @type {TransitionFunction} */
+    const transFunc = this.transitionFunction;
+    /** @type {Array<Cell>} */
+    const iteratedPattern = repeatForGens.reduce(transFunc, this.pattern);
     /** @type {any} */
     const ThisClass = this.constructor;
     return new ThisClass(iteratedPattern, this.rule, this.gen + gens);

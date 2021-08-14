@@ -2,6 +2,10 @@ import AbcSimpleBoard from './AbcSimpleBoard.js';
 import CellMap from '../../../BaseTypes/CellMap.js';
 import { intNeighborsByIndex } from '../../../BaseTypes/Neighbors/INTNeighbors.js';
 
+/**
+ * @typedef {import('./AbcSimpleBoard').TransitionFunction} TransitionFunction
+ */
+
 const weightsByRelPos = new Map([
   [[-1, -1], 1],
   [[-1, 0], 2],
@@ -14,6 +18,11 @@ const weightsByRelPos = new Map([
   [[1, 1], 256],
 ]);
 
+/**
+ * @private
+ * @param {Array<Cell>} cellsArray
+ * @returns {CellMap}
+ */
 const getNeighborTransitionIndexes = (cellsArray) => {
   const neighborTransitions = new CellMap();
   cellsArray.forEach(([x, y]) => {
@@ -27,8 +36,9 @@ const getNeighborTransitionIndexes = (cellsArray) => {
 };
 
 /**
+ * @private
  * @param {INTRule} rule
- * @returns {function(Array<Cell>): Array<Cell>}
+ * @returns {TransitionFunction}
  */
 const makeTransitionFunction = (rule) => (cellsArray) => {
   const transitionIndexesByCell = getNeighborTransitionIndexes(cellsArray);
@@ -45,8 +55,14 @@ const makeTransitionFunction = (rule) => (cellsArray) => {
 };
 
 class SimpleINTBoard extends AbcSimpleBoard {
+  /**
+   * @param {TwoStatePattern} pattern
+   * @param {INTRule} rule
+   * @param {number} gen
+   */
   constructor(pattern, rule, gen = 0) {
     super(pattern, rule, gen);
+    /** @type {TransitionFunction} */
     this.transitionFunction = makeTransitionFunction(rule);
   }
 }
