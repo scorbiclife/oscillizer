@@ -1,10 +1,14 @@
 import AbcSimpleBoard from './AbcSimpleBoard.js';
 import CellMap from '../../../BaseTypes/CellMap.js';
 
-/** @module */
-
 const moore = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 0], [0, 1], [1, -1], [1, 0], [1, 1]];
 
+/**
+ * @private
+ * @param {Array<Cell>} cellsArray
+ * @param {Array<Cell>} neighbors
+ * @returns {CellMap}
+ */
 const getNeighborCounts = (cellsArray, neighbors) => {
   const neighborCountsMap = new CellMap();
   cellsArray.forEach(([x, y]) => {
@@ -18,10 +22,13 @@ const getNeighborCounts = (cellsArray, neighbors) => {
 };
 
 /**
- * Given the totalistic rule, return the transition function.
- *
- * @param {Rule.TotalisticRule} totalisticRule
- * @returns {function(Array<Cell>): Array<Cell>}
+ * @typedef {import('./AbcSimpleBoard').TransitionFunction} TransitionFunction
+ */
+
+/**
+ * @private
+ * @param {TotalisticRule} totalisticRule
+ * @returns {TransitionFunction}
  */
 const makeTransFromTotalisticRule = (totalisticRule) => (cellsArray) => {
   const { births, survivals } = totalisticRule;
@@ -50,7 +57,7 @@ class SimpleTotalisticBoard extends AbcSimpleBoard {
    *
    * @constructor
    * @param {TwoStatePattern} pattern - The initial pattern.
-   * @param {Rule.TotalisticRule} rule - The rule to operate on the pattern with.
+   * @param {TotalisticRule} rule - The rule to operate on the pattern with.
    * @param {number} [gen=0] - The initial generation.
    */
   constructor(pattern, rule, gen = 0) {
