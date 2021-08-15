@@ -15,7 +15,7 @@
  * @typedef IBoard
  * @property {function(): Array<Cell>} getCells - Get the cells.
  * @property {function(): Array<Array<Cell|number>>} getCellsAndStates - Get the cells and states.
- * @property {function(number): IBoard} after
+ * @property {function(number=): IBoard} after
  *  Return a new board with the pattern iterated by the given number of gens.
  * @property {function(): BoundingBox} getBox - Get the bounding box.
  * @property {function(): number} getPop - Get the population.
