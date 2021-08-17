@@ -7,6 +7,10 @@ import CellMap from '../../../BaseTypes/CellMap.js';
  */
 
 /**
+ * @typedef {import('../../../Engine/Board/IBoard.js').IBoard} IBoard
+ */
+
+/**
  * Given an oscillator, return the board of each phase of the oscillation. (t=0..p-1)
  * Given a non-oscillator, return `[]`.
  * @param {IBoard} board - The initial board.
@@ -105,26 +109,39 @@ export const getSubperiodByCell = (oscPhaseBoards) => {
 
 /**
  * Given a board of the oscillator, return the stats of the oscillator.
- * @param {IBoard} - Initial oscillator
- * @returns {Object} stats - The oscillator statistics
- * @returns {boolean} stats.success - Whether the operation succeeded
+ * @param {IBoard} board - Initial oscillator
+ * @returns {{success: boolean}} stats - The oscillator statistics
  */
 export const getOscStats = (board) => {
   // Basic functions
+  /** @type {function(Array<number>): number} */
   const getAverage = (l) => (l.reduce((a, b) => a + b, 0) / l.length);
+
+  /** @type {function(number): string} */
   const formatFloat = (f) => f.toFixed(2);
+
+  /** @type {function(number): string} */
   const formatPercentage = (f) => `${(100 * f).toFixed(2)}%`;
 
   // Status functions
+  /** @typedef {Array<{cell: Cell, subperiod: number}>} Subperiods */
+
+  /** @type {function(Subperiods): number} */
   const getRotorCount = (subperiods) => (
     subperiods.filter(({ subperiod }) => subperiod !== 1).length
   );
+
+  /** @type {function(Subperiods, number): number} */
   const getStrictRotorCount = (subperiods, period) => (
     subperiods.filter(({ subperiod }) => subperiod === period).length
   );
+
+  /** @type {function(Subperiods): number} */
   const getVolatility = (subperiods) => (
     getRotorCount(subperiods) / subperiods.length
   );
+
+  /** @type {function(Subperiods, number): number} */
   const getStrictVolatility = (subperiods, period) => (
     getStrictRotorCount(subperiods, period) / subperiods.length
   );
@@ -150,7 +167,7 @@ export const getOscStats = (board) => {
     numCells: subperiods.length,
     numRotorCells: getRotorCount(subperiods),
     numStatorCells: subperiods.length - getRotorCount(subperiods),
-    numStrictRotorCells: getStrictRotorCount(subperiods),
+    numStrictRotorCells: getStrictRotorCount(subperiods, period),
     volatility: formatPercentage(getVolatility(subperiods)),
     strictVolatility: formatPercentage(getStrictVolatility(subperiods, period)),
     boundingBox: BoundingBox.sum(phaseBoards.map((p) => p.getBox())),
