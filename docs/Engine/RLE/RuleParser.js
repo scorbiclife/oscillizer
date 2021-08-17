@@ -7,7 +7,23 @@ import TotalisticRule from '../../BaseTypes/Rule/TotalisticRule.js';
  * @returns {TotalisticRule|undefined} - A totalistic rule on success, `undefined` on fail.
  */
 export const parseTotalisticRule = (ruleString) => {
-  const updateState = (state, c) => {
+  /**
+   * @private
+   * @typedef {{
+   *  success: boolean,
+   *  births: Array<number>,
+   *  survivals: Array<number>,
+   *  isBirth: boolean,
+   * }} State
+   */
+
+  /**
+   * @param {State} state
+   * @param {string} char
+   * @property {1} char.length
+   * @returns {State} The updated state
+   */
+  const updateState = (state, char) => {
     if (!state.success) {
       return state;
     }
@@ -16,10 +32,10 @@ export const parseTotalisticRule = (ruleString) => {
       success, births, survivals, isBirth,
     } = state;
 
-    switch (c) {
+    switch (char) {
       case '0': case '1': case '2': case '3': case '4':
       case '5': case '6': case '7': case '8':
-        (isBirth ? births : survivals).push(parseInt(c, 10));
+        (isBirth ? births : survivals).push(parseInt(char, 10));
         return {
           success, births, survivals, isBirth,
         };
@@ -36,11 +52,16 @@ export const parseTotalisticRule = (ruleString) => {
           success, births, survivals, isBirth: !isBirth,
         };
       default:
-        return { success: false };
+        return {
+          success: false, births: [], survivals: [], isBirth: false,
+        };
     }
   };
   const finalState = Array.from(ruleString).reduce(
-    updateState, { success: true, births: [], survivals: [] }
+    updateState,
+    {
+      success: true, births: [], survivals: [], isBirth: false,
+    }
   );
   if (!finalState.success) {
     return undefined;
@@ -56,30 +77,44 @@ export const parseTotalisticRule = (ruleString) => {
  * @returns {INTRule|undefined} - An INT rule on success, `undefined` on fail.
  */
 export const parseINTRule = (ruleString) => {
+  /**
+   * @typedef {import('../../BaseTypes/Neighbors/INTNeighbors.js').INTNeighbor} INTNeighbor
+   */
+
+  /**
+   * @private
+   * @typedef {{
+   *  isBirth: boolean,
+   *  births: Set<INTNeighbor>,
+   *  survivals: Set<INTNeighbor>,
+   * }} State
+   */
+
   // Dependent function and objects
 
+  /** @type {function(State): State} */
   const copyWithBirth = (state) => ({
     isBirth: true,
     births: state.births,
     survivals: state.survivals,
-    hasError: state.hasError,
   });
 
+  /** @type {function(State): State} */
   const copyWithSurvival = (state) => ({
     isBirth: false,
     births: state.births,
     survivals: state.survivals,
-    hasError: state.hasError,
   });
 
+  /** @type {function(State): State} */
   const copyWithToggledBirth = (state) => ({
     isBirth: !state.isBirth,
     births: state.births,
     survivals: state.survivals,
-    hasError: state.hasError,
   });
 
   // Assumes word matches `/[0-8][-cekainyqjrtwz]/`
+  /** @type {Array<Array<INTNeighbor>>} */
   const allNeighborsByCount = [
     [
       '0',
@@ -119,6 +154,7 @@ export const parseINTRule = (ruleString) => {
     ],
   ];
 
+  /** @type {Array<(Map<string, INTNeighbor>)>} */
   const neighborsByCountAndChar = [
     new Map(),
     new Map([
@@ -187,6 +223,7 @@ export const parseINTRule = (ruleString) => {
     new Map(),
   ];
 
+  /** @type {function(string): Set<INTNeighbor>} */
   const getNeighborsFromWord = (word) => {
     const neighborSet = new Set();
     const count = parseInt(word[0], 10);
@@ -207,6 +244,7 @@ export const parseINTRule = (ruleString) => {
   };
 
   // Main logic
+  /** @type {State} */
   const initialState = {
     isBirth: false, births: new Set(), survivals: new Set(),
   };

@@ -1,5 +1,9 @@
 import * as CanvasHelpers from './CanvasHelpers.js';
 
+/**
+ * @typedef {import('../../Models/AppState').default} AppState
+ */
+
 const drawLiveCellOptions = new Map(
   [
     ['none', () => {}],
@@ -8,6 +12,7 @@ const drawLiveCellOptions = new Map(
   ]
 );
 
+/** @type {function(Array<{cell: Cell, subperiod: number}>): Array<number>} */
 const getArrayFromSubperiods = (subperiods) => {
   const subperiodSet = new Set(subperiods.map((e) => e.subperiod));
   const subperiodArray = [...subperiodSet.values()].sort((a, b) => a - b);
@@ -20,13 +25,18 @@ const getArrayFromSubperiods = (subperiods) => {
  * @implements {IView}
  */
 class OscillizerCanvasView {
+  /**
+   * @param {*} oscData
+   * @param {AppState} cellStyle
+   * @param {HTMLCanvasElement} targetCanvas
+   */
   constructor(oscData, cellStyle, targetCanvas) {
     this.oscData = oscData;
     this.cellStyle = cellStyle;
     this.targetCanvas = targetCanvas;
     /**
      * The `update` callback that updates the view.
-     * @type {function(Event)}
+     * @type {function(Event): void}
      */
     this.update = (/* event */) => {
       const context = this.targetCanvas.getContext('2d');

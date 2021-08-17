@@ -1,20 +1,20 @@
+/**
+ * A bounding box consists of min/max of the X/Y coordinates.
+ * For an empty pattern the bounding box is `(Inf, Inf, -Inf, -Inf)`
+ * because it's an identity in the addition below.
+ */
 class BoundingBox {
   /**
-   * A bounding box consists of min/max of the X/Y coordinates.
-   * For an empty pattern the bounding box is `(Inf, Inf, -Inf, -Inf)`
-   * because it's an identity in the addition below.
-   *
-   * @constructor
    * @param {number} xmin
    * @param {number} xmax
    * @param {number} ymin
    * @param {number} ymax
    */
   constructor(xmin = Infinity, xmax = -Infinity, ymin = Infinity, ymax = -Infinity) {
-    this.xmin = xmin;
-    this.xmax = xmax;
-    this.ymin = ymin;
-    this.ymax = ymax;
+    /** @type {number} */ this.xmin = xmin;
+    /** @type {number} */ this.xmax = xmax;
+    /** @type {number} */ this.ymin = ymin;
+    /** @type {number} */ this.ymax = ymax;
   }
 
   /**

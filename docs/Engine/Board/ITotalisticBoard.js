@@ -1,5 +1,5 @@
 /**
- *
+ * @typedef {import('./IBoard').IBoard} IBoard
  * @typedef {import('../../BaseTypes/Rule/TotalisticRule').default} TotalisticRule
  */
 
@@ -10,3 +10,5 @@
  * @param {TotalisticRule} rule
  * @param {number} gen
  */
+
+export {};

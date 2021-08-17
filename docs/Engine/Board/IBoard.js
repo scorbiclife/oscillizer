@@ -1,4 +1,8 @@
 /**
+ * @typedef {import('../../BaseTypes/BoundingBox').default} BoundingBox
+ */
+
+/**
  * A board generally contains these information:
  *  A pattern to operate on,
  *  A rule to generate new patterns,
@@ -11,35 +15,10 @@
  * @typedef IBoard
  * @property {function(): Array<Cell>} getCells - Get the cells.
  * @property {function(): Array<Array<Cell|number>>} getCellsAndStates - Get the cells and states.
- */
-
-/**
- * Get the cells and their states from the board
- *
- * @function IBoard#getCellsAndStates
- * @returns {Array<Array<Cell|number>>} - An array of entries, each entry of type `[Cell, number]`
- */
-
-/**
- * Return a new board with the pattern iterated by the given amount.
- *
- * @function IBoard#after
- * @param {number} [gens=1] - Number of generations to iterate
- * @returns {IBoard} - The new board
- */
-
-/**
- * Get the bounding box of the pattern.
- *
- * @function IBoard#getBox
- * @returns {BoundingBox}
- */
-
-/**
- * Get the population of the pattern.
- *
- * @function IBoard#getPop
- * @returns {number}
+ * @property {function(number=): IBoard} after
+ *  Return a new board with the pattern iterated by the given number of gens.
+ * @property {function(): BoundingBox} getBox - Get the bounding box.
+ * @property {function(): number} getPop - Get the population.
  */
 
 export {};

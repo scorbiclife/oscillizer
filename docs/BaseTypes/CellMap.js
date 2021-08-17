@@ -1,4 +1,13 @@
+/**
+ * @private
+ * @type {function(number, number): string}
+ */
 const cellToString = (x, y) => `${x} ${y}`;
+
+/**
+ * @private
+ * @type {function(string): Cell}
+ */
 const stringToCell = (s) => s.split(' ').map((e) => parseInt(e, 10));
 
 /**
@@ -9,14 +18,10 @@ const stringToCell = (s) => s.split(' ').map((e) => parseInt(e, 10));
  */
 class CellMap {
   /**
-   * @constructor
-   * @param {Array} [entries=[]]
-   *   The initial entries of the map.
-   *
-   *   Each entry has type `[[number, number], object]`.
+   * @param {Array<CellEntry>} [entries=[]]
    */
   constructor(entries = []) {
-    this.map = new Map();
+    /** @type {Map<string, *>} */ this.map = new Map();
     entries.forEach(([x, y], value) => this.set([x, y], value));
   }
 
@@ -60,19 +65,20 @@ class CellMap {
    * Get the value for the given key.
    * If not found, return `defaultValue` as a fallback.
    *
-   * @param {*} key - The key to get values for; Type: `[number, number]`.
+   * @param {Cell} key - The key to get values for.
    * @param {*} defaultValue - The value to return when the key is not found.
    * @returns - The found value or `defaultValue`
    */
   get(key, defaultValue) {
     const [x, y] = key;
-    return this.map.get(cellToString(x, y), defaultValue);
+    const value = this.map.get(cellToString(x, y));
+    return (value !== undefined) ? value : defaultValue;
   }
 
   /**
    * Set the value for the given key.
    *
-   * @param {*} key - The key to set values for; Type: `[number, number]`.
+   * @param {Cell} key - The key to set values for.
    * @param {*} value - The value to set.
    */
   set(key, value) {

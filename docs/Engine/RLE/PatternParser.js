@@ -35,12 +35,18 @@ class PatternParser {
     this.runCount = 0;
   }
 
-  // Append digit: integer to runCount: integer
+  /**
+   * Append `digit` to `this.runCount`
+   * @param {number} digit - The digit to append
+   */
   updateRunCount(digit) {
     this.runCount = this.runCount * 10 + digit;
   }
 
-  drawRun(state) {
+  /**
+   * @param {number} cellState
+   */
+  drawRun(cellState) {
     const [x, y] = this.currentCell;
     const runCount = this.runCount || 1;
     const newCells = new Array(runCount).fill(0).map((v, i) => [x + i, y]);
@@ -49,7 +55,7 @@ class PatternParser {
     const addNewCells = (nc, s) => {
       if (s) { this.cells = this.cells.concat(nc); }
     };
-    addNewCells(newCells, state);
+    addNewCells(newCells, cellState);
 
     this.currentCell = [x + runCount, y];
     this.runCount = 0;
