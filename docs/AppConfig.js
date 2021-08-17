@@ -4,6 +4,10 @@ import TotalisticRule from './BaseTypes/Rule/TotalisticRule.js';
 const life = new TotalisticRule([3], [2, 3]);
 
 /**
+ * @typedef {import('./Engine/Board/IBoard.js').IBoard} IBoard
+ */
+
+/**
  * Create and return a new two-state board with the given pattern and rule.
  * @todo `rule` should be changed later to support different rulestings.
  *
