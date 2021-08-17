@@ -34,7 +34,7 @@ cellStyleSelector.addEventListener('change', cellStyleController.update);
 
 /* State -> UI update code */
 
-const oscCanvas = document.getElementById('output-osc-canvas');
+const oscCanvas = /** @type {HTMLCanvasElement} */ (document.getElementById('output-osc-canvas'));
 const oscCanvasView = new OscillizerCanvasView(
   appState.oscInfo, appState.initialCellStyle, oscCanvas
 );
