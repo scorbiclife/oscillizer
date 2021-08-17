@@ -1,4 +1,4 @@
-import * as rle from './RLEHelpers.js';
+import { parse as parseRLE } from './RLEHelpers.js';
 import { getOscStats } from './OscHelpers.js';
 import * as AppConfig from '../../../AppConfig.js';
 
@@ -18,7 +18,7 @@ class OscStatsController {
       if (!event.target) {
         return;
       }
-      const [pattern, rule] = rle.parse(this.sourceElement.value);
+      const { pattern, rule } = parseRLE(this.sourceElement.value);
       const initialBoard = AppConfig.makeBoard(pattern, rule);
       this.targetState.setValue(getOscStats(initialBoard));
     };

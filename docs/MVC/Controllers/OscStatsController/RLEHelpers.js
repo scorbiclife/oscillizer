@@ -9,6 +9,12 @@ const mapStateFromChar = new Map(
   ]
 );
 
+/**
+ * @private
+ * @param {PatternParser} parserState
+ * @param {string} c
+ * @returns {PatternParser}
+ */
 const updateParserState = (parserState, c) => {
   // Passthrough if the parser is finished.
   if (parserState.isFinished) {
@@ -50,6 +56,11 @@ export const parseBody = (rleBodyString) => {
 
 /* Body extracting related code */
 
+/**
+ * @private
+ * @param {string} rleString
+ * @returns {{body: string, rule: string|null}} The RLE Body and Rule, both as a string
+ */
 const extractParts = (rleString) => {
   const lines = (
     rleString.split('\n')
@@ -57,25 +68,24 @@ const extractParts = (rleString) => {
       .filter((line) => line !== '') // We ignore empty lines
   );
 
+  /** @type {function(string): boolean} */
   const isNotComment = (line) => !line.startsWith('#');
   const firstNonCommentIndex = lines.findIndex(isNotComment);
 
   const headerRegex = /^x=\d+,y=\d+,rule=(.*)/;
   const matchedHeader = headerRegex.exec(lines[firstNonCommentIndex]);
-  const bodyStartIndex = firstNonCommentIndex + (matchedHeader !== null) ? 1 : 0;
+  const bodyStartIndex = firstNonCommentIndex + (matchedHeader !== null ? 1 : 0);
   const body = lines.slice(bodyStartIndex).join('');
   const rule = (matchedHeader) ? matchedHeader[1] : null;
-  return [body, rule];
+  return { body, rule };
 };
 
 /**
  * Given an RLE string, parse and return the rule and pattern.
  * @param {string} rleString - The RLE string.
- * @returns {Array} - The pattern and the rule.
- * @property {TwoStatePattern} 0 - The pattern.
- * @property {Rule|undefined} 1 - The rule.
+ * @returns {{pattern: Array<Cell>, rule: undefined}} - The pattern and the rule.
  */
 export const parse = (rleString) => {
-  const [rleBody] = extractParts(rleString);
-  return [parseBody(rleBody), undefined];
+  const { body } = extractParts(rleString);
+  return { pattern: parseBody(body), rule: undefined };
 };
