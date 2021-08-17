@@ -1,3 +1,7 @@
+/**
+ * @typedef {import('../../../BaseTypes/BoundingBox').default} BoundingBox
+ */
+
 const colorscheme = {
   background: '#eeeeee',
   stator: '#666666',
@@ -14,18 +18,20 @@ const cellSizes = {
   liveBorder: 2,
 };
 
+/** @type {function(number, number): string} */
 const makeGradientColor = (numColors, i) => {
   const hue = Math.floor(360 * (i / numColors));
   return `hsl(${hue}, 100%, 70%)`;
 };
 
+/** @type {function(number, Array<number>): Map<number, string>} */
 export const makeColorMap = (period, subperiods) => {
   // Note: `1` or `period` might not be in `subperiods`
   const sortedSubperiods = subperiods.slice().sort((a, b) => a - b);
+  /** @type {Array<[number, string]>} */
   const rotorSubperiodsAndColors = sortedSubperiods.map(
     (sp, i) => [sp, makeGradientColor(sortedSubperiods.length, i)]
   );
-
   return new Map([
     ...rotorSubperiodsAndColors,
     [1, colorscheme.stator],
@@ -34,6 +40,11 @@ export const makeColorMap = (period, subperiods) => {
 };
 
 // Draw the initial grid
+/**
+ * @param {HTMLCanvasElement} canvas
+ * @param {*} context
+ * @param {BoundingBox} boundingBox
+ */
 export const drawGrid = (canvas, context, boundingBox) => {
   // We have to manipulate the canvas, so first beg pardon to ESLint
   /* eslint-disable no-param-reassign */
@@ -64,7 +75,13 @@ export const drawGrid = (canvas, context, boundingBox) => {
   });
 };
 
-// Draw cell at position [x, y]
+/**
+ * Draw the cell at `(x, y)` with the given color.
+ * @param {*} context
+ * @param {number} x
+ * @param {number} y
+ * @param {string} color
+ */
 export const drawCell = (context, x, y, color) => {
   context.fillStyle = color;
   // Displace cell by (+1, +1) to compensate for the 1-cell borders above.
@@ -79,6 +96,12 @@ export const drawCell = (context, x, y, color) => {
   context.fillRect(...rect);
 };
 
+/**
+ * Draw the interior of the cell at (x, y), with styling as live cell.
+ * @param {*} context
+ * @param {number} x
+ * @param {number} y
+ */
 export const drawLiveCellInterior = (context, x, y) => {
   context.fillStyle = colorscheme.liveCell;
   const { cell: cellSize, liveCell: liveCellSize } = cellSizes;
@@ -93,6 +116,12 @@ export const drawLiveCellInterior = (context, x, y) => {
   context.fillRect(...rect);
 };
 
+/**
+ * Draw the border of the cell at (x, y), with styling as a live cell.
+ * @param {*} context
+ * @param {number} x
+ * @param {number} y
+ */
 export const drawLiveCellBorder = (context, x, y) => {
   context.fillStyle = colorscheme.liveCell;
   const {
