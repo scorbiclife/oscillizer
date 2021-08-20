@@ -1,4 +1,6 @@
+import TotalisticRule from '../../../BaseTypes/Rule/TotalisticRule.js';
 import PatternParser from '../../../Engine/RLE/PatternParser.js';
+import { parseINTRule, parseTotalisticRule } from '../../../Engine/RLE/RuleParser.js';
 
 /** @module */
 
@@ -81,11 +83,21 @@ const extractParts = (rleString) => {
 };
 
 /**
+ * @typedef {import('../../../BaseTypes/Rule/Rule.js').Rule} Rule
+ */
+
+/**
  * Given an RLE string, parse and return the rule and pattern.
  * @param {string} rleString - The RLE string.
- * @returns {{pattern: Array<Cell>, rule: undefined}} - The pattern and the rule.
+ * @returns {{pattern: Array<Cell>, rule: Rule}} - The pattern and the rule.
  */
 export const parse = (rleString) => {
-  const { body } = extractParts(rleString);
-  return { pattern: parseBody(body), rule: undefined };
+  const { rule: ruleString, body } = extractParts(rleString);
+  const pattern = parseBody(body);
+  const rule = (
+    parseTotalisticRule(ruleString)
+    || parseINTRule(ruleString)
+    || new TotalisticRule([3], [2, 3])
+  );
+  return { pattern, rule };
 };
