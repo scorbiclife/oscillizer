@@ -28,10 +28,25 @@ class OscStatsController {
      */
     this.update = (event) => {
       if (!event.target) {
+        this.targetState.setValue(
+          {
+            success: false,
+            message: 'No event.target',
+          }
+        );
         return;
       }
       const rleString = this.sourceElement.value;
       const { pattern, rule } = parseRLE(rleString);
+      if (!rule) {
+        this.targetState.setValue(
+          {
+            success: false,
+            message: 'Unable to parse rule',
+          }
+        );
+        return;
+      }
       const initialBoard = AppConfig.makeBoard(pattern, rule);
       this.targetState.setValue(getOscStats(initialBoard));
     };

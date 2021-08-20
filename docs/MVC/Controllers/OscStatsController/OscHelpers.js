@@ -110,7 +110,7 @@ export const getSubperiodByCell = (oscPhaseBoards) => {
 /**
  * Given a board of the oscillator, return the stats of the oscillator.
  * @param {IBoard} board - Initial oscillator
- * @returns {{success: boolean}} stats - The oscillator statistics
+ * @returns {*} stats - The oscillator statistics
  */
 export const getOscStats = (board) => {
   // Basic functions
@@ -150,7 +150,10 @@ export const getOscStats = (board) => {
   const phaseBoards = getPhases(board);
   const period = phaseBoards.length;
   if (period === 0) {
-    return { success: false };
+    return {
+      success: false,
+      message: 'Failed to detect period of pattern',
+    };
   }
   const populations = phaseBoards.map((b) => b.getPop());
   const subperiods = getSubperiodByCell(phaseBoards);
