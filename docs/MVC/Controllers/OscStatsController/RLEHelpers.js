@@ -1,4 +1,3 @@
-import TotalisticRule from '../../../BaseTypes/Rule/TotalisticRule.js';
 import PatternParser from '../../../Engine/RLE/PatternParser.js';
 import { parseINTRule, parseTotalisticRule } from '../../../Engine/RLE/RuleParser.js';
 
@@ -97,7 +96,7 @@ export const parse = (rleString) => {
   const rule = (
     parseTotalisticRule(ruleString)
     || parseINTRule(ruleString)
-    || new TotalisticRule([3], [2, 3])
+    || undefined
   );
   return { pattern, rule };
 };
