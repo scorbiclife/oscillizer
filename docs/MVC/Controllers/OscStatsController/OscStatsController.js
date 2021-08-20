@@ -15,12 +15,12 @@ import * as AppConfig from '../../../AppConfig.js';
 class OscStatsController {
   /**
    * @param {AppState} targetState
-   * @param {HTMLElement} sourceElement
+   * @param {HTMLInputElement} sourceElement
    */
   constructor(targetState, sourceElement) {
     /** @type {AppState} */
     this.targetState = targetState;
-    /** @type {HTMLElement} */
+    /** @type {HTMLInputElement} */
     this.sourceElement = sourceElement;
     /**
      * The update callback.
@@ -30,8 +30,8 @@ class OscStatsController {
       if (!event.target) {
         return;
       }
-      // @ts-ignore
-      const { pattern, rule } = parseRLE(this.sourceElement.value);
+      const rleString = this.sourceElement.value;
+      const { pattern, rule } = parseRLE(rleString);
       const initialBoard = AppConfig.makeBoard(pattern, rule);
       this.targetState.setValue(getOscStats(initialBoard));
     };
