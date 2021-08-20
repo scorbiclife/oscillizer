@@ -5,15 +5,11 @@
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-cypress": "^2.11.3",
     "eslint-plugin-import": "^2.23.4",
-    "http-server": "^13.0.0",
-    "jsdoc": "^3.6.7",
-    "jsdoc-plugin-typescript": "^2.0.6",
-    "rimraf": "^3.0.2"
+    "http-server": "^13.0.0"
   },
   "scripts": {
     "server": "http-server docs",
     "test": "cypress run",
-    "cypress": "cypress open",
-    "jsdoc": "rimraf jsdoc && jsdoc -c jsdoc.json docs"
+    "cypress": "cypress open"
   }
 }
