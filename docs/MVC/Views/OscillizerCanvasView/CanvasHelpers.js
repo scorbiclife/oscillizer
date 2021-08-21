@@ -26,14 +26,19 @@ const makeGradientColor = (numColors, i) => {
 
 /** @type {function(number, Array<number>): Map<number, string>} */
 export const makeColorMap = (period, subperiods) => {
-  // Note: `1` or `period` might not be in `subperiods`
-  const sortedSubperiods = subperiods.slice().sort((a, b) => a - b);
+  // Remove special subperiods:
+  //  subperiod 1 (stator)
+  //  subperiod `period` (full-period rotor)
+  const subperiodsSet = new Set(subperiods);
+  subperiodsSet.delete(1);
+  subperiodsSet.delete(period);
+  const nonSpecialSubperiods = [...subperiodsSet.values()].sort((a, b) => a - b);
   /** @type {Array<[number, string]>} */
-  const rotorSubperiodsAndColors = sortedSubperiods.map(
-    (sp, i) => [sp, makeGradientColor(sortedSubperiods.length, i)]
+  const nonSpecialSubperiodsAndColors = nonSpecialSubperiods.map(
+    (sp, i) => [sp, makeGradientColor(nonSpecialSubperiods.length, i)]
   );
   return new Map([
-    ...rotorSubperiodsAndColors,
+    ...nonSpecialSubperiodsAndColors,
     [1, colorscheme.stator],
     [period, colorscheme.strictRotor],
   ]);
