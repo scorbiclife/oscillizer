@@ -4,7 +4,7 @@
 
 const colorscheme = {
   background: '#eeeeee',
-  stator: '#666666',
+  stator: '#000000',
   strictRotor: '#999999',
   liveCell: '#000000',
 };
