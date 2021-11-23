@@ -1,0 +1,10 @@
+# Directories
+/node_modules/
+/cypress/screenshots/
+/cypress/videos/
+/build/
+
+# Files
+/package-lock.json
+
+# Patterns
