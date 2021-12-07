@@ -1,5 +1,5 @@
-import PatternParser from '../../../Engine/RLE/PatternParser.js';
-import { parseINTRule, parseTotalisticRule } from '../../../Engine/RLE/RuleParser.js';
+import PatternParser from '../../../Engine/RLE/PatternParser';
+import { parseINTRule, parseTotalisticRule } from '../../../Engine/RLE/RuleParser';
 
 /** @module */
 

@@ -1,5 +1,5 @@
-import SimpleINTBoard from '../../../docs/Engine/Board/SimpleBoard/SimpleINTBoard.js';
-import INTRule from '../../../docs/BaseTypes/Rule/INTRule.js';
+import SimpleINTBoard from '../../../src/Engine/Board/SimpleBoard/SimpleINTBoard.ts';
+import INTRule from '../../../src/BaseTypes/Rule/INTRule.ts';
 
 // tlife is b3-i/s2-i34q
 const tlife = new INTRule(
