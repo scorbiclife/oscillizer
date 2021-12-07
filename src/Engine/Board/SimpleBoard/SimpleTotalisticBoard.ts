@@ -1,5 +1,5 @@
-import AbcSimpleBoard from './AbcSimpleBoard.js';
-import CellMap from '../../../BaseTypes/CellMap.js';
+import AbcSimpleBoard from './AbcSimpleBoard';
+import CellMap from '../../../BaseTypes/CellMap';
 
 const moore = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 0], [0, 1], [1, -1], [1, 0], [1, 1]];
 

@@ -1,4 +1,4 @@
-import * as CanvasHelpers from './CanvasHelpers.js';
+import * as CanvasHelpers from './CanvasHelpers';
 
 /**
  * @typedef {import('../../Models/AppState').default} AppState
@@ -6,7 +6,7 @@ import * as CanvasHelpers from './CanvasHelpers.js';
 
 const drawLiveCellOptions = new Map(
   [
-    ['none', () => {}],
+    ['none', () => { }],
     ['border', CanvasHelpers.drawLiveCellBorder],
     ['interior', CanvasHelpers.drawLiveCellInterior],
   ]

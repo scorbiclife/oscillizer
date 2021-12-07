@@ -1,5 +1,5 @@
-import INTRule from '../../BaseTypes/Rule/INTRule.js';
-import TotalisticRule from '../../BaseTypes/Rule/TotalisticRule.js';
+import INTRule from '../../BaseTypes/Rule/INTRule';
+import TotalisticRule from '../../BaseTypes/Rule/TotalisticRule';
 
 /**
  * Try to parse totalistic rule from rulestring.
