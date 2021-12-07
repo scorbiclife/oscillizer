@@ -1,11 +1,14 @@
 {
+  "dependencies": {},
   "devDependencies": {
     "cypress": "^8.2.0",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-cypress": "^2.11.3",
     "eslint-plugin-import": "^2.23.4",
-    "http-server": "^13.0.0"
+    "http-server": "^13.0.0",
+    "esbuild": "^0.13.15",
+    "typescript": "^4.5.2"
   },
   "scripts": {
     "build:prod": "esbuild src/index.ts --outfile=build/index.js --bundle --minify --target=es6; node bin/build.js;",
@@ -13,9 +16,5 @@
     "server": "http-server build",
     "test": "cypress run",
     "cypress": "cypress open"
-  },
-  "dependencies": {
-    "esbuild": "^0.13.15",
-    "typescript": "^4.5.2"
   }
 }
