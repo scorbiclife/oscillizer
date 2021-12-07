@@ -11,8 +11,8 @@
     "typescript": "^4.5.2"
   },
   "scripts": {
-    "build:prod": "esbuild src/index.ts --outfile=build/index.js --bundle --minify --target=es6; node bin/build.js;",
-    "build": "esbuild src/index.ts --outfile=build/index.js --bundle --sourcemap --target=es6; node bin/build.js;",
+    "build:release": "(esbuild src/index.ts --outfile=build/index.js --bundle --minify --target=es6) && (node bin/build.js)",
+    "build:dev": "(esbuild src/index.ts --outfile=build/index.js --bundle --sourcemap --target=es6) && (node bin/build.js)",
     "server": "http-server build",
     "test": "cypress run",
     "cypress": "cypress open"
