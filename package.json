@@ -11,6 +11,7 @@
     "typescript": "^4.5.2"
   },
   "scripts": {
+    "build": "npm run build:release",
     "build:release": "(esbuild src/index.ts --outfile=build/index.js --bundle --minify --target=es6) && (node bin/build.js)",
     "build:dev": "(esbuild src/index.ts --outfile=build/index.js --bundle --sourcemap --target=es6) && (node bin/build.js)",
     "server": "http-server build",
