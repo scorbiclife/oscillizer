@@ -62,6 +62,78 @@
       </div>
     </div>
   </div>
-  <script type="module" src="./index.js"></script>
+  <script>(()=>{var R=class{constructor(e,r){this.eventTarget=r||new EventTarget,this.value=e}setValue(e){this.value=e,this.eventTarget.dispatchEvent(new CustomEvent("change",{detail:{source:this}}))}},j=R;var T=class{constructor(e){this.targetState=e,this.update=r=>{!r.target||this.targetState.setValue(r.target.value)}}},E=T;var M=class{constructor(e={}){this.isFinished=e.isFinished||!1,this.cells=e.cells||[],this.runCount=e.runCount||0,this.currentCell=e.currentCell||[0,0]}finishParsing(){this.isFinished=!0}addNewlines(){let[,e]=this.currentCell,r=this.runCount||1;this.currentCell=[0,e+r],this.runCount=0}updateRunCount(e){this.runCount=this.runCount*10+e}drawRun(e){let[r,t]=this.currentCell,n=this.runCount||1,i=new Array(n).fill(0).map((c,o)=>[r+o,t]);((c,o)=>{o&&(this.cells=this.cells.concat(c))})(i,e),this.currentCell=[r+n,t],this.runCount=0}},I=M;var A=class{constructor(e,r){this.births=e,this.survivals=r}},b=A;var P=class{constructor(e,r){this.births=e,this.survivals=r}},C=P;var V=s=>{let e=(i,l)=>{if(!i.success)return i;let{success:c,births:o,survivals:u,isBirth:a}=i;switch(l){case"0":case"1":case"2":case"3":case"4":case"5":case"6":case"7":case"8":return(a?o:u).push(parseInt(l,10)),{success:c,births:o,survivals:u,isBirth:a};case"b":case"B":return{success:c,births:o,survivals:u,isBirth:!0};case"s":case"S":return{success:c,births:o,survivals:u,isBirth:!1};case"/":return{success:c,births:o,survivals:u,isBirth:!a};default:return{success:!1,births:[],survivals:[],isBirth:!1}}},r=Array.from(s).reduce(e,{success:!0,births:[],survivals:[],isBirth:!1});if(!r.success)return;let t=[...new Set(r.births).keys()],n=[...new Set(r.survivals).keys()];return new C(t,n)},z=s=>{let e=a=>({isBirth:!0,births:a.births,survivals:a.survivals}),r=a=>({isBirth:!1,births:a.births,survivals:a.survivals}),t=a=>({isBirth:!a.isBirth,births:a.births,survivals:a.survivals}),n=[["0"],["1c","1e"],["2c","2e","2a","2k","2i","2n"],["3c","3e","3a","3k","3i","3n","3j","3q","3r","3y"],["4c","4e","4a","4k","4i","4n","4j","4q","4r","4y","4t","4w","4z"],["5c","5e","5a","5k","5i","5n","5j","5q","5r","5y"],["6c","6e","6a","6k","6i","6n"],["7c","7e"],["8"]],i=[new Map,new Map([["c","1c"],["e","1e"]]),new Map([["c","2c"],["e","2e"],["a","2a"],["k","2k"],["i","2i"],["n","2n"]]),new Map([["c","3c"],["e","3e"],["a","3a"],["k","3k"],["i","3i"],["n","3n"],["j","3j"],["q","3q"],["r","3r"],["y","3y"]]),new Map([["c","4c"],["e","4e"],["a","4a"],["k","4k"],["i","4i"],["n","4n"],["j","4j"],["q","4q"],["r","4r"],["y","4y"],["w","4w"],["t","4t"],["z","4z"]]),new Map([["c","5c"],["e","5e"],["a","5a"],["k","5k"],["i","5i"],["n","5n"],["j","5j"],["q","5q"],["r","5r"],["y","5y"]]),new Map([["c","6c"],["e","6e"],["a","6a"],["k","6k"],["i","6i"],["n","6n"]]),new Map([["c","7c"],["e","7e"]]),new Map],l=a=>{let p=new Set,m=parseInt(a[0],10),[d,...h]=a.slice(1).split("-");return d===""?n[m].forEach(f=>p.add(f)):Array.from(d).forEach(f=>p.add(i[m].get(f))),Array.from(h.join("")).forEach(f=>p.delete(i[m].get(f))),p},c={isBirth:!1,births:new Set,survivals:new Set},o=s.match(/[bBsS/]|[0-8][-cekainyqjrtwz]*/g);if(o.reduce((a,p)=>a+p.length,0)!==s.length)return;let u=o.reduce((a,p)=>{if(p==="b"||p==="B")return e(a);if(p==="s"||p==="S")return r(a);if(p==="/")return t(a);let m=l(p),d=a.isBirth?a.births:a.survivals;return m.forEach(h=>d.add(h)),a},c);return new b([...u.births],[...u.survivals])};var ne=new Map([[".",0],["A",1],["B",0],["C",1],["D",0],["E",1],["F",0],["b",0],["o",1]]),ie=(s,e)=>{if(s.isFinished)return s;if(e==="!")return s.finishParsing(),s;if(e>="0"&&e<="9"){let t=e.charCodeAt(0)-"0".charCodeAt(0);return s.updateRunCount(t),s}if(e==="$")return s.addNewlines(),s;let r=ne.get(e)||0;return s.drawRun(r),s},oe=s=>{let e=[...s].reduce(ie,new I);return e.finishParsing(),e.cells},ae=s=>{let e=s.split(`
+`).map(u=>u.replace(/\s/g,"")).filter(u=>u!==""),r=u=>!u.startsWith("#"),t=e.findIndex(r),i=/^x=\d+,y=\d+,rule=(.*)/.exec(e[t]),l=t+(i!==null?1:0),c=e.slice(l).join(""),o=i?i[1]:null;return{body:c,rule:o}},N=s=>{let{rule:e,body:r}=ae(s),t=oe(r),n=V(e)||z(e)||void 0;return{pattern:t,rule:n}};var k=class{constructor(e=1/0,r=-1/0,t=1/0,n=-1/0){this.xmin=e,this.xmax=r,this.ymin=t,this.ymax=n}plus(e){let r=Math.min(this.xmin,e.xmin),t=Math.max(this.xmax,e.xmax),n=Math.min(this.ymin,e.ymin),i=Math.max(this.ymax,e.ymax);return new k(r,t,n,i)}static sum(e){return e.reduce((r,t)=>r.plus(t),new k)}},v=k;var q=(s,e)=>`${s} ${e}`,F=s=>s.split(" ").map(e=>parseInt(e,10)),w=class{constructor(e=[]){this.map=new Map,e.forEach(([r,t],n)=>this.set([r,t],n))}static fromKeys(e){let r=new w;return e.forEach(([t,n])=>r.set([t,n],null)),r}static fromEntries(e){return new w(e)}has(e){let[r,t]=e;return this.map.has(q(r,t))}get(e,r){let[t,n]=e,i=this.map.get(q(t,n));return i!==void 0?i:r}set(e,r){let[t,n]=e;this.map.set(q(t,n),r)}get size(){return this.map.size}keys(){return[...this.map.keys()].map(F)}entries(){return[...this.map.entries()].map(([e,r])=>[F(e),r])}},g=w;var le=(s,e=1e3)=>{let r=(c,o)=>c.length===o.size&&c.every(u=>o.has(u)),t=({result:c,lastBoards:o,initialCellsSet:u})=>{if(c.length!==0)return{result:c,lastBoards:o,initialCellsSet:u};let p=o[o.length-1].after();return r(p.getCells(),u)?{result:o,lastBoards:[],initialCellsSet:u}:{result:[],lastBoards:o.concat(p),initialCellsSet:u}},n=new Array(e).fill(),i={result:[],lastBoards:[s],initialCellsSet:g.fromKeys(s.getCells())};return n.reduce(t,i).result},ce=s=>{let e=i=>{let l=i.map(g.fromKeys),c=g.fromKeys([].concat(...i)).keys(),o=i.map((u,a)=>a);return c.map(u=>({cell:u,aliveGens:o.filter(a=>l[a].has(u))}))},r=(i,l)=>{let c=new Set(i),o=new Array(l).fill().map((p,m)=>m+1).filter(p=>l%p==0),u=p=>i.map(m=>(m+p)%l).every(m=>c.has(m)),a=o.filter(u);return Math.min(...a)},t=s.length;return e(s.map(i=>i.getCells())).map(({cell:i,aliveGens:l})=>({cell:i,subperiod:r(l,t)}))},L=s=>{let e=d=>d.reduce((h,f)=>h+f,0)/d.length,r=d=>d.toFixed(2),t=d=>`${(100*d).toFixed(2)}%`,n=d=>d.filter(({subperiod:h})=>h!==1).length,i=(d,h)=>d.filter(({subperiod:f})=>f===h).length,l=d=>n(d)/d.length,c=(d,h)=>i(d,h)/d.length,o=le(s),u=o.length;if(u===0)return{success:!1,message:"Failed to detect period of pattern"};let a=o.map(d=>d.getPop()),p=ce(o);return{success:!0,pattern:s.getCells(),period:u,phases:o.map(d=>d.getCells()),subperiods:p,minPop:Math.min(...a),maxPop:Math.max(...a),avgPop:r(e(a)),numCells:p.length,numRotorCells:n(p),numStatorCells:p.length-n(p),numStrictRotorCells:i(p,u),volatility:t(l(p)),strictVolatility:t(c(p,u)),boundingBox:v.sum(o.map(d=>d.getBox()))}};var O=class{constructor(e,r,t){this.pattern=e,this.rule=r,this.gen=t,this.transitionFunction=void 0}getCells(){return this.pattern}getCellsAndStates(){return this.pattern.map(e=>[e,1])}getBox(){return v.sum(this.pattern.map(([e,r])=>new v(e,e,r,r)))}getPop(){return this.pattern.length}after(e=1){let r=new Array(e).fill(),t=this.transitionFunction,n=r.reduce(t,this.pattern),i=this.constructor;return new i(n,this.rule,this.gen+e)}},B=O;var ue=[[-1,-1],[-1,0],[-1,1],[0,-1],[0,0],[0,1],[1,-1],[1,0],[1,1]],pe=(s,e)=>{let r=new g;return s.forEach(([t,n])=>{e.forEach(([i,l])=>{let c=[t+i,n+l],o=r.get(c)||0;r.set(c,o+1)})}),r},de=s=>e=>{let{births:r,survivals:t}=s,n=pe(e,ue),i=g.fromKeys(e),l=([c,o])=>i.has(c)?t.includes(o-1):r.includes(o);return[...n.entries()].filter(l).map(([c])=>c)},$=class extends B{constructor(e,r,t=0){super(e,r,t);this.transitionFunction=de(r)}},H=$;var W=`
+    0 1c 1e 2a 1c 2c 2a 3i 1e 2a 2e 3a 2k 3n 3j 4a
+    0 1c 1e 2a 1c 2c 2a 3i 1e 2a 2e 3a 2k 3n 3j 4a
+    1e 2k 2e 3j 2a 3n 3a 4a 2i 3r 3e 4r 3r 4i 4r 5i
+    1e 2k 2e 3j 2a 3n 3a 4a 2i 3r 3e 4r 3r 4i 4r 5i
+    1c 2c 2k 3n 2n 3c 3q 4n 2a 3i 3j 4a 3q 4n 4w 5a
+    1c 2c 2k 3n 2n 3c 3q 4n 2a 3i 3j 4a 3q 4n 4w 5a
+    2k 3y 3k 4k 3q 4y 4q 5j 3r 4t 4j 5n 4z 5r 5q 6a
+    2k 3y 3k 4k 3q 4y 4q 5j 3r 4t 4j 5n 4z 5r 5q 6a
+    1e 2k 2i 3r 2k 3y 3r 4t 2e 3j 3e 4r 3k 4k 4j 5n
+    1e 2k 2i 3r 2k 3y 3r 4t 2e 3j 3e 4r 3k 4k 4j 5n
+    2e 3k 3e 4j 3j 4k 4r 5n 3e 4j 4e 5c 4j 5y 5c 6c
+    2e 3k 3e 4j 3j 4k 4r 5n 3e 4j 4e 5c 4j 5y 5c 6c
+    2a 3n 3r 4i 3q 4y 4z 5r 3a 4a 4r 5i 4q 5j 5q 6a
+    2a 3n 3r 4i 3q 4y 4z 5r 3a 4a 4r 5i 4q 5j 5q 6a
+    3j 4k 4j 5y 4w 5k 5q 6k 4r 5n 5c 6c 5q 6k 6n 7c
+    3j 4k 4j 5y 4w 5k 5q 6k 4r 5n 5c 6c 5q 6k 6n 7c
+    1c 2n 2k 3q 2c 3c 3n 4n 2k 3q 3k 4q 3y 4y 4k 5j
+    1c 2n 2k 3q 2c 3c 3n 4n 2k 3q 3k 4q 3y 4y 4k 5j
+    2a 3q 3j 4w 3i 4n 4a 5a 3r 4z 4j 5q 4t 5r 5n 6a
+    2a 3q 3j 4w 3i 4n 4a 5a 3r 4z 4j 5q 4t 5r 5n 6a
+    2c 3c 3y 4y 3c 4c 4y 5e 3n 4n 4k 5j 4y 5e 5k 6e
+    2c 3c 3y 4y 3c 4c 4y 5e 3n 4n 4k 5j 4y 5e 5k 6e
+    3n 4y 4k 5k 4n 5e 5j 6e 4i 5r 5y 6k 5r 6i 6k 7e
+    3n 4y 4k 5k 4n 5e 5j 6e 4i 5r 5y 6k 5r 6i 6k 7e
+    2a 3q 3r 4z 3n 4y 4i 5r 3j 4w 4j 5q 4k 5k 5y 6k
+    2a 3q 3r 4z 3n 4y 4i 5r 3j 4w 4j 5q 4k 5k 5y 6k
+    3a 4q 4r 5q 4a 5j 5i 6a 4r 5q 5c 6n 5n 6k 6c 7c
+    3a 4q 4r 5q 4a 5j 5i 6a 4r 5q 5c 6n 5n 6k 6c 7c
+    3i 4n 4t 5r 4n 5e 5r 6i 4a 5a 5n 6a 5j 6e 6k 7e
+    3i 4n 4t 5r 4n 5e 5r 6i 4a 5a 5n 6a 5j 6e 6k 7e
+    4a 5j 5n 6k 5a 6e 6a 7e 5i 6a 6c 7c 6a 7e 7c 8
+    4a 5j 5n 6k 5a 6e 6a 7e 5i 6a 6c 7c 6a 7e 7c 8
+  `.trim().split(/\s+/);var he=new Map([[[-1,-1],1],[[-1,0],2],[[-1,1],4],[[0,-1],8],[[0,0],16],[[0,1],32],[[1,-1],64],[[1,0],128],[[1,1],256]]),me=s=>{let e=new g;return s.forEach(([r,t])=>{he.forEach((n,[i,l])=>{let c=[r-i,t-l],o=e.get(c)||0;e.set(c,o+n)})}),e},fe=s=>e=>[...me(e).entries()].filter(([,n])=>((n&16)!=0?s.survivals:s.births).includes(W[n])).map(([n])=>n),G=class extends B{constructor(e,r,t=0){super(e,r,t);this.transitionFunction=fe(r)}},K=G;var ge=new C([3],[2,3]),D=(s,e=ge)=>{if(e.constructor===C)return new H(s,e);if(e.constructor===b)return new K(s,e);throw new Error("Invalid Rule!")};var U=class{constructor(e,r){this.targetState=e,this.sourceElement=r,this.update=t=>{if(!t.target){this.targetState.setValue({success:!1,message:"No event.target"});return}let n=this.sourceElement.value,{pattern:i,rule:l}=N(n);if(!l){this.targetState.setValue({success:!1,message:"Unable to parse rule"});return}let c=D(i,l);this.targetState.setValue(L(c))}}},J=U;var S={background:"#eeeeee",stator:"#000000",strictRotor:"#999999",liveCell:"#000000"},x={cell:10,border:1,liveCell:4,liveBorder:2},ye=(s,e)=>`hsl(${Math.floor(360*(e/s))}, 100%, 70%)`,Q=(s,e)=>{let r=new Set(e);r.delete(1),r.delete(s);let t=[...r.values()].sort((i,l)=>i-l),n=t.map((i,l)=>[i,ye(t.length,l)]);return new Map([...n,[1,S.stator],[s,S.strictRotor]])},X=(s,e,r)=>{let{cell:t,border:n}=x,i=r.xmax-r.xmin+1,l=r.ymax-r.ymin+1;s.width=t*(i+2),s.height=t*(l+2),e.fillStyle=S.background,e.fillRect(0,0,s.width,s.height),e.fillStyle="white",new Array(l+2).fill().forEach((c,o)=>{e.fillRect(0,t*o,s.width,n),e.fillRect(0,t*(o+1)-n,s.width,n)}),new Array(i+2).fill().forEach((c,o)=>{e.fillRect(t*o,0,s.height,n),e.fillRect(t*(o+1)-n,0,n,s.height)})},Y=(s,e,r,t)=>{s.fillStyle=t;let n=x.cell,i=x.border,l=[(e+1)*n+i,(r+1)*n+i,n-2*i,n-2*i];s.fillRect(...l)},Z=(s,e,r)=>{s.fillStyle=S.liveCell;let{cell:t,liveCell:n}=x,i=[(e+1)*t+.5*(t-n),(r+1)*t+.5*(t-n),n,n];s.fillRect(...i)},_=(s,e,r)=>{s.fillStyle=S.liveCell;let{cell:t,border:n,liveBorder:i}=x,l=(e+1)*t+n,c=(e+2)*t-n-i,o=(r+1)*t+n,u=(r+2)*t-n-i,a=t-2*n;s.fillRect(l,o,a,i),s.fillRect(l,u,a,i),s.fillRect(l,o,i,a),s.fillRect(c,o,i,a)};var Ce=new Map([["none",()=>{}],["border",_],["interior",Z]]),ke=s=>[...new Set(s.map(t=>t.subperiod)).values()].sort((t,n)=>t-n),ee=class{constructor(e,r,t){this.oscData=e,this.cellStyle=r,this.targetCanvas=t,this.update=()=>{let n=this.targetCanvas.getContext("2d");if(!n)return;let{success:i,pattern:l,period:c,subperiods:o,boundingBox:u}=this.oscData.value,a=Q(c,ke(o)),p=({cell:[d,h],subperiod:f})=>{Y(n,d-u.xmin,h-u.ymin,a.get(f))},m=([d,h])=>{Ce.get(this.cellStyle.value||"none")(n,d-u.xmin,h-u.ymin)};n.clearRect(0,0,t.width,t.height),!!i&&(X(t,n,u),o.forEach(p),l.forEach(m))}}},te=ee;var re=class{constructor(e,r){this.sourceState=e,this.targetElement=r,this.update=()=>{let t=this.sourceState.value;t.success?this.targetElement.innerHTML=`
+          <table>
+            <thead>
+              <tr>
+                <th>Property</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="stripe-dark">
+                <td>Period</td>
+                <td>${t.period}</td>
+              </tr>
+              <tr class="stripe-dark">
+                <td>Population</td>
+                <td>Avg: ${t.avgPop}<br>Min: ${t.minPop}<br>Max: ${t.maxPop}</td>
+              </tr>
+              <tr class="stripe-dark">
+                <td>Cells</td>
+                <td>
+                  Rotor: ${t.numRotorCells}<br>
+                  Stator: ${t.numStatorCells}<br>
+                  Total: ${t.numRotorCells+t.numStatorCells}
+                </td>
+              </tr>
+              <tr class="stripe-dark">
+                <td>Volatility</td>
+                <td>${t.volatility}<br>(Strict: ${t.strictVolatility})</td>
+              </tr>
+              <tr class="stripe-dark">
+                <td>Bounding Box</td>
+                <td>
+                  ${t.boundingBox.xmax-t.boundingBox.xmin+1}
+                  x ${t.boundingBox.ymax-t.boundingBox.ymin+1}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+      `:this.targetElement.innerText=`Failure: ${t.message}`}}},se=re;var y={oscInfo:new j,initialCellStyle:new j};window.Cypress&&(window.appState=y);var ve=document.getElementById("input-rle-submitter"),we=document.getElementById("cell-style-selector"),Se=document.getElementById("input-rle-container"),xe=new J(y.oscInfo,Se),be=new E(y.initialCellStyle);ve.addEventListener("click",()=>{xe.update});we.addEventListener("change",be.update);var Be=document.getElementById("output-osc-canvas"),je=new te(y.oscInfo,y.initialCellStyle,Be);y.oscInfo.eventTarget.addEventListener("change",je.update);var qe=document.getElementById("output-osc-data"),Re=new se(y.oscInfo,qe);y.oscInfo.eventTarget.addEventListener("change",Re.update);})();</script>
 </body>
 </html>
