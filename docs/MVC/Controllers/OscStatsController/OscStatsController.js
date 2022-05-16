@@ -1,6 +1,6 @@
-import { parse as parseRLE } from './RLEHelpers';
-import { getOscStats } from './OscHelpers';
-import * as AppConfig from '../../../AppConfig';
+import { parse as parseRLE } from './RLEHelpers.js';
+import { getOscStats } from './OscHelpers.js';
+import * as AppConfig from '../../../AppConfig.js';
 
 /**
  * @typedef {import('../IController').IController}  IController

@@ -1,8 +1,8 @@
-import AppState from './MVC/Models/AppState';
-import EventTargetPassingController from './MVC/Controllers/PassingController/EventTargetPassingController';
-import OscStatsController from './MVC/Controllers/OscStatsController/OscStatsController';
-import OscillizerCanvasView from './MVC/Views/OscillizerCanvasView/OscillizerCanvasView';
-import OscStatsView from './MVC/Views/OscStatsView/OscStatsView';
+import AppState from './MVC/Models/AppState.js';
+import EventTargetPassingController from './MVC/Controllers/PassingController/EventTargetPassingController.js';
+import OscStatsController from './MVC/Controllers/OscStatsController/OscStatsController.js';
+import OscillizerCanvasView from './MVC/Views/OscillizerCanvasView/OscillizerCanvasView.js';
+import OscStatsView from './MVC/Views/OscStatsView/OscStatsView.js';
 
 const appState = {
   oscInfo: new AppState(),

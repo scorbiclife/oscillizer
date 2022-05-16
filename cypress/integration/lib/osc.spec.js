@@ -1,6 +1,6 @@
-import * as osc from '../../../src/MVC/Controllers/OscStatsController/OscHelpers.ts';
-import TotalisticRule from '../../../src/BaseTypes/Rule/TotalisticRule.ts';
-import SimpleBoard from '../../../src/Engine/Board/SimpleBoard/SimpleTotalisticBoard.ts';
+import * as osc from '../../../docs/MVC/Controllers/OscStatsController/OscHelpers.js';
+import TotalisticRule from '../../../docs/BaseTypes/Rule/TotalisticRule.js';
+import SimpleBoard from '../../../docs/Engine/Board/SimpleBoard/SimpleTotalisticBoard.js';
 
 const conwaylife = new TotalisticRule([3], [2, 3]);
 const makeBoard = (cells) => new SimpleBoard(cells, conwaylife);

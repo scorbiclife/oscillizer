@@ -1,4 +1,4 @@
-import PatternParser from '../../../src/Engine/RLE/PatternParser.ts';
+import PatternParser from '../../../docs/Engine/RLE/PatternParser.js';
 
 describe('RLE Parser state', () => {
   it('should process newlines correctly', () => {

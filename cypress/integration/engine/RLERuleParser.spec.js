@@ -1,6 +1,6 @@
-import INTRule from '../../../src/BaseTypes/Rule/INTRule.ts';
-import TotalisticRule from '../../../src/BaseTypes/Rule/TotalisticRule.ts';
-import * as RuleParser from '../../../src/Engine/RLE/RuleParser.ts';
+import INTRule from '../../../docs/BaseTypes/Rule/INTRule.js';
+import TotalisticRule from '../../../docs/BaseTypes/Rule/TotalisticRule.js';
+import * as RuleParser from '../../../docs/Engine/RLE/RuleParser.js';
 
 describe('Totalistic rule parsing', () => {
   it('should parse canonical notation correctly', () => {

@@ -1,7 +1,7 @@
-import SimpleTotalisticBoard from './Engine/Board/SimpleBoard/SimpleTotalisticBoard';
-import TotalisticRule from './BaseTypes/Rule/TotalisticRule';
-import INTRule from './BaseTypes/Rule/INTRule';
-import SimpleINTBoard from './Engine/Board/SimpleBoard/SimpleINTBoard';
+import SimpleTotalisticBoard from './Engine/Board/SimpleBoard/SimpleTotalisticBoard.js';
+import TotalisticRule from './BaseTypes/Rule/TotalisticRule.js';
+import INTRule from './BaseTypes/Rule/INTRule.js';
+import SimpleINTBoard from './Engine/Board/SimpleBoard/SimpleINTBoard.js';
 
 const life = new TotalisticRule([3], [2, 3]);
 

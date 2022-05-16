@@ -1,4 +1,4 @@
-import BoundingBox from '../../../BaseTypes/BoundingBox';
+import BoundingBox from '../../../BaseTypes/BoundingBox.js';
 
 /**
  * @typedef {import('../../../BaseTypes/Rule/Rule').Rule} Rule

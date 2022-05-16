@@ -1,6 +1,6 @@
-import SimpleTotalisticBoard from '../../../src/Engine/Board/SimpleBoard/SimpleTotalisticBoard.ts';
-import TotalisticRule from '../../../src/BaseTypes/Rule/TotalisticRule.ts';
-import BoundingBox from '../../../src/BaseTypes/BoundingBox.ts';
+import SimpleTotalisticBoard from '../../../docs/Engine/Board/SimpleBoard/SimpleTotalisticBoard.js';
+import TotalisticRule from '../../../docs/BaseTypes/Rule/TotalisticRule.js';
+import BoundingBox from '../../../docs/BaseTypes/BoundingBox.js';
 
 const conwaylife = new TotalisticRule([3], [2, 3]);
 const gliderBoard = new SimpleTotalisticBoard([[1, 0], [2, 1], [0, 2], [1, 2], [2, 2]], conwaylife);

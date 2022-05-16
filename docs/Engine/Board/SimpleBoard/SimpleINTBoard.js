@@ -1,6 +1,6 @@
-import AbcSimpleBoard from './AbcSimpleBoard';
-import CellMap from '../../../BaseTypes/CellMap';
-import { intNeighborsByIndex } from '../../../BaseTypes/Neighbors/INTNeighbors';
+import AbcSimpleBoard from './AbcSimpleBoard.js';
+import CellMap from '../../../BaseTypes/CellMap.js';
+import { intNeighborsByIndex } from '../../../BaseTypes/Neighbors/INTNeighbors.js';
 
 /**
  * @typedef {import('./AbcSimpleBoard').TransitionFunction} TransitionFunction

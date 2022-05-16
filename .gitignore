@@ -2,7 +2,7 @@
 /node_modules/
 /cypress/screenshots/
 /cypress/videos/
-/build/
+/jsdoc/
 
 # Files
 /package-lock.json
