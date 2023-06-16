@@ -1,5 +1,5 @@
 /**
- * @typedef {import("../IController").IController} IController
+ * @typedef {import("./IController").IController} IController
  * @typedef {import("../../Models/AppState").default} AppState
  */
 

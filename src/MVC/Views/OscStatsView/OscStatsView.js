@@ -33,7 +33,9 @@ class OscStatsView {
               </tr>
               <tr class="stripe-dark">
                 <td>Population</td>
-                <td>Avg: ${data.avgPop}<br>Min: ${data.minPop}<br>Max: ${data.maxPop}</td>
+                <td>Avg: ${data.avgPop}<br>Min: ${data.minPop}<br>Max: ${
+          data.maxPop
+        }</td>
               </tr>
               <tr class="stripe-dark">
                 <td>Cells</td>
@@ -45,7 +47,9 @@ class OscStatsView {
               </tr>
               <tr class="stripe-dark">
                 <td>Volatility</td>
-                <td>${data.volatility}<br>(Strict: ${data.strictVolatility})</td>
+                <td>${data.volatility}<br>(Strict: ${
+          data.strictVolatility
+        })</td>
               </tr>
               <tr class="stripe-dark">
                 <td>Bounding Box</td>

@@ -10,7 +10,12 @@ class BoundingBox {
    * @param {number} ymin
    * @param {number} ymax
    */
-  constructor(xmin = Infinity, xmax = -Infinity, ymin = Infinity, ymax = -Infinity) {
+  constructor(
+    xmin = Infinity,
+    xmax = -Infinity,
+    ymin = Infinity,
+    ymax = -Infinity
+  ) {
     /** @type {number} */ this.xmin = xmin;
     /** @type {number} */ this.xmax = xmax;
     /** @type {number} */ this.ymin = ymin;

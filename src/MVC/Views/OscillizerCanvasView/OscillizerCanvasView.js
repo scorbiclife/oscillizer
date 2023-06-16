@@ -1,16 +1,14 @@
-import * as CanvasHelpers from './CanvasHelpers.js';
+import * as CanvasHelpers from "./CanvasHelpers.js";
 
 /**
  * @typedef {import('../../Models/AppState').default} AppState
  */
 
-const drawLiveCellOptions = new Map(
-  [
-    ['none', () => {}],
-    ['border', CanvasHelpers.drawLiveCellBorder],
-    ['interior', CanvasHelpers.drawLiveCellInterior],
-  ]
-);
+const drawLiveCellOptions = new Map([
+  ["none", () => {}],
+  ["border", CanvasHelpers.drawLiveCellBorder],
+  ["interior", CanvasHelpers.drawLiveCellInterior],
+]);
 
 /** @type {function(Array<{cell: Cell, subperiod: number}>): Array<number>} */
 const getArrayFromSubperiods = (subperiods) => {
@@ -39,20 +37,18 @@ class OscillizerCanvasView {
      * @type {function(Event): void}
      */
     this.update = (/* event */) => {
-      const context = this.targetCanvas.getContext('2d');
+      const context = this.targetCanvas.getContext("2d");
       if (!context) {
         return;
       }
 
       // Dependent data
-      const {
-        success,
-        pattern,
+      const { success, pattern, period, subperiods, boundingBox } =
+        this.oscData.value;
+      const colorMap = CanvasHelpers.makeColorMap(
         period,
-        subperiods,
-        boundingBox,
-      } = this.oscData.value;
-      const colorMap = CanvasHelpers.makeColorMap(period, getArrayFromSubperiods(subperiods));
+        getArrayFromSubperiods(subperiods)
+      );
 
       // Helper functions
       const drawSubperiod = ({ cell: [x, y], subperiod }) => {
@@ -65,7 +61,9 @@ class OscillizerCanvasView {
       };
 
       const drawLiveCell = ([x, y]) => {
-        const drawLiveCellOption = drawLiveCellOptions.get(this.cellStyle.value || 'none');
+        const drawLiveCellOption = drawLiveCellOptions.get(
+          this.cellStyle.value || "none"
+        );
         drawLiveCellOption(context, x - boundingBox.xmin, y - boundingBox.ymin);
       };
 

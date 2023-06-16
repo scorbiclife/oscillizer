@@ -8,8 +8,9 @@
     "prettier": "^2.8.8"
   },
   "scripts": {
-    "start": "parcel serve",
+    "start": "parcel serve src/index.html",
     "build": "parcel build src/index.html --dist-dir ./docs",
+    "format": "prettier --write src",
     "test": "jest",
     "test:cypress": "cypress open"
   }
