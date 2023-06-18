@@ -1,0 +1,29 @@
+.oscillizer-component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  border: 0.125rem solid black;
+  /* Quirk:
+   * overflow-x is needed or else the div stretches to the right
+   * even if there are no items overflowing
+   */
+  overflow-x: hidden;
+}
+
+.oscillizer-component__label {
+  display: block;
+  text-align: center;
+  font-family: sans-serif;
+  max-width: 100%;
+}
+
+.oscillizer-component__content {
+  display: block;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0.25rem;
+  border: 1px solid black;
+  max-width: 100%;
+}

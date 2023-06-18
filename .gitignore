@@ -1,6 +1,7 @@
 # Cypress files
 /cypress/screenshots/
 /cypress/videos/
+/build/
 
 # Parcel .gitignore template
 node_modules/
