@@ -1,6 +1,10 @@
 # Oscillizer-web
 
-Jason Summers' Oscillizer implemented in Vanilla HTML5/CSS3/ES6.
+A simple static web page of Jason Summers' Oscillizer.
+
+~~Implemented in Vanilla HTML5/CSS3/ES6.~~
+
+Currently migration to TypeScript in progress.
 
 ## About
 
@@ -9,11 +13,15 @@ is a program by Jason Summers that analyzes oscillators.
 
 This is a simple and minimal web remake of oscillizer.
 
+For a working demo, see https://nightlyherb.github.io/oscillizer.
+
 ## Installation
 
 Run `npm install` to install the development dependencies.
 
-## Running the page
+## Building and running the page
+
+Hotfix is underway, so building and running the page might not be working as intended.
 
 The entire codebase is intended to work as
 a static webpage that lives inside `/src`.
