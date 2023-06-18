@@ -4,7 +4,12 @@
 /cypress/videos/
 /jsdoc/
 
+.parcel-cache/
+.vscode/
+dist/
+
 # Files
 /package-lock.json
 
 # Patterns
+**/.DS_Store
