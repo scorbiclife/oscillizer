@@ -1,36 +1,32 @@
 # Oscillizer-web
 
-A simple static web page of Jason Summers' Oscillizer.
-
-~~Implemented in Vanilla HTML5/CSS3/ES6.~~
-
-Currently migration to TypeScript in progress.
+Jason Summers' Oscillizer implemented in Vanilla HTML5/CSS3/ES6.
 
 ## About
 
 [Oscillizer](https://entropymine.com/jason/life/oscillizer/)
 is a program by Jason Summers that analyzes oscillators.
 
-This is a simple and minimal web remake of oscillizer.
-
-For a working demo, see https://nightlyherb.github.io/oscillizer.
+This is a simple web version of oscillizer
+that aims to minimize moving parts.
 
 ## Installation
 
 Run `npm install` to install the development dependencies.
 
-## Building and running the page
+## Running the page
 
-Hotfix is underway, so building and running the page might not be working as intended.
-
-The entire codebase is intended to work as
-a static webpage that lives inside `/src`.
-Thus you can open `/src/index.html` to see the web page.
-Alternatively, if you installed the dev-dependencies,
-you can run `npm start` to serve the page on a local port.
+The entire codebase is a static webpage and lives inside `/docs`.
+Thus you can open `/docs/index.html` to see the web page.
+Alternatively you can run `npm run server` to serve the page.
 
 ## Testing
 
-Currently unit tests are done via Cypress, but migration to jest is uinderway.
-Run `npm test` to run the unit tests.
+Currently unit tests are done via Cypress.
 Run `npm run cypress` to open the cypress client,
+or `npm run test` to just run the tests from the cli.
+
+## Documentation
+
+Currently JSDoc is used to generate documentation.
+Run `npm run jsdoc` and the docs will be in `/jsdoc`.

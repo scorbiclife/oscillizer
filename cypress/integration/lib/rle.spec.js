@@ -1,4 +1,4 @@
-import * as rle from '../../../src/MVC/Controllers/OscStatsController/RLEHelpers.ts';
+import * as rle from '../../../docs/MVC/Controllers/OscStatsController/RLEHelpers.js';
 
 describe('RLE body parser', () => {
   it('should parse the glider correctly', () => {
