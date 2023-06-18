@@ -23,6 +23,6 @@
     "test:cypress": "cypress open",
     "build:release": "(esbuild src/index.ts --outfile=build/index.js --bundle --minify --target=es6) && (node bin/build.js)",
     "build:dev": "(esbuild src/index.ts --outfile=build/index.js --bundle --sourcemap --target=es6) && (node bin/build.js)",
-    "server": "http-server build",
+    "server": "http-server build"
   }
 }
