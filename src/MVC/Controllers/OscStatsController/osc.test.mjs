@@ -1,9 +1,18 @@
-import * as osc from "../../../src/MVC/Controllers/OscStatsController/OscHelpers.js";
-import TotalisticRule from "../../../src/BaseTypes/Rule/TotalisticRule.js";
-import SimpleBoard from "../../../src/Engine/Board/SimpleBoard/SimpleTotalisticBoard.js";
+import * as osc from "./OscHelpers.js";
+import TotalisticRule from "../../../../src/BaseTypes/Rule/TotalisticRule.js";
+import SimpleBoard from "../../../../src/Engine/Board/SimpleBoard/SimpleTotalisticBoard.js";
 
 const conwaylife = new TotalisticRule([3], [2, 3]);
 const makeBoard = (cells) => new SimpleBoard(cells, conwaylife);
+
+function expectPhasesToEqual(expectedPhases, actualPhases) {
+  expect(expectedPhases.length).toEqual(actualPhases.length);
+  for (let i = 0; i < expectedPhases.length; ++i) {
+    expectedPhases[i].sort();
+    actualPhases[i].sort();
+    expect(expectedPhases[i]).toStrictEqual(actualPhases[i]);
+  }
+}
 
 describe("Oscillator phases finder", () => {
   it("should return correct phases for the blinker", () => {
@@ -24,9 +33,10 @@ describe("Oscillator phases finder", () => {
         [1, 1],
       ],
     ];
-    expect(
-      osc.getPhases(makeBoard(blinker)).map((b) => b.getCells())
-    ).to.have.deep.members(blinkerPhases);
+    expectPhasesToEqual(
+      osc.getPhases(makeBoard(blinker)).map((b) => b.getCells()),
+      blinkerPhases
+    );
   });
 
   it("should return 4 for the period of the mold", () => {
@@ -106,10 +116,10 @@ describe("Oscillator phases finder", () => {
         [2, 4],
       ],
     ];
-    const sortCells = (ps) => ps.map((p) => p.sort());
-    expect(
-      sortCells(osc.getPhases(makeBoard(mold)).map((b) => b.getCells()))
-    ).to.have.deep.members(sortCells(moldPhases));
+    expectPhasesToEqual(
+      osc.getPhases(makeBoard(mold)).map((b) => b.getCells()),
+      moldPhases
+    );
   });
   it("should return [] for non-oscillators", () => {
     const rpentomino = [
@@ -119,11 +129,28 @@ describe("Oscillator phases finder", () => {
       [1, 1],
       [1, 2],
     ];
-    expect(osc.getPhases(makeBoard(rpentomino), 100)).to.have.deep.members([]);
+    expectPhasesToEqual(osc.getPhases(makeBoard(rpentomino), 100), []);
   });
 });
 
 describe("Oscillator subperiod finder", () => {
+  function compareSubperiodData(lhs, rhs) {
+    const dx = lhs.cell[0] - rhs.cell[0];
+    if (dx !== 0) {
+      return dx;
+    }
+    const dy = lhs.cell[1] - rhs.cell[1];
+    if (dy !== 0) {
+      return dy;
+    }
+    return lhs.subperiod - rhs.subperiod;
+  }
+  function expectSubperiodsToBeEqual(expected, actual) {
+    expected.sort(compareSubperiodData);
+    actual.sort(compareSubperiodData);
+    expect(expected).toEqual(actual);
+  }
+
   const getSubperiodOfCells = (cells) => {
     const board = makeBoard(cells);
     const iteratedPatterns = osc.getPhases(board);
@@ -143,9 +170,7 @@ describe("Oscillator subperiod finder", () => {
       { cell: [-1, 1], subperiod: 2 },
       { cell: [1, 1], subperiod: 2 },
     ];
-    expect(getSubperiodOfCells(blinker)).to.have.deep.members(
-      expectedSubperiods
-    );
+    expectSubperiodsToBeEqual(getSubperiodOfCells(blinker), expectedSubperiods);
   });
 
   it("should evaluate the mold correctly", () => {
@@ -184,7 +209,7 @@ describe("Oscillator subperiod finder", () => {
       { cell: [5, 1], subperiod: 1 },
       { cell: [5, 2], subperiod: 1 },
     ];
-    expect(getSubperiodOfCells(mold)).to.have.deep.members(expectedSubperiods);
+    expectSubperiodsToBeEqual(getSubperiodOfCells(mold), expectedSubperiods);
   });
   it("should return [] for non-oscillators", () => {
     const rpentomino = [
@@ -194,6 +219,6 @@ describe("Oscillator subperiod finder", () => {
       [1, 1],
       [1, 2],
     ];
-    expect(getSubperiodOfCells(rpentomino, 100)).to.deep.equal([]);
+    expectSubperiodsToBeEqual(getSubperiodOfCells(rpentomino), []);
   });
 });
