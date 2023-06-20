@@ -24,16 +24,21 @@ You could also launch a live-reloading dev server with `npm run dev`.
 Parcel is used to bundle the page to `docs`,
 which is where Github Pages looks for the files to serve.
 You can bundle the page with `npm run build`.
-(TODO: automate this with a pre-commit hook.)
 
 You can open `docs/index.html` to see the bundled web page.
-Alternatively you can run `npm run server` to serve the bundled page
-at `http://localhost:8080`.
+Alternatively you can run `npm run server`
+to serve the bundled web page at `http://localhost:8080`.
 
 ## Testing
 
-Currently unit tests are done via Cypress.
-(TODO: Migrate to jest for unit tests)
+### Unit testing
+
+Currently unit tests are done with jest.
+Run `npm run test`.
+
+### Integration testing
+
+Integration tests are done with Cypress.
 First, serve the bundled web page with `npm run server`.
-On another terminal, run `npm run cypress` to open the cypress client,
-or `npm run test` to just run the tests from the cli.
+On another terminal, run `npm run test:integration`
+to run the tests with the cypress cli.
