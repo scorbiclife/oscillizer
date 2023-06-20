@@ -5,9 +5,12 @@
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-cypress": "^2.11.3",
     "eslint-plugin-import": "^2.23.4",
-    "http-server": "^13.0.0"
+    "http-server": "^13.0.0",
+    "parcel": "^2.9.2"
   },
   "scripts": {
+    "dev": "parcel start src/index.html",
+    "build": "parcel build src/index.html --dist-dir docs",
     "server": "http-server docs",
     "test": "cypress run",
     "cypress": "cypress open"
