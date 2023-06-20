@@ -25,8 +25,3 @@ Alternatively you can run `npm run server` to serve the page.
 Currently unit tests are done via Cypress.
 Run `npm run cypress` to open the cypress client,
 or `npm run test` to just run the tests from the cli.
-
-## Documentation
-
-Currently JSDoc is used to generate documentation.
-Run `npm run jsdoc` and the docs will be in `/jsdoc`.
