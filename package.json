@@ -9,8 +9,8 @@
     "parcel": "^2.9.2"
   },
   "scripts": {
-    "dev": "parcel start src/index.html",
-    "build": "parcel build src/index.html --dist-dir docs",
+    "dev": "parcel start src/index.html --dist-dir docs --public-url .",
+    "build": "parcel build src/index.html --dist-dir docs --public-url .",
     "server": "http-server docs",
     "test": "cypress run",
     "cypress": "cypress open"
