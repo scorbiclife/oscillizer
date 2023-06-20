@@ -8,7 +8,7 @@ const cellToString = (x, y) => `${x} ${y}`;
  * @private
  * @type {function(string): Cell}
  */
-const stringToCell = (s) => s.split(' ').map((e) => parseInt(e, 10));
+const stringToCell = (s) => s.split(" ").map((e) => parseInt(e, 10));
 
 /**
  * Map data structure that accepts Cells: [x: number, y: number] as keys.
@@ -72,7 +72,7 @@ class CellMap {
   get(key, defaultValue) {
     const [x, y] = key;
     const value = this.map.get(cellToString(x, y));
-    return (value !== undefined) ? value : defaultValue;
+    return value !== undefined ? value : defaultValue;
   }
 
   /**

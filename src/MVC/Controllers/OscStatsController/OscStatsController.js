@@ -1,6 +1,6 @@
-import { parse as parseRLE } from './RLEHelpers.js';
-import { getOscStats } from './OscHelpers.js';
-import * as AppConfig from '../../../AppConfig.js';
+import { parse as parseRLE } from "./RLEHelpers.js";
+import { getOscStats } from "./OscHelpers.js";
+import * as AppConfig from "../../../AppConfig.js";
 
 /**
  * @typedef {import('../IController').IController}  IController
@@ -28,23 +28,19 @@ class OscStatsController {
      */
     this.update = (event) => {
       if (!event.target) {
-        this.targetState.setValue(
-          {
-            success: false,
-            message: 'No event.target',
-          }
-        );
+        this.targetState.setValue({
+          success: false,
+          message: "No event.target",
+        });
         return;
       }
       const rleString = this.sourceElement.value;
       const { pattern, rule } = parseRLE(rleString);
       if (!rule) {
-        this.targetState.setValue(
-          {
-            success: false,
-            message: 'Unable to parse rule',
-          }
-        );
+        this.targetState.setValue({
+          success: false,
+          message: "Unable to parse rule",
+        });
         return;
       }
       const initialBoard = AppConfig.makeBoard(pattern, rule);

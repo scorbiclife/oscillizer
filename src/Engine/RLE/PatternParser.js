@@ -29,7 +29,7 @@ class PatternParser {
   }
 
   addNewlines() {
-    const [/* x */, y] = this.currentCell;
+    const [, /* x */ y] = this.currentCell;
     const runCount = this.runCount || 1;
     this.currentCell = [0, y + runCount];
     this.runCount = 0;
@@ -53,7 +53,9 @@ class PatternParser {
 
     // Refactor addNewCells into a dependency if needs variation in behavior
     const addNewCells = (nc, s) => {
-      if (s) { this.cells = this.cells.concat(nc); }
+      if (s) {
+        this.cells = this.cells.concat(nc);
+      }
     };
     addNewCells(newCells, cellState);
 

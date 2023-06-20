@@ -1,7 +1,17 @@
-import AbcSimpleBoard from './AbcSimpleBoard.js';
-import CellMap from '../../../BaseTypes/CellMap.js';
+import AbcSimpleBoard from "./AbcSimpleBoard.js";
+import CellMap from "../../../BaseTypes/CellMap.js";
 
-const moore = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 0], [0, 1], [1, -1], [1, 0], [1, 1]];
+const moore = [
+  [-1, -1],
+  [-1, 0],
+  [-1, 1],
+  [0, -1],
+  [0, 0],
+  [0, 1],
+  [1, -1],
+  [1, 0],
+  [1, 1],
+];
 
 /**
  * @private
@@ -34,16 +44,13 @@ const makeTransFromTotalisticRule = (totalisticRule) => (cellsArray) => {
   const { births, survivals } = totalisticRule;
   const neighborCounts = getNeighborCounts(cellsArray, moore);
   const cellsSet = CellMap.fromKeys(cellsArray);
-  const ruleCondition = ([cell, count]) => (
+  const ruleCondition = ([cell, count]) =>
     cellsSet.has(cell)
       ? survivals.includes(count - 1) // -1: `count` includes `cell`, while B/S notation doesn't
-      : births.includes(count)
-  );
-  return (
-    [...neighborCounts.entries()]
-      .filter(ruleCondition)
-      .map(([cell/* count */]) => cell)
-  );
+      : births.includes(count);
+  return [...neighborCounts.entries()]
+    .filter(ruleCondition)
+    .map(([cell /* count */]) => cell);
 };
 
 /**

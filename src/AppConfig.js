@@ -1,7 +1,7 @@
-import SimpleTotalisticBoard from './Engine/Board/SimpleBoard/SimpleTotalisticBoard.js';
-import TotalisticRule from './BaseTypes/Rule/TotalisticRule.js';
-import INTRule from './BaseTypes/Rule/INTRule.js';
-import SimpleINTBoard from './Engine/Board/SimpleBoard/SimpleINTBoard.js';
+import SimpleTotalisticBoard from "./Engine/Board/SimpleBoard/SimpleTotalisticBoard.js";
+import TotalisticRule from "./BaseTypes/Rule/TotalisticRule.js";
+import INTRule from "./BaseTypes/Rule/INTRule.js";
+import SimpleINTBoard from "./Engine/Board/SimpleBoard/SimpleINTBoard.js";
 
 const life = new TotalisticRule([3], [2, 3]);
 
@@ -26,7 +26,7 @@ export const makeBoard = (pattern, rule = life) => {
   if (rule.constructor === INTRule) {
     return new SimpleINTBoard(pattern, rule);
   }
-  throw new Error('Invalid Rule!');
+  throw new Error("Invalid Rule!");
 };
 
 /**
