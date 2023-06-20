@@ -1,5 +1,7 @@
 {
   "devDependencies": {
+    "@parcel/config-default": "^2.9.2",
+    "@parcel/core": "^2.9.2",
     "cypress": "^8.2.0",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
@@ -10,7 +12,7 @@
   },
   "scripts": {
     "dev": "parcel start src/index.html --dist-dir docs --public-url .",
-    "build": "parcel build src/index.html --dist-dir docs --public-url .",
+    "build": "node scripts/build.mjs",
     "server": "http-server docs",
     "test": "cypress run",
     "cypress": "cypress open"
