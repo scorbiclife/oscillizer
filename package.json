@@ -8,6 +8,7 @@
     "eslint-plugin-cypress": "^2.11.3",
     "eslint-plugin-import": "^2.23.4",
     "http-server": "^13.0.0",
+    "husky": "^8.0.0",
     "parcel": "^2.9.2"
   },
   "scripts": {
@@ -15,6 +16,7 @@
     "build": "node scripts/build.mjs",
     "server": "http-server docs",
     "test": "cypress run",
-    "cypress": "cypress open"
+    "cypress": "cypress open",
+    "prepare": "husky install"
   }
 }
