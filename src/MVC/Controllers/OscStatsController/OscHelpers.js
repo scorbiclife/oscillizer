@@ -1,5 +1,5 @@
-import BoundingBox from '../../../BaseTypes/BoundingBox.js';
-import CellMap from '../../../BaseTypes/CellMap.js';
+import BoundingBox from "../../../BaseTypes/BoundingBox.js";
+import CellMap from "../../../BaseTypes/CellMap.js";
 
 /**
  * Helper functions for oscillator-related functionality
@@ -23,9 +23,8 @@ export const getPhases = (board, maxGens = 1000) => {
    * @param {Set} set
    * @returns {boolean}
    */
-  const haveSameMembers = (array, set) => (
-    array.length === set.size && array.every((cell) => set.has(cell))
-  );
+  const haveSameMembers = (array, set) =>
+    array.length === set.size && array.every((cell) => set.has(cell));
 
   const appendNextBoard = ({ result, lastBoards, initialCellsSet }) => {
     if (result.length !== 0) {
@@ -71,12 +70,10 @@ export const getSubperiodByCell = (oscPhaseBoards) => {
     const phasesSet = phases.map(CellMap.fromKeys);
     const allCells = CellMap.fromKeys([].concat(...phases)).keys();
     const gens = phases.map((_, gen) => gen);
-    return allCells.map(
-      (cell) => ({
-        cell,
-        aliveGens: gens.filter((gen) => phasesSet[gen].has(cell)),
-      })
-    );
+    return allCells.map((cell) => ({
+      cell,
+      aliveGens: gens.filter((gen) => phasesSet[gen].has(cell)),
+    }));
   };
 
   // Get the list of gens a cell was alive.
@@ -87,23 +84,19 @@ export const getSubperiodByCell = (oscPhaseBoards) => {
       .fill()
       .map((_, i) => i + 1)
       .filter((n) => period % n === 0);
-    const isSubperiodValid = (n) => aliveGens
-      .map((g) => (g + n) % period)
-      .every((g) => aliveGensSet.has(g));
+    const isSubperiodValid = (n) =>
+      aliveGens.map((g) => (g + n) % period).every((g) => aliveGensSet.has(g));
     const validSubperiods = subperiods.filter(isSubperiodValid);
     return Math.min(...validSubperiods);
   };
 
   const period = oscPhaseBoards.length;
-  const result = getAliveGensByCell(oscPhaseBoards.map((b) => b.getCells()))
-    .map(
-      ({ cell, aliveGens }) => (
-        {
-          cell,
-          subperiod: getSubperiodOfOneCell(aliveGens, period),
-        }
-      )
-    );
+  const result = getAliveGensByCell(
+    oscPhaseBoards.map((b) => b.getCells())
+  ).map(({ cell, aliveGens }) => ({
+    cell,
+    subperiod: getSubperiodOfOneCell(aliveGens, period),
+  }));
   return result;
 };
 
@@ -115,7 +108,7 @@ export const getSubperiodByCell = (oscPhaseBoards) => {
 export const getOscStats = (board) => {
   // Basic functions
   /** @type {function(Array<number>): number} */
-  const getAverage = (l) => (l.reduce((a, b) => a + b, 0) / l.length);
+  const getAverage = (l) => l.reduce((a, b) => a + b, 0) / l.length;
 
   /** @type {function(number): string} */
   const formatFloat = (f) => f.toFixed(2);
@@ -127,24 +120,20 @@ export const getOscStats = (board) => {
   /** @typedef {Array<{cell: Cell, subperiod: number}>} Subperiods */
 
   /** @type {function(Subperiods): number} */
-  const getRotorCount = (subperiods) => (
-    subperiods.filter(({ subperiod }) => subperiod !== 1).length
-  );
+  const getRotorCount = (subperiods) =>
+    subperiods.filter(({ subperiod }) => subperiod !== 1).length;
 
   /** @type {function(Subperiods, number): number} */
-  const getStrictRotorCount = (subperiods, period) => (
-    subperiods.filter(({ subperiod }) => subperiod === period).length
-  );
+  const getStrictRotorCount = (subperiods, period) =>
+    subperiods.filter(({ subperiod }) => subperiod === period).length;
 
   /** @type {function(Subperiods): number} */
-  const getVolatility = (subperiods) => (
-    getRotorCount(subperiods) / subperiods.length
-  );
+  const getVolatility = (subperiods) =>
+    getRotorCount(subperiods) / subperiods.length;
 
   /** @type {function(Subperiods, number): number} */
-  const getStrictVolatility = (subperiods, period) => (
-    getStrictRotorCount(subperiods, period) / subperiods.length
-  );
+  const getStrictVolatility = (subperiods, period) =>
+    getStrictRotorCount(subperiods, period) / subperiods.length;
 
   // Main code
   const phaseBoards = getPhases(board);
@@ -152,7 +141,7 @@ export const getOscStats = (board) => {
   if (period === 0) {
     return {
       success: false,
-      message: 'Failed to detect period of pattern',
+      message: "Failed to detect period of pattern",
     };
   }
   const populations = phaseBoards.map((b) => b.getPop());

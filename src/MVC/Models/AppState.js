@@ -21,7 +21,7 @@ class AppState {
   setValue(newValue) {
     this.value = newValue;
     this.eventTarget.dispatchEvent(
-      new CustomEvent('change', { detail: { source: this } })
+      new CustomEvent("change", { detail: { source: this } })
     );
   }
 }

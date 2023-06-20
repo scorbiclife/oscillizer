@@ -3,10 +3,10 @@
  */
 
 const colorscheme = {
-  background: '#eeeeee',
-  stator: '#000000',
-  strictRotor: '#999999',
-  liveCell: '#000000',
+  background: "#eeeeee",
+  stator: "#000000",
+  strictRotor: "#999999",
+  liveCell: "#000000",
 };
 
 // Cell size follows `box-sizing: border-box`
@@ -32,11 +32,14 @@ export const makeColorMap = (period, subperiods) => {
   const subperiodsSet = new Set(subperiods);
   subperiodsSet.delete(1);
   subperiodsSet.delete(period);
-  const nonSpecialSubperiods = [...subperiodsSet.values()].sort((a, b) => a - b);
-  /** @type {Array<[number, string]>} */
-  const nonSpecialSubperiodsAndColors = nonSpecialSubperiods.map(
-    (sp, i) => [sp, makeGradientColor(nonSpecialSubperiods.length, i)]
+  const nonSpecialSubperiods = [...subperiodsSet.values()].sort(
+    (a, b) => a - b
   );
+  /** @type {Array<[number, string]>} */
+  const nonSpecialSubperiodsAndColors = nonSpecialSubperiods.map((sp, i) => [
+    sp,
+    makeGradientColor(nonSpecialSubperiods.length, i),
+  ]);
   return new Map([
     ...nonSpecialSubperiodsAndColors,
     [1, colorscheme.stator],
@@ -69,14 +72,24 @@ export const drawGrid = (canvas, context, boundingBox) => {
   context.fillRect(0, 0, canvas.width, canvas.height);
 
   // Draw cell borders
-  context.fillStyle = 'white';
+  context.fillStyle = "white";
   new Array(patternHeight + 2).fill().forEach((_, i) => {
     context.fillRect(0, cellSize * i, canvas.width, borderWidth);
-    context.fillRect(0, cellSize * (i + 1) - borderWidth, canvas.width, borderWidth);
+    context.fillRect(
+      0,
+      cellSize * (i + 1) - borderWidth,
+      canvas.width,
+      borderWidth
+    );
   });
   new Array(patternWidth + 2).fill().forEach((_, i) => {
     context.fillRect(cellSize * i, 0, canvas.height, borderWidth);
-    context.fillRect(cellSize * (i + 1) - borderWidth, 0, borderWidth, canvas.height);
+    context.fillRect(
+      cellSize * (i + 1) - borderWidth,
+      0,
+      borderWidth,
+      canvas.height
+    );
   });
 };
 
