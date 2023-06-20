@@ -19,7 +19,7 @@
     "lint": "prettier --check -- src",
     "test": "NODE_OPTIONS=--experimental-vm-modules npx jest",
     "server": "http-server docs",
-    "cypress": "cypress open",
+    "test:integration": "npx cypress run",
     "prepare": "husky install"
   }
 }
